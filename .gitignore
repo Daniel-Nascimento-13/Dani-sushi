@@ -1,0 +1,12 @@
+# Ignorar arquivos do macOS
+.DS_Store
+
+# Ignorar configurações locais do VS Code
+.vscode/
+
+# Ignorar pastas de build (futuro)
+dist/
+build/
+
+# Ignorar dependências (caso tenha)
+node_modules/

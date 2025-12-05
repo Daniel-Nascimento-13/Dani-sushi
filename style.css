@@ -1,0 +1,412 @@
+
+
+/*********** TIPOGRAFIA ***********/
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: Arial, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  background: linear-gradient(0deg, #7a0000 0%, #4a0000 30%, #1a0000 60%, #000 100%);
+  color: #fff;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+}
+
+
+/*********** ORGANIZAÇÃO — IMAGEM EM CIMA, TEXTO EMBAIXO ***********/
+
+.modelos-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;    
+  align-items: center;
+  text-align: center;
+  gap: 20px;
+}
+
+/* TEXTO */
+.modelos-left {
+  width: 100%;
+  max-width: 750px;
+}
+
+/* IMAGEM PRIMEIRO */
+.modelos-right {
+  order: -1;
+  width: 100%;
+  max-width: 420px;
+}
+
+
+/*********** ESTILO GERAL **********/
+
+/* HEADINGS */
+h1, h2, h3 { color: #fff; }
+p { color: #fff; }
+
+h2 {
+  font-size: 2rem !important;
+  font-weight: 700 !important;
+  text-align: center !important;
+  margin-bottom: 25px !important;
+}
+
+/* ESTILO SUBLINHADO EM ALGUMAS FRASES */
+.modelos-box h3,
+.req-box h3 {
+  text-decoration: underline;
+  text-decoration-thickness: 0.1px; 
+  text-underline-offset: 1px;
+}
+
+/* ESTILO ESPECIAL PARA OS TÍTULOS PRINCIPAIS */
+h2 {
+  font-size: 1.6rem !important; /* diminui um pouco */
+  font-weight: 700 !important;
+  text-align: center !important;
+
+/* BRILHO + DESTAQUE SUAVE */
+  text-shadow: 
+    0 0 8px rgba(255,255,255,0.35),
+    0 0 16px rgba(255,80,80,0.35);
+
+  margin-bottom: 25px !important;
+}
+
+/* BRILHO APLICADO NO TÍTULO DA CTA FINAL */
+.cta-final h2 {
+  text-shadow: 
+    0 0 10px rgba(255,255,255,0.45),
+    0 0 20px rgba(255,80,80,0.45); 
+
+}
+
+
+/*********** LINKS / BOTÕES ***********/
+
+a { color: inherit; }
+
+.cta,
+.cta-final-btn {
+  display: inline-block;
+  background: #25D366 !important;
+  color: #032815 !important;
+  padding: 12px 22px;
+  border-radius: 10px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: 0.25s ease, transform 0.15s ease;
+  border: none !important;
+  box-shadow: 0 0 0 rgba(37,211,102,0);
+}
+
+.cta:hover,
+.cta-final-btn:hover {
+  transform: scale(1.07);
+  box-shadow: 0 0 20px rgba(37,211,102,0.75),
+              0 0 30px rgba(37,211,102,0.45);
+}
+
+.cta:active,
+.cta-final-btn:active {
+  transform: scale(0.96);
+  box-shadow: 0 0 14px rgba(37,211,102,0.55);
+}
+
+
+/************ HERO ************/
+
+.hero-fundo {
+  position: relative;
+  width: 100%;
+  height: 60vh;
+  min-height: 360px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  background: url('./FOTOS/foto.png') center/cover no-repeat;
+  padding: 40px 0;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(2px);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 0 20px;
+  max-width: 980px;
+}
+
+.hero-content h1 {
+  font-size: 2.6rem;
+  margin-bottom: 10px;
+  letter-spacing: .6px;
+}
+
+.hero-sub {
+  margin-bottom: 18px;
+  color: #ffdede;
+}
+
+/* LINHA DO HERO */
+.hero-fundo::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: rgba(255,60,60,0.28);
+}
+
+
+/*********** QUEM SOMOS ***********/
+
+.motivo {
+  display: flex;
+  flex-direction: column; 
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  position: relative;
+  text-align: center; 
+}
+
+/* LINHAS */
+.motivo::before,
+.motivo::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: rgba(255,60,60,0.28);
+}
+
+.motivo::before { top: 0; }
+.motivo::after  { bottom: 0; }
+
+/* IMAGEM */
+.motivo-img img {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid rgba(92,0,0,0.8);
+  box-shadow: 0 6px 30px rgba(0,0,0,0.6);
+  margin-bottom: 12px; /* espaço antes do texto */
+}
+
+/* TEXTO */
+.motivo-texto {
+  max-width: 620px;
+}
+
+
+/*********** MODELOS DE ATENDIMENTO ***********/
+
+.modelos-section {
+  width: 100%;
+  background: #000;
+  padding: 40px 0;
+  position: relative;
+}
+
+.modelos-section::before,
+.modelos-section::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: rgba(255,60,60,0.28);
+}
+
+.modelos-section::before { top: 0; }
+.modelos-section::after  { bottom: 0; }
+
+/* IMAGEM */
+.modelos-right img {
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid rgba(92,0,0,0.9);
+  box-shadow: 0 8px 26px rgba(0,0,0,0.55);
+}
+
+/* SOMBRA SUAVE — Modelos de Atendimento */
+.modelos-box {
+ box-shadow: 0 6px 30px rgba(0,0,0,0.6);
+}
+
+
+/*********** INFORMAÇÕES BÁSICAS ***********/
+
+.requisitos-section {
+  width: 100%;
+  padding: 40px 0;
+  position: relative;
+}
+
+.requisitos-section::before,
+.requisitos-section::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: rgba(255,60,60,0.28);
+}
+
+.requisitos-section::before { top: 0; }
+.requisitos-section::after  { bottom: 0; }
+
+/* SOMBRA SUAVE NAS CAIXAS DE REQUISITOS */
+.req-box {
+  box-shadow: 0 6px 30px rgba(0,0,0,0.6);
+}
+
+
+/* ORGANIZAÇÃO  */
+.requisitos-container {
+  width: 90%;
+  max-width: 1300px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;   
+  align-items: center;
+  text-align: center;
+  gap: 30px;
+}
+
+/* IMAGENS */
+.requisitos-left {
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  order: -1;                
+}
+
+.requisitos-left img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 14px;
+  border: 1px solid rgba(92,0,0,0.9);
+  box-shadow: 0 8px 26px rgba(0,0,0,0.55);
+}
+
+/* TEXTO */
+.requisitos-right {
+  width: 100%;
+  max-width: 750px;
+}
+
+/* CAIXAS*/
+.req-box {
+  background: #140000;
+  border: 1px solid rgba(255,60,60,0.22);
+  padding: 24px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+
+/*********** CTA FINAL ***********/
+
+.cta-final {
+  width: 100%;
+  background: #000;
+  padding: 40px 20px;
+  text-align: center;
+  position: relative;
+  margin: 0;
+}
+
+.cta-final::before,
+.cta-final::after {
+  content: "";
+  position: absolute;
+  width: 100%; height: 1px;
+  left: 0;
+  background: rgba(255,60,60,0.28);
+}
+
+.cta-final::before { top: 0; }
+.cta-final::after  { bottom: 0; }
+
+/* SOMBRA SUAVE — CTA FINAL */
+.cta-final {
+  box-shadow: 0 6px 30px rgba(0,0,0,0.6);
+}
+
+/*********** MOBILE ***********/
+
+@media (max-width: 900px) {
+
+  /* EMPILHAR VERTICALMENTE */
+  .modelos-container {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 50px !important; 
+  }
+
+  /* IMAGEM PRIMEIRO */
+  .modelos-right {
+    order: -1 !important;
+    width: 100% !important;
+    text-align: center !important;
+  }
+
+  .modelos-right img {
+    width: 100% !important;
+    max-width: 360px !important;
+    height: auto !important;
+    margin: 0 auto !important;
+  }
+
+  /* TEXTO DEPOIS */
+  .modelos-left {
+    order: 2 !important;
+    width: 100% !important;
+    text-align: center !important;
+
+    /* SUBIR O BLOCO DE TEXTO */
+    margin-top: -16px !important;
+  }
+
+  /* AJUSTE INTERNO DOS TEXTOS */
+  .modelos-left * {
+    margin: 4px 0 !important;
+  }
+
+  /* AFASTAR O TÍTULO DO TEXTO */
+  .modelos-left h2 {
+    margin-bottom: 20px !important;
+  }
+
+  /* REMOVER CAIXA VERMELHA */
+  .modelos-box {
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+}
+
