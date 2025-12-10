@@ -8,7 +8,7 @@ Este repositório contem *uma landing page*, desenvolvida para uso na bio do *In
 
 - **Landing page Instagram**
 
-👉 https://daniel-nascimento-13.github.io/Dani-sushi/
+👉 danisushii.com.br
 
 ---
 
