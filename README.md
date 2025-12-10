@@ -8,7 +8,7 @@ Este repositório contem *uma landing page*, desenvolvida para uso na bio do *In
 
 - **Landing page Instagram**
 
-👉 danisushii.com.br
+👉 https://danisushii.com.br
 
 ---
 
