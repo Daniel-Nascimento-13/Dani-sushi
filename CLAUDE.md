@@ -53,7 +53,7 @@ src/
 | Momentos | `.momentos` / `#momentos` | `momentos.js` | `.fundo-superficie` |
 | Depoimentos | `.depoimentos` / `#depoimentos` | `depoimentos.js` | `.fundo-base` |
 | Orçamento (comanda) | `.orcamento` / `#orcamento` | `orcamento.js` | `.fundo-superficie` (2 colunas só a partir de 1200px; abaixo disso, comanda embaixo com máx. 560px) |
-| Rodapé | `.rodape` | `rodape.js` (ano atual em `[data-ano-atual]`) | `.fundo-base`. **Tudo centralizado**, um embaixo do outro, em todas as larguras: logo (72px) → 24px → frase "Você faz a vibe e o Dani Sushi!" (Shippori uppercase, 0.12em, `clamp(16px, 2.2vw, 22px)`, "Dani Sushi!" em `.destaque`; no mobile, `<br class="so-mobile">` quebra em "VOCÊ FAZ A VIBE / E O DANI SUSHI!") → 40px → nav centralizada (máx. 360px no mobile, para quebrar 3 + 2 sem item sozinho) → hairline → "© 2020–{ano} · Dani Sushi · Todos os direitos reservados." (mono 11px, texto-3; no mobile, 2 linhas sem o "·" pendurado, via `.so-desktop` e `<br class="so-mobile">`) |
+| Rodapé | `.rodape` | `rodape.js` (ano atual em `[data-ano-atual]`) | `.fundo-base`. **Tudo centralizado**, um embaixo do outro, em todas as larguras: logo (72px) → 24px → frase "Você faz a vibe e o Dani Sushi!" (Shippori uppercase, 0.12em, `clamp(16px, 2.2vw, 22px)`, "Dani Sushi!" em `.destaque`; no mobile, `<br class="so-mobile">` quebra em "VOCÊ FAZ A VIBE / E O DANI SUSHI!") → 40px → nav centralizada com 4 itens (Momentos, Depoimentos, Orçamento, Instagram; o WhatsApp fica na comanda e nos botões): 1 linha quando a coluna tem 380px ou mais (container query; os 4 somam ~375px), senão `max-width: 240px` força **2 + 2**, nunca 3 + 1 → hairline → "© 2020–{ano} · Dani Sushi · Todos os direitos reservados." (mono 11px, texto-3; no mobile, 2 linhas sem o "·" pendurado, via `.so-desktop` e `<br class="so-mobile">`) |
 
 **Fundos alternados:**
 - **O hero é sempre preto.** A partir dele, as seções alternam `.fundo-base` (`--color-fundo`) e `.fundo-superficie` (`--color-superficie`) pela ordem real do HTML, até o rodapé. As classes ficam no HTML e são definidas em `base.css`; nenhum CSS de seção define `background` próprio.
@@ -220,5 +220,5 @@ ffmpeg -ss 20 -i public/videos/hero.mp4 -frames:v 1 -q:v 4 public/imagens/hero-p
 - Meta: até 5 MB (versão atual: 30,4s, 4,97 MB). O master em alta fica fora do repositório (`~/Desktop/hero-master-1080.mp4`).
 - Poster: frame dos **20s** (mesa montada, sem texto sobreposto e sem pessoas em close). Ao trocar o vídeo, escolha um frame com os mesmos critérios, regere o poster e rode `python3 ferramentas/derivados.py og`.
 - Contraste ≥ 4.5:1; foco visível (acento-claro no escuro, carimbo no papel); labels reais; o menu mobile fecha com Esc, deixa o resto da página `inert` e devolve o foco ao botão.
-- JSON-LD `FoodEstablishment` no `<head>` (o Instagram em `sameAs` ainda é TODO).
+- JSON-LD `FoodEstablishment` no `<head>`, com `sameAs` apontando para o Instagram (https://www.instagram.com/danisushii/).
 - Domínio canônico: `https://danisushii.com.br/` (canonical, og:url, og:image, sitemap, robots).

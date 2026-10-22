@@ -28,16 +28,25 @@
   text-wrap: balance;
 }
 
-.rodape-nav { margin-top: 40px; }
+/* NAV COM 4 ITENS: 1 LINHA QUANDO CABE (~375PX), SENÃO 2 + 2; NUNCA 3 + 1.
+   ABAIXO DE 380PX DE COLUNA A LISTA TEM NO MÁX. 240PX: CABEM 2 ITENS (PAR MAIS LARGO 183PX), NUNCA 3 (MÍN. 283PX) */
+.rodape-nav {
+  width: 100%;
+  margin-top: 40px;
+  container-type: inline-size;
+}
 
-/* NO MOBILE A LISTA TEM NO MÁX. 360PX: QUEBRA EM 3 + 2 (OU 2 + 3), NUNCA COM UM ITEM SOZINHO */
 .rodape-nav ul {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 12px 28px;
-  max-width: 360px;
+  max-width: 240px;
   margin-inline: auto;
+}
+
+@container (min-width: 380px) {
+  .rodape-nav ul { max-width: none; }
 }
 
 .rodape-nav a {
@@ -62,10 +71,6 @@
 }
 
 /* === RESPONSIVIDADE === */
-@media (min-width: 600px) {
-  .rodape-nav ul { max-width: none; }
-}
-
 @media (min-width: 900px) {
   .rodape { padding-block: 96px 48px; }
 
