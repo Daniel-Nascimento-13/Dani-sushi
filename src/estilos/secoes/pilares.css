@@ -34,6 +34,9 @@
 
 .pilares-item h3 { margin-bottom: 16px; }
 
+/* EVITA PALAVRA SOZINHA NA ÚLTIMA LINHA (SEM SUPORTE, QUEBRA NATURAL) */
+.pilares-item p:last-child { text-wrap: pretty; }
+
 /* === RESPONSIVIDADE === */
 
 /* 3 COLUNAS SÓ A PARTIR DE 1200PX: "PERSONALIZAÇÃO" NÃO QUEBRA E NÃO CABE EM 1/3 DA TELA ANTES DISSO */
