@@ -109,14 +109,14 @@
 
 /* === RESPONSIVIDADE === */
 
-/* TELAS MUITO PEQUENAS (≤360PX) */
-@media (max-width: 360px) {
-  .req-caixa { padding: 16px; }
-}
-
 /* SMARTPHONES (≤600PX) */
 @media (max-width: 600px) {
   .requisitos-esquerda { max-width: 100%; }
+}
+
+/* TELAS MUITO PEQUENAS (≤360PX) */
+@media (max-width: 360px) {
+  .req-caixa { padding: 16px; }
 }
 
 /* === MOVIMENTO REDUZIDO === */

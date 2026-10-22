@@ -50,4 +50,5 @@ Ainda não existe nenhum módulo em `src/scripts/secoes/`.
 - **Sem preflight**: o reset é o de `base.css`. Não troque por `@import "tailwindcss"`: o preflight muda os h1–h3 (negrito e tamanho) e as imagens.
 - Use caminhos absolutos a partir da raiz (`/src/assets/imagens/x.jpg`) no HTML e no CSS, para o Vite aplicar o hash.
 - **Imagens**: JPG com no máximo 1920px de largura e qualidade 80. Toda `<img>` tem `width`/`height` reais; abaixo da dobra, `loading="lazy" decoding="async"`. A imagem do hero tem `preload` com `fetchpriority="high"` no `<head>`.
+- Media queries ficam no fim de cada arquivo de seção, ordenadas do maior para o menor (`max-width` 900 → 600 → 360), para que a menor vença.
 - Domínio canônico: `https://danisushii.com.br/` (canonical, og:url, og:image, sitemap, robots).

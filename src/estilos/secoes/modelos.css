@@ -65,11 +65,6 @@
 
 /* === RESPONSIVIDADE === */
 
-/* SMARTPHONES (≤600PX) */
-@media (max-width: 600px) {
-  .modelos-direita img { max-width: 280px; }
-}
-
 /* TABLETS (≤900PX) */
 @media (max-width: 900px) {
   .modelos-conteudo {
@@ -102,4 +97,9 @@
     box-shadow: none;
     padding: 0;
   }
+}
+
+/* SMARTPHONES (≤600PX) */
+@media (max-width: 600px) {
+  .modelos-direita img { max-width: 280px; }
 }

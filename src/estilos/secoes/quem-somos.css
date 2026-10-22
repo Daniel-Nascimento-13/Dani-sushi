@@ -45,14 +45,14 @@
 
 /* === RESPONSIVIDADE === */
 
-/* TELAS MUITO PEQUENAS (≤360PX) */
-@media (max-width: 360px) {
-  .motivo-imagem img { width: 220px; height: 220px; }
-}
-
 /* SMARTPHONES (≤600PX) */
 @media (max-width: 600px) {
   .motivo-imagem img { width: 240px; height: 240px; }
+}
+
+/* TELAS MUITO PEQUENAS (≤360PX) */
+@media (max-width: 360px) {
+  .motivo-imagem img { width: 220px; height: 220px; }
 }
 
 /* === MOVIMENTO REDUZIDO === */
