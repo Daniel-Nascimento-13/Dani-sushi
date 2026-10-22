@@ -1,0 +1,25 @@
+/* === DEPOIMENTOS === */
+.depoimentos-conteudo {
+  display: grid;
+  gap: 48px;
+}
+
+.depoimentos-cartao {
+  padding: 32px 24px;
+  border: 1px solid var(--color-linha);
+  border-radius: 24px;
+}
+
+.depoimentos-cartao h3 { margin-bottom: 16px; }
+.depoimentos-cartao p  { margin-bottom: 32px; }
+
+/* === RESPONSIVIDADE === */
+@media (min-width: 900px) {
+  .depoimentos-conteudo {
+    grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+    align-items: end;
+    gap: 64px;
+  }
+
+  .depoimentos-cartao { padding: 48px; }
+}

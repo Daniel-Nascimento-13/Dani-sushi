@@ -1,0 +1,85 @@
+import { gsap } from '../core/scroll.js';
+import { reduzirMovimento } from '../utils/movimento.js';
+
+const ENTRADA = { duration: 1.4, ease: 'power3.out' };
+
+/* === HERO: ENTRADA NO CARREGAMENTO + VÍDEO REAGINDO AO SCROLL === */
+export function iniciarHero(hero) {
+  /* ECONOMIA DE DADOS CONTA COMO MOVIMENTO REDUZIDO: VÍDEO PARADO NO POSTER */
+  const parado = reduzirMovimento || navigator.connection?.saveData === true;
+
+  const video = hero.querySelector('.hero-video');
+  if (video && !parado) tocarSoNaTela(hero, video);
+
+  if (reduzirMovimento) return;
+
+  const rotulo = hero.querySelector('.rotulo');
+  const titulo = hero.querySelector('.hero-titulo');
+  const texto = hero.querySelector('.hero-texto');
+  const local = hero.querySelector('.hero-local');
+  const botoes = hero.querySelector('.hero-botoes');
+  const linhas = titulo ? dividirLinhas(titulo) : [];
+
+  /* TEXTO EM SEQUÊNCIA (STAGGER 0.12S) */
+  const passo = 0.12;
+  const entrada = gsap.timeline({ defaults: { duration: 1.3, ease: 'power3.out' } });
+  entrada
+    .from(rotulo, { y: 30, autoAlpha: 0 }, 0)
+    .from(linhas, { yPercent: 110, stagger: passo }, passo)
+    .from([texto, local, botoes], { y: 30, autoAlpha: 0, stagger: passo }, passo * (linhas.length + 1));
+
+  animarMidia(hero, passo);
+}
+
+/* === VÍDEO: TOCA SÓ ENQUANTO O HERO ESTÁ NA TELA === */
+function tocarSoNaTela(hero, video) {
+  new IntersectionObserver(([entrada]) => {
+    if (entrada.isIntersecting) video.play().catch(() => {});
+    else video.pause();
+  }).observe(hero);
+}
+
+/* === MÍDIA: ENTRADA E SCROLL DIFERENTES NO MOBILE E NO DESKTOP === */
+function animarMidia(hero, passo) {
+  const midia = hero.querySelector('.hero-midia');
+  const quadro = hero.querySelector('.hero-quadro');
+  const video = hero.querySelector('.hero-video');
+  if (!midia || !quadro || !video) return;
+
+  const rolagem = { trigger: hero, start: 'top top', end: 'bottom top', scrub: true };
+  const telas = gsap.matchMedia();
+
+  /* MOBILE: SURGE EM OPACIDADE + PARALLAX LEVE NO VÍDEO (A MÁSCARA DO CONTAINER FICA PARADA) */
+  telas.add('(max-width: 899px)', () => {
+    gsap.from(midia, { autoAlpha: 0, ...ENTRADA });
+    gsap.to(video, { yPercent: 8, scale: 1.06, ease: 'none', scrollTrigger: rolagem });
+  });
+
+  /* DESKTOP: QUADRO ABRE DE BAIXO PARA CIMA + SOBE NO SCROLL */
+  telas.add('(min-width: 900px)', () => {
+    gsap.fromTo(midia, { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', delay: passo, ...ENTRADA });
+    gsap.to(quadro, { y: -60, ease: 'none', scrollTrigger: { ...rolagem } });
+  });
+}
+
+/* === DIVIDE O H1 NAS QUEBRAS <BR> E ENVOLVE CADA LINHA NUMA MÁSCARA === */
+function dividirLinhas(titulo) {
+  const grupos = [[]];
+  [...titulo.childNodes].forEach((no) => {
+    if (no.nodeName === 'BR') grupos.push([]);
+    else grupos.at(-1).push(no);
+  });
+
+  const linhas = grupos.map((nos) => {
+    const mascara = document.createElement('span');
+    const interna = document.createElement('span');
+    mascara.className = 'hero-linha';
+    interna.className = 'hero-linha-interna';
+    interna.append(...nos);
+    mascara.append(interna);
+    return mascara;
+  });
+
+  titulo.replaceChildren(...linhas);
+  return linhas.map((linha) => linha.firstElementChild);
+}

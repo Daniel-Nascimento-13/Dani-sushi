@@ -1,70 +1,201 @@
-/* === HERO === */
-.hero-fundo {
+/* === HERO (MOBILE: VÍDEO NO TOPO, DISSOLVENDO NO FUNDO) === */
+.hero {
   position: relative;
-  width: 100%;
-  height: 60vh;
-  min-height: 360px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+  padding-top: min(100vw * 1.05, 420px);
   overflow: hidden;
-  background: url('/src/assets/imagens/hero.jpg') center/cover no-repeat;
-  padding: 40px 0;
 }
 
-.hero-sobreposicao {
+/* MÍDIA (VÍDEO EM LOOP) */
+/* A MÁSCARA FICA PARADA NO CONTAINER: A BASE DO VÍDEO SOME DE VERDADE, SEM LINHA NO SCROLL */
+.hero-midia {
   position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.55);
-  backdrop-filter: blur(2px);
-}
-
-.hero-conteudo {
-  position: relative;
-  z-index: 2;
-  padding: 0 20px;
-  max-width: 980px;
-}
-
-.hero-conteudo h1 {
-  font-size: 2.6rem;
-  margin-bottom: 10px;
-  letter-spacing: .6px;
-}
-
-.hero-subtitulo {
-  margin-bottom: 18px;
-  color: #ffdede;
-}
-
-/* LINHA INFERIOR DO HERO */
-.hero-fundo::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
+  top: 0;
   left: 0;
   width: 100%;
-  height: 1px;
-  background: var(--color-borda-suave);
+  height: min(100vw * 1.3, 520px);
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 55%, transparent 96%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 55%, transparent 96%);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
 }
+
+/* DEGRADÊ: TOPO ESCURO PARA O CABEÇALHO + TRANSIÇÃO SUAVE NO MEIO (A BASE É DA MÁSCARA) */
+.hero-midia::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(11,9,8,0.5) 0%, rgba(11,9,8,0) 22%, rgba(11,9,8,0) 50%, rgba(11,9,8,0.6) 85%, rgba(11,9,8,0.6) 100%);
+}
+
+.hero-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+  background: var(--color-placeholder);
+}
+
+/* CONTEÚDO (SOBRE FUNDO SÓLIDO, ABAIXO DO VÍDEO) */
+.hero-conteudo {
+  position: relative;
+  z-index: 1;
+  padding-bottom: 56px;
+  container-type: inline-size;
+}
+
+/* H1 SEMPRE EM 2 LINHAS: O TAMANHO SEGUE A LARGURA DA COLUNA.
+   DIVISOR = LARGURA DE "PARA QUEM TEM FOME" EM EM (MEDIDA NO SHIPPORI) + ~2% DE FOLGA:
+   0.04EM → 13.445EM → 13.7 · 0.1EM → 14.525EM → 14.8 */
+.hero-titulo {
+  margin-bottom: 20px;
+  font-size: calc(100cqi / 13.7);
+  line-height: 1.25;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+/* MÁSCARA DAS LINHAS DO H1 (CRIADA PELO JS) */
+/* CLIP-PATH COM INSET NEGATIVO (ACENTOS E CAUDA DO Q NÃO SÃO CORTADOS) SEM MEXER NO LAYOUT:
+   PADDING/MARGIN NEGATIVA VAZARIA PARA FORA DO H1 E ENCURTARIA O ESPAÇO ATÉ A FRASE */
+.hero-linha {
+  display: block;
+  white-space: nowrap;
+  clip-path: inset(-0.2em -0.1em -0.1em -0.1em);
+}
+
+.hero-linha-interna { display: block; }
+
+/* FRASE DO HERO: VERSÃO CURTA ("...PERSONALIZADOS.") ATÉ 699PX DE COLUNA, COMPLETA A PARTIR DE 700PX.
+   CURTA = 18.605EM → DIVISOR 18.98 (2% DE FOLGA); NO MOBILE A FONTE SEGUE A COLUNA, COM PISO DE 15PX */
+.hero-texto {
+  max-width: 520px;
+  font-size: max(15px, min(17px, 100cqi / 18.98));
+}
+
+.hero-texto-extra { display: none; }
+
+/* UMA LINHA SÓ QUANDO CABE: 15PX × 18.98 = 285PX DE COLUNA (ABAIXO DISSO A FRASE CURTA PODE QUEBRAR) */
+@container (min-width: 285px) {
+  .hero-texto { white-space: nowrap; }
+}
+
+/* COLUNA ≥ 700PX: FRASE COMPLETA EM UMA LINHA (~680PX A 19PX) */
+@container (min-width: 700px) {
+  .hero-texto { max-width: none; }
+  .hero-texto-extra { display: inline; }
+}
+
+/* LOCALIZAÇÃO (PIN + TEXTO) */
+.hero-local {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-block: 20px;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--color-texto-2);
+}
+
+.hero-local svg {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+  color: var(--color-acento-claro);
+}
+
+.hero-botoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* LEGENDA DO QUADRO (SÓ NO DESKTOP) */
+.hero-legenda { display: none; }
 
 /* === RESPONSIVIDADE === */
+@media (min-width: 600px) {
+  /* VOLTA AO TAMANHO DO .TEXTO-INTRO (17 → 19PX) */
+  .hero-texto { font-size: revert-layer; }
 
-/* TABLETS (≤900PX) */
-@media (max-width: 900px) {
-  .hero-conteudo h1 { font-size: 2.2rem; }
+  .hero-titulo {
+    font-size: min(64px, 100cqi / 14.8);
+    letter-spacing: 0.1em;
+  }
 }
 
-/* SMARTPHONES (≤600PX) */
-@media (max-width: 600px) {
-  .hero-conteudo h1 { font-size: 2rem; }
-  .hero-fundo       { height: 60vh; }
-  .hero-conteudo    { padding: 0 16px; }
+/* DESKTOP: TEXTO À ESQUERDA, VÍDEO EM QUADRO VERTICAL À DIREITA */
+@media (min-width: 900px) {
+  .hero {
+    padding-block: 152px 96px;
+  }
+
+  .hero-grade {
+    display: flex;
+    align-items: flex-end;
+    gap: 64px;
+  }
+
+  .hero-conteudo {
+    flex: 1;
+    min-width: 0;
+    padding-bottom: 0;
+  }
+
+  /* LARGURA LIMITADA TAMBÉM PELA ALTURA DA TELA, PARA O QUADRO E A LEGENDA CABEREM (152 + 96 + LEGENDA) */
+  .hero-quadro {
+    flex-shrink: 0;
+    width: min(clamp(300px, 28vw, 400px), (100svh - 290px) * 9 / 16);
+  }
+
+  .hero-midia {
+    position: relative;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 9 / 16;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .hero-midia {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .hero-midia::after { content: none; }
+
+  .hero-titulo { margin-bottom: 28px; }
+
+  /* RITMO IGUAL: H1 → FRASE → LOCALIZAÇÃO → BOTÕES = 20PX NO MOBILE / 28PX NO DESKTOP */
+  .hero-local {
+    align-items: center;
+    margin-block: 28px;
+    font-size: 1rem;
+  }
+
+  .hero-local svg {
+    width: 18px;
+    height: 18px;
+    margin-top: 0;
+  }
+
+  .hero-legenda {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 14px;
+    font-family: var(--font-titulo);
+    font-size: 12px;
+    line-height: 1.4;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--color-texto-3);
+  }
+
+  .hero-legenda-kanji { color: var(--color-acento-claro); }
 }
 
-/* TELAS MUITO PEQUENAS (≤360PX) */
-@media (max-width: 360px) {
-  .hero-conteudo h1 { font-size: 1.7rem; }
-  .hero-fundo       { height: 55vh; }
+/* === SEM CONTAINER QUERY (FALLBACK) === */
+@supports not (font-size: 1cqi) {
+  .hero-titulo { font-size: clamp(20px, 5.6vw, 56px); }
 }

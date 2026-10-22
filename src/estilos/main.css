@@ -7,24 +7,35 @@
 @import "lenis/dist/lenis.css";
 
 /* === BASE E SEÇÕES === */
+@import "./fontes-kanji.css";
 @import "./base.css" layer(base);
+@import "./secoes/cabecalho.css" layer(components);
 @import "./secoes/hero.css" layer(components);
-@import "./secoes/quem-somos.css" layer(components);
-@import "./secoes/modelos.css" layer(components);
-@import "./secoes/informacoes.css" layer(components);
-@import "./secoes/cta-final.css" layer(components);
+@import "./secoes/numeros.css" layer(components);
+@import "./secoes/manifesto.css" layer(components);
+@import "./secoes/pilares.css" layer(components);
+@import "./secoes/formatos.css" layer(components);
+@import "./secoes/momentos.css" layer(components);
+@import "./secoes/depoimentos.css" layer(components);
+@import "./secoes/orcamento.css" layer(components);
 @import "./secoes/rodape.css" layer(components);
 
 /* === TOKENS === */
 @theme static {
-  --color-escura:          #4a0000;
-  --color-fundo:           #1a0000;
-  --color-card:            #140000;
-  --color-borda:           rgba(92,0,0,0.9);
-  --color-borda-suave:     rgba(255,60,60,0.28);
-  --color-borda-caixa:     rgba(255,60,60,0.22);
-  --color-whatsapp:        #25D366;
-  --color-whatsapp-texto:  #032815;
-  --color-branco:          #ffffff;
-  --color-preto:           #000000;
+  --color-fundo:        #0B0908;
+  --color-superficie:   #17120F;
+  --color-placeholder:  #221B18;
+  --color-texto:        #F2EEEA;
+  --color-texto-2:      #BDB5AE;
+  --color-texto-3:      #8E8680;
+  --color-acento:       #C8102E;
+  --color-acento-claro: #E8566B;
+  --color-linha:        rgba(242,238,234,0.10);
+  --color-papel:        #F2EEEA;
+  --color-tinta:        #1A1513;
+  --color-carimbo:      #9E0E26;
+
+  --font-titulo: "Shippori Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  --font-texto:  "Inter Tight", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono:   "JetBrains Mono", ui-monospace, Menlo, monospace;
 }

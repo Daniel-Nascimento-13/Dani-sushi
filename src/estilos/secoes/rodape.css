@@ -1,23 +1,83 @@
-/* === RODAPÉ === */
-.rodape {
-  background: var(--color-preto);
-  border-top: 1px solid var(--color-borda-suave);
-  padding: 24px 20px;
+/* === RODAPÉ (TUDO CENTRALIZADO, UM EMBAIXO DO OUTRO, EM TODAS AS LARGURAS) === */
+.rodape { padding-block: 72px 40px; }
+
+.rodape-conteudo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
 }
 
-.rodape p {
-  font-size: 0.82rem;
-  color: rgba(255,255,255,0.45);
+.rodape-logo {
+  display: block;
+  margin-inline: auto;
 }
 
-.rodape-nome {
-  color: var(--color-branco);
+.rodape-logo img { width: auto; height: 72px; }
+
+/* FRASE DA MARCA: "DANI SUSHI!" EM .DESTAQUE (ACENTO-CLARO) */
+.rodape-frase {
+  margin-top: 24px;
+  font-family: var(--font-titulo);
+  font-size: clamp(16px, 2.2vw, 22px);
+  font-weight: 400;
+  line-height: 1.5;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-texto);
+  text-wrap: balance;
+}
+
+/* NAV COM 4 ITENS: 1 LINHA QUANDO CABE (~375PX), SENÃO 2 + 2; NUNCA 3 + 1.
+   ABAIXO DE 380PX DE COLUNA A LISTA TEM NO MÁX. 240PX: CABEM 2 ITENS (PAR MAIS LARGO 183PX), NUNCA 3 (MÍN. 283PX) */
+.rodape-nav {
+  width: 100%;
+  margin-top: 40px;
+  container-type: inline-size;
+}
+
+.rodape-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px 28px;
+  max-width: 240px;
+  margin-inline: auto;
+}
+
+@container (min-width: 380px) {
+  .rodape-nav ul { max-width: none; }
+}
+
+.rodape-nav a {
+  font-size: 15px;
+  color: var(--color-texto);
+  transition: color 0.4s ease;
+}
+
+.rodape-nav a:hover { color: var(--color-acento-claro); }
+
+/* COPYRIGHT: HAIRLINE ACIMA, MONO 11PX */
+.rodape-copia {
+  width: 100%;
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid var(--color-linha);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--color-texto-3);
+  text-wrap: balance;
 }
 
 /* === RESPONSIVIDADE === */
+@media (min-width: 900px) {
+  .rodape { padding-block: 96px 48px; }
 
-/* SMARTPHONES (≤600PX) */
-@media (max-width: 600px) {
-  .rodape p { font-size: 0.78rem; }
+  .rodape-copia { margin-top: 64px; }
+}
+
+/* === MOVIMENTO REDUZIDO === */
+@media (prefers-reduced-motion: reduce) {
+  .rodape-nav a { transition: none; }
 }
