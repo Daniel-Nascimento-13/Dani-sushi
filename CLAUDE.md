@@ -43,7 +43,7 @@ src/
 ## Seções da home (ordem)
 | Seção | Classe / id | JS | Fundo |
 |---|---|---|---|
-| Cabeçalho + menu mobile | `.cabecalho`, `#menu-mobile` | `cabecalho.js` (main.js) | sempre com fundo sutil: rgba(11,9,8,.45) + `blur(14px) saturate(140%)` + hairline; fixo depois do hero, com .75 (transição de 0.6s); sem backdrop-filter, .85 |
+| Cabeçalho + menu mobile | `.cabecalho`, `#menu-mobile` | `cabecalho.js` (main.js) | **sempre fixo** desde o carregamento (`position: fixed`, sem troca de estado nem salto), com fundo sutil: rgba(11,9,8,.45) + `blur(14px) saturate(140%)` + hairline. Depois de 80px de scroll ganha `.cabecalho-rolado` (.75, só cor, transição de 0.6s); sem backdrop-filter, .85. `transform: translateZ(0)` + `will-change: background-color` contra o piscar no Safari/iOS |
 | Hero | `.hero` | `hero.js` (main.js) | `.fundo-base` (sempre preto, em todas as larguras) |
 | Números | `.numeros` | `numeros.js` | `.fundo-superficie`. Conteúdo: 2020 O começo ("Mais de cinco anos servindo experiências."; conta a partir de 2000 via `data-contar-de`) / +50 Eventos ("Jantares, celebrações e eventos corporativos.") / +10 Cidades atendidas ("No Vale do Taquari, Serra e Porto Alegre."); nos dois últimos o "+" é fixo e a contagem vai de 0 ao número. **Mobile (até 899px):** 3 colunas lado a lado com hairline vertical; número em cima (`order: -1`), com `min(44px, 100cqi / 2.14)` (o mais largo é "2020", com 2,062em, mais 4% de folga; "+50" = 1,627em e "+10" = 1,612em; se mudar um número, meça de novo; `container-type` no item), e rótulo embaixo (10px, 0.18em, margin-top de 10px); legenda escondida; padding de 56px. **Desktop:** rótulo, número de 104px e legenda, padding da `.secao` (`revert-layer`) |
 | Manifesto | `.manifesto` | `manifesto.js` | `.fundo-base` |
@@ -128,7 +128,8 @@ GSAP + ScrollTrigger; duração 1.2–1.4s; ease `power3.out`. **Tudo desligado 
 - Rótulos, h2 e textos de topo: `revelar()` (y 30 → 0 + opacidade).
 - Pilares e linhas de Formatos: `revelarEmSequencia()`.
 - Momentos: foto com `clip-path: inset()` de baixo para cima.
-- Cabeçalho: vira fixo e desce (yPercent -100 → 0) depois do hero.
+- Cabeçalho: sem animação de entrada; só a cor do fundo muda no scroll (classe, não GSAP).
+- **Âncoras e cabeçalho fixo:** `--altura-cabecalho` (77px no mobile / 97px a partir de 900px, altura real com a hairline) em `:root` e `html { scroll-padding-top: var(--altura-cabecalho) }`. O `lenis.scrollTo` **já desconta o `scroll-padding-top`**, então em `scroll.js` o clique em âncora chama `lenis.scrollTo(alvo, { duration: 1.4 })` **sem offset** (passar offset desconta duas vezes). Resultado: a seção começa exatamente na base do cabeçalho. Se a altura do cabeçalho mudar, atualize a variável.
 - Botão hambúrguer (`.cabecalho-menu`, área de 44×44px): 3 `<span aria-hidden="true">` desenhados como o **kanji 三** do Shippori (o mesmo da contagem dos Pilares), na cor `--color-texto` (branco):
   - **Larguras:** 19,4 / 15,4 / 22px (88% / 70% / 100%, medidas no glyph); o do meio é recuado.
   - **Forma:** corpo de 1,5px com a "escama" (uroko) Mincho na ponta direita.

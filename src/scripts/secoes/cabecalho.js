@@ -1,33 +1,17 @@
-import { gsap, ScrollTrigger } from '../core/scroll.js';
+import { gsap } from '../core/scroll.js';
 import { reduzirMovimento } from '../utils/movimento.js';
 
-/* === CABEÇALHO: FIXO DEPOIS DO HERO + MENU MOBILE === */
+const LIMITE_ROLADO = 80;
+
+/* === CABEÇALHO: SEMPRE FIXO (CSS) + FUNDO MAIS SÓLIDO NO SCROLL + MENU MOBILE === */
 export function iniciarCabecalho(cabecalho, lenis) {
-  const hero = document.querySelector('.hero');
-  if (hero) {
-    ScrollTrigger.create({
-      trigger: hero,
-      start: 'bottom top',
-      onEnter: () => fixar(cabecalho, true),
-      onLeaveBack: () => fixar(cabecalho, false),
-    });
-  }
+  const atualizar = () => cabecalho.classList.toggle('cabecalho-rolado', window.scrollY > LIMITE_ROLADO);
+  window.addEventListener('scroll', atualizar, { passive: true });
+  atualizar();
 
   const botao = cabecalho.querySelector('.cabecalho-menu');
   const menu = botao && document.getElementById(botao.getAttribute('aria-controls'));
   if (menu) iniciarMenu(cabecalho, botao, menu, lenis);
-}
-
-/* === FIXO DEPOIS DO HERO === */
-function fixar(cabecalho, ativo) {
-  gsap.killTweensOf(cabecalho);
-  cabecalho.classList.toggle('cabecalho-fixo', ativo);
-
-  if (ativo && !reduzirMovimento) {
-    gsap.fromTo(cabecalho, { yPercent: -100 }, { yPercent: 0, duration: 1.2, ease: 'power3.out' });
-  } else {
-    gsap.set(cabecalho, { clearProps: 'transform' });
-  }
 }
 
 /* === MENU MOBILE (TELA CHEIA) === */

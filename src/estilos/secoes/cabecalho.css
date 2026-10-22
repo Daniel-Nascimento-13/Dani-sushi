@@ -1,9 +1,19 @@
 /* === CABEÇALHO === */
-/* FUNDO SUTIL SEMPRE (LOGO E MENU NÃO FICAM SOLTOS SOBRE O VÍDEO) */
+/* === CABEÇALHO SEMPRE FIXO (DESDE O CARREGAMENTO, SEM TROCA DE POSIÇÃO) === */
+
+/* ALTURA REAL (CONTEÚDO + HAIRLINE): ÂNCORAS PARAM LOGO ABAIXO DELA.
+   O LENIS TAMBÉM LÊ O SCROLL-PADDING-TOP DO HTML, ENTÃO NÃO PASSE OFFSET NO SCROLLTO */
+:root { --altura-cabecalho: 77px; }
+html { scroll-padding-top: var(--altura-cabecalho); }
+
+/* FUNDO SUTIL SEMPRE (LOGO E MENU NÃO FICAM SOLTOS SOBRE O VÍDEO).
+   TRANSLATEZ(0) + WILL-CHANGE EVITAM O PISCAR DO BACKDROP-FILTER EM ELEMENTO FIXO NO SAFARI/IOS */
 .cabecalho {
-  position: absolute;
+  position: fixed;
   inset: 0 0 auto;
   z-index: 50;
+  transform: translateZ(0);
+  will-change: background-color;
   background: rgba(11,9,8,0.45);
   -webkit-backdrop-filter: blur(14px) saturate(140%);
   backdrop-filter: blur(14px) saturate(140%);
@@ -42,16 +52,13 @@
   padding-inline: 22px;
 }
 
-/* FIXO DEPOIS DO HERO: FUNDO UM POUCO MAIS SÓLIDO */
-.cabecalho-fixo {
-  position: fixed;
-  background: rgba(11,9,8,0.75);
-}
+/* DEPOIS DE 80PX DE SCROLL: FUNDO UM POUCO MAIS SÓLIDO (SÓ COR, SEM MOVIMENTO) */
+.cabecalho-rolado { background: rgba(11,9,8,0.75); }
 
 /* SEM BACKDROP-FILTER: FUNDO MAIS OPACO PARA COMPENSAR A FALTA DO BLUR */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   .cabecalho,
-  .cabecalho-fixo { background: rgba(11,9,8,0.85); }
+  .cabecalho-rolado { background: rgba(11,9,8,0.85); }
 }
 
 /* === BOTÃO HAMBÚRGUER === */
@@ -166,6 +173,8 @@ html.menu-aberto { overflow: hidden; }
 }
 
 @media (min-width: 900px) {
+  :root { --altura-cabecalho: 97px; }
+
   .cabecalho-conteudo { height: 96px; gap: 40px; }
   .cabecalho-logo img { height: 52px; }
   .cabecalho-nav      { display: block; }
