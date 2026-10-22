@@ -97,29 +97,35 @@
 
     <!-- HERO -->
     <section class="hero" aria-labelledby="hero-titulo">
-      <div class="hero-midia">
-        <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="/imagens/hero-poster.jpg" aria-hidden="true">
-          <source src="/videos/hero.mp4" type="video/mp4">
-        </video>
-      </div>
-      <div class="hero-escurecer"></div>
-
-      <div class="container hero-conteudo">
-        <p class="rotulo"><span class="rotulo-kanji" lang="ja">おもてなし</span> Omotenashi · <em>A arte de servir bem</em></p>
-        <h1 class="hero-titulo" id="hero-titulo">Para quem tem fome<br>de <span class="destaque">experiência.</span></h1>
-        <p class="hero-texto texto-intro">Sushi bar ao vivo e jantares personalizados, finalizados diante dos seus convidados.</p>
-        <p class="hero-local">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-            <path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/>
-            <circle cx="12" cy="9.5" r="2.5"/>
-          </svg>
-          De Lajeado para o Vale do Taquari, Serra e Porto Alegre.
-        </p>
-        <div class="hero-botoes">
-          <a href="#orcamento" class="botao botao-primario">Solicitar orçamento</a>
-          <a href="#momentos" class="botao botao-secundario">Ver momentos</a>
+      <div class="container hero-grade">
+        <div class="hero-conteudo">
+          <p class="rotulo"><span class="rotulo-kanji" lang="ja">おもてなし</span> Omotenashi · <em>A arte de servir bem</em></p>
+          <h1 class="hero-titulo" id="hero-titulo">Para quem tem fome<br>de <span class="destaque">experiência.</span></h1>
+          <p class="hero-texto texto-intro">Sushi bar ao vivo e jantares personalizados, finalizados diante dos seus convidados.</p>
+          <p class="hero-local">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/>
+              <circle cx="12" cy="9.5" r="2.5"/>
+            </svg>
+            De Lajeado para o Vale do Taquari, Serra e Porto Alegre.
+          </p>
+          <div class="hero-botoes">
+            <a href="#orcamento" class="botao botao-primario">Solicitar orçamento</a>
+            <a href="#momentos" class="botao botao-secundario">Ver momentos</a>
+          </div>
         </div>
-        <p class="hero-rolar metadado" aria-hidden="true">Role para descobrir ↓</p>
+
+        <div class="hero-quadro">
+          <div class="hero-midia">
+            <video class="hero-video" muted loop playsinline preload="metadata" poster="/imagens/hero-poster.jpg" aria-hidden="true">
+              <source src="/videos/hero.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="hero-legenda">
+            <p><span class="hero-legenda-kanji" lang="ja">本物</span> Evento real</p>
+            <p aria-hidden="true">Role ↓</p>
+          </div>
+        </div>
       </div>
     </section>
 
