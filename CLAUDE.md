@@ -105,7 +105,13 @@ Use `var(--color-...)` no CSS ou os utilitários do Tailwind (`bg-fundo`, `text-
   - line-height 1.25 e margin-bottom de 20px no mobile / 28px no desktop;
   - fallback sem cqi: `clamp(20px, 5.6vw, 56px)`.
   Se mudar a copy, a fonte ou o letter-spacing do h1, **meça de novo a linha mais longa** e recalcule o divisor.
-- **Frase do hero (`.hero-texto`) em uma linha** quando a coluna tem 700px ou mais (`@container (min-width: 700px)`: `max-width: none` e `nowrap`), o que acontece a partir de ~1200px de tela. Abaixo disso fica em 2 linhas (máx. 520px), porque caber em 1 linha exigiria 9–12px. Se a frase mudar, meça de novo (hoje: ~680px a 19px).
+- **Frase do hero (`.hero-texto`), sempre em 1 linha quando cabe:**
+  - **HTML:** `Sushi bar ao vivo e jantares personalizados<span class="hero-texto-extra">, finalizados diante dos seus convidados</span>.` (sem texto duplicado; o ponto fica fora do span).
+  - **Versão curta (coluna < 700px):** `.hero-texto-extra { display: none }`. A curta mede 18,605em → divisor 18,98 (2% de folga). No mobile a fonte é `max(15px, min(17px, 100cqi / 18.98))` e, a partir de 600px, `revert-layer` volta ao `.texto-intro` (17 → 19px).
+  - **`nowrap`:** só com `@container (min-width: 285px)` (15px × 18,98). Abaixo disso a frase pode quebrar; na prática, em 320px (coluna 280) ela coube a 15px.
+  - **Versão completa (`@container (min-width: 700px)`):** mostra o span, sem max-width, ~680px a 19px.
+  - Se a frase mudar, meça de novo as duas versões.
+- **Ritmo do hero:** h1 → frase → localização → botões com espaços iguais, de 20px no mobile e 28px no desktop. A máscara das linhas do h1 usa `clip-path: inset()` negativo; não use padding/margin negativa, porque a margem vaza para fora do h1 e encurta o espaço até a frase.
 - **Carregamento:** o `<video>` tem `muted loop playsinline preload="none"` e poster com preload no `<head>`, mas NÃO tem `autoplay` (o download só começa no `play()`). O `hero.js` chama `play().catch(() => {})` quando o hero entra na tela e `pause()` quando sai (IntersectionObserver). Com `prefers-reduced-motion` ou `navigator.connection.saveData`, o vídeo nunca é iniciado e fica no poster.
 
 ## Animações
