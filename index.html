@@ -22,7 +22,8 @@
   <meta property="og:locale" content="pt_BR">
   <meta name="twitter:card" content="summary_large_image">
 
-  <!-- FONTE DO HERO -->
+  <!-- POSTER DO VÍDEO E FONTE DO HERO -->
+  <link rel="preload" as="image" href="/imagens/hero-poster.jpg" fetchpriority="high">
   <link rel="preload" href="/node_modules/@fontsource/shippori-mincho/files/shippori-mincho-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 
   <!-- DADOS ESTRUTURADOS -->
@@ -60,7 +61,7 @@
   <header class="cabecalho">
     <div class="container cabecalho-conteudo">
       <a href="/" class="cabecalho-logo" aria-label="Dani Sushi, início">
-        <img src="/src/assets/imagens/logo-claro.png" alt="" width="284" height="216">
+        <img src="/imagens/logo-claro.png" alt="" width="284" height="216">
       </a>
 
       <nav class="cabecalho-nav" aria-label="Principal">
@@ -97,7 +98,9 @@
     <!-- HERO -->
     <section class="hero" aria-labelledby="hero-titulo">
       <div class="hero-midia">
-        <div class="hero-placeholder"><span>[ Vídeo do hero ]</span></div>
+        <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="/imagens/hero-poster.jpg" aria-hidden="true">
+          <source src="/videos/hero.mp4" type="video/mp4">
+        </video>
       </div>
       <div class="hero-escurecer"></div>
 
@@ -327,7 +330,7 @@
     <div class="container rodape-conteudo">
       <div>
         <a href="/" class="rodape-logo" aria-label="Dani Sushi, início">
-          <img src="/src/assets/imagens/logo-claro.png" alt="" width="284" height="216" loading="lazy" decoding="async">
+          <img src="/imagens/logo-claro.png" alt="" width="284" height="216" loading="lazy" decoding="async">
         </a>
         <p class="rodape-descricao">Sushi bar ao vivo e experiências gastronômicas · Desde 2020</p>
       </div>

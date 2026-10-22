@@ -3,7 +3,13 @@ import { reduzirMovimento } from '../utils/movimento.js';
 
 /* === HERO: ENTRADA NO CARREGAMENTO + MÍDIA REAGINDO AO SCROLL === */
 export function iniciarHero(hero) {
-  if (reduzirMovimento) return;
+  /* COM MOVIMENTO REDUZIDO, O VÍDEO FICA PARADO NO POSTER */
+  if (reduzirMovimento) {
+    const video = hero.querySelector('.hero-video');
+    video?.removeAttribute('autoplay');
+    video?.pause();
+    return;
+  }
 
   const rotulo = hero.querySelector('.rotulo');
   const titulo = hero.querySelector('.hero-titulo');

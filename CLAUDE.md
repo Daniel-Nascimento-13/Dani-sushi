@@ -13,10 +13,12 @@ Vite + HTML/CSS/JS vanilla + Tailwind v4 (`@tailwindcss/vite`) + GSAP + ScrollTr
 ## Estrutura
 ```
 index.html                    → home; todo o conteúdo fica aqui; carrega só /src/main.js
-public/
-  arquivos/videos/            → vídeos (.mp4/.webm), servidos sem hash
+public/                       → servido na raiz, SEM hash (cache pela Vercel, ver vercel.json)
+  imagens/                    → logo-claro.png, hero-poster.jpg e demais imagens (<img src="/imagens/...">)
+  videos/                     → hero.mp4 (<source src="/videos/...">)
   arquivos/og-image.jpg       → imagem de compartilhamento (1200x630)
   favicon.svg, robots.txt, sitemap.xml
+vercel.json                   → Cache-Control: /imagens e /videos 1 dia + SWR 7 dias; /assets (hash) 1 ano, imutável
 ferramentas/
   kanji.js                    → gera src/assets/fontes/*.woff2 e src/estilos/fontes-kanji.css
 src/
@@ -33,7 +35,6 @@ src/
     secoes/<secao>.js         → um módulo por seção, exporta iniciar<Secao>(elemento)
     utils/movimento.js        → export const reduzirMovimento (prefers-reduced-motion)
     utils/revelar.js          → revelar(elementos) e revelarEmSequencia(elementos, gatilho)
-  assets/imagens/             → imagens processadas pelo Vite (hash); logo-claro.png
   assets/fontes/              → GERADO pelo ferramentas/kanji.js
 ```
 
@@ -41,7 +42,7 @@ src/
 | Seção | Classe / id | JS | Fundo |
 |---|---|---|---|
 | Cabeçalho + menu mobile | `.cabecalho`, `#menu-mobile` | `cabecalho.js` (main.js) | transparente → fixo com blur depois do hero |
-| Hero | `.hero` | `hero.js` (main.js) | placeholder do vídeo |
+| Hero | `.hero` | `hero.js` (main.js) | vídeo em loop (`/videos/hero.mp4`, poster com preload) |
 | Números | `.numeros` | `numeros.js` | fundo |
 | Manifesto | `.manifesto` | `manifesto.js` | superfície |
 | Pilares | `.pilares` | `pilares.js` | fundo |
@@ -90,7 +91,7 @@ Use `var(--color-...)` no CSS ou os utilitários do Tailwind (`bg-fundo`, `text-
 
 ## Animações
 GSAP + ScrollTrigger; duração 1.2–1.4s; ease `power3.out`. **Tudo desligado com `reduzirMovimento`.** Funcionalidades (menu, comanda, ano) continuam rodando.
-- Hero: rótulo, h1 (linha a linha, com máscara criada pelo JS a partir dos `<br>`), p e botões em stagger de 0.12s; no scroll, a mídia escala de 1 para 1.06 e escurece (scrub).
+- Hero: rótulo, h1 (linha a linha, com máscara criada pelo JS a partir dos `<br>`), `.hero-texto`, `.hero-local` e botões em stagger de 0.12s; no scroll, a mídia escala de 1 para 1.06 e escurece (scrub). Com movimento reduzido, o vídeo fica pausado no poster.
 - Números: contagem até o valor escrito no HTML (`data-contar-de` define o início, padrão 0).
 - Rótulos, h2 e textos de topo: `revelar()` (y 30 → 0 + opacidade).
 - Pilares e linhas de Formatos: `revelarEmSequencia()`.
@@ -113,10 +114,12 @@ GSAP + ScrollTrigger; duração 1.2–1.4s; ease `power3.out`. **Tudo desligado 
 7. Identificadores de CSS/JS em português. Comentários em CAIXA ALTA; seções divididas com `/* === TITULO === */`.
 8. HTML, CSS e JS em arquivos separados. Sem código morto, sem `console.log`.
 9. Remover arquivos e dependências que ficarem sem uso.
+10. Imagens e vídeos ficam em public/ (sem hash). Ao trocar o conteúdo de um arquivo, renomeie-o (ex.: hero-v2.jpg) e atualize as referências, para não servir versão antiga do cache. Referencie sempre com caminho absoluto da raiz (`/imagens/...`, `/videos/...`) e, em metatags e JSON-LD, com a URL completa (`https://danisushii.com.br/...`).
 
 ## SEO e acessibilidade
 - Um único h1 por página; hierarquia h2 → h3 (use `.visualmente-oculto` quando a seção não tiver título visível). Use `lang="ja"` em todo kanji.
 - Imagens com `width`/`height` reais; placeholders com `aspect-ratio` fixo (CLS zero).
+- Poster do vídeo do hero: extraído com `ffmpeg -ss 9 -i public/videos/hero.mp4 -frames:v 1 -q:v 4 public/imagens/hero-poster.jpg` (frame com a mesa montada, sem texto).
 - Contraste ≥ 4.5:1; foco visível (acento-claro no escuro, carimbo no papel); labels reais; o menu mobile fecha com Esc, deixa o resto da página `inert` e devolve o foco ao botão.
 - JSON-LD `FoodEstablishment` no `<head>` (o Instagram em `sameAs` ainda é TODO).
 - Domínio canônico: `https://danisushii.com.br/` (canonical, og:url, og:image, sitemap, robots).

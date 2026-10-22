@@ -10,7 +10,7 @@
   background: var(--color-fundo);
 }
 
-/* MÍDIA (VÍDEO EM LOOP — POR ENQUANTO, PLACEHOLDER) */
+/* MÍDIA (VÍDEO EM LOOP) */
 .hero-midia {
   position: absolute;
   inset: 0;
@@ -20,23 +20,17 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(11,9,8,0.92) 0%, rgba(11,9,8,0.4) 45%, rgba(11,9,8,0) 70%);
+  background:
+    linear-gradient(to top, rgba(11,9,8,0.95) 0%, rgba(11,9,8,0.8) 40%, rgba(11,9,8,0.3) 80%),
+    linear-gradient(to bottom, rgba(11,9,8,0.6) 0%, rgba(11,9,8,0) 22%),
+    rgba(11,9,8,0.25);
 }
 
-.hero-placeholder {
-  display: flex;
-  justify-content: center;
+.hero-video {
   width: 100%;
   height: 100%;
-  padding-top: 22svh;
+  object-fit: cover;
   background: var(--color-placeholder);
-}
-
-.hero-placeholder span {
-  font-family: var(--font-mono);
-  font-size: 13px;
-  letter-spacing: 0.08em;
-  color: var(--color-texto-3);
 }
 
 .hero-escurecer {
