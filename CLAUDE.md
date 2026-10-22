@@ -131,6 +131,7 @@ GSAP + ScrollTrigger; duração 1.2–1.4s; ease `power3.out`. **Tudo desligado 
   - **Aberto (`aria-expanded="true"`):** o `clip-path` passa para um risco reto (mesmo número de pontos, para a forma se transformar), as larguras vão para 22px e os riscos formam o X: `translateY(±8px) rotate(±45deg)`, com o do meio em `opacity: 0` e `scaleX(0)`.
   - **Transição:** 0.5s `cubic-bezier(0.65, 0, 0.35, 1)`; sem transição com movimento reduzido.
   - O `translateY` é igual à distância entre os centros.
+- Menu mobile (`#menu-mobile`): cada link tem `<img class="menu-selo">` (selo do peixe, 32px de altura, opacity .85, raio de 2px) + `<span class="menu-texto">`, em flex com gap de 16px. No hover, `:focus-visible` e `:active`, o selo vai a opacity 1 e o texto a `translateX(4px)` (0.5s). Ao abrir, os itens (selo e texto juntos) entram com y 20 → 0 e opacidade, 0.8s power3.out, stagger 0.08s (`animarItens` em `cabecalho.js`); sem animação com movimento reduzido.
 - Hero e cabeçalho iniciam no `main.js`; as demais seções entram em `secoesSobDemanda` com `carregarAoAproximar`.
 
 ## Comanda (orçamento)
@@ -165,6 +166,7 @@ Os **originais** ficam em `marca/` (fora de `public/`, não vão para o deploy) 
 | `public/favicon-32.png` / `public/apple-touch-icon.png` (180, fundo #0B0908, 14% de respiro) | `<link rel="icon">` / `<link rel="apple-touch-icon">` | `marca/simbolo-peixe.webp` |
 | `public/arquivos/og-image-v2.jpg` (1200×630) | `og:image` e `image` do JSON-LD | à esquerda, o recorte do `hero-poster.jpg`; à direita, o logo recortado + "Sushi bar ao vivo · Desde 2020" (Shippori, #BDB5AE) |
 | `public/imagens/hero-poster.jpg` | `poster` do vídeo + preload | frame do `hero.mp4` (ver abaixo) |
+| `public/imagens/simbolo-peixe-menu.webp` (54×96, ~1,6 KB) | menu mobile, antes de cada opção (`.menu-selo`, exibido a 18×32, `alt=""`, lazy) | `marca/simbolo-peixe.webp`, 96px de altura (3× de 32px), WebP q85 |
 
 ### Regerar os derivados (na raiz do projeto)
 O `ferramentas/derivados.py` (python3 + Pillow) tem toda a lógica. Ele lê de `marca/` e do poster e grava em `public/`:
@@ -173,10 +175,11 @@ python3 ferramentas/derivados.py            # tudo: recorte, og-image e favicons
 python3 ferramentas/derivados.py recorte    # public/imagens/logo-sem-fundo-recortado.webp
 python3 ferramentas/derivados.py og         # public/arquivos/og-image-v2.jpg (depende do recorte e do poster)
 python3 ferramentas/derivados.py favicons   # public/favicon-32.png e public/apple-touch-icon.png
+python3 ferramentas/derivados.py selo       # public/imagens/simbolo-peixe-menu.webp (selo do menu mobile)
 ffmpeg -ss 20 -i public/videos/hero.mp4 -frames:v 1 -q:v 4 public/imagens/hero-poster.jpg   # poster
 ```
 - **Logo mudou:** substitua `marca/logo-sem-fundo.webp` e rode `recorte` e `og`. Se o tamanho do recorte mudar (o script imprime), atualize o `width`/`height` dos dois `<img>`.
-- **Símbolo mudou:** substitua `marca/simbolo-peixe.webp` e rode `favicons`.
+- **Símbolo mudou:** substitua `marca/simbolo-peixe.webp` e rode `favicons` e `selo`. Se a proporção mudar, atualize o `width`/`height` dos 3 `<img class="menu-selo">`.
 - **Vídeo mudou:** regere o poster (ffmpeg) e depois rode `og`.
 - A og-image precisa da fonte em `node_modules/` (rode `npm install` antes). Depois do lançamento, siga a regra 10 (renomear arquivos alterados).
 

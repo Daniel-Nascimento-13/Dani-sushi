@@ -124,7 +124,9 @@
 }
 
 .menu-mobile ul a {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 16px;
   padding-block: 12px;
   border-bottom: 1px solid var(--color-linha);
   font-family: var(--font-titulo);
@@ -134,6 +136,26 @@
   letter-spacing: 0.1em;
   color: var(--color-texto);
 }
+
+/* SELO DO PEIXE AO LADO DE CADA OPÇÃO */
+.menu-selo {
+  flex-shrink: 0;
+  width: auto;
+  height: 32px;
+  border-radius: 2px;
+  opacity: 0.85;
+  transition: opacity 0.5s ease;
+}
+
+.menu-texto { transition: transform 0.5s ease; }
+
+.menu-mobile ul a:hover .menu-selo,
+.menu-mobile ul a:focus-visible .menu-selo,
+.menu-mobile ul a:active .menu-selo { opacity: 1; }
+
+.menu-mobile ul a:hover .menu-texto,
+.menu-mobile ul a:focus-visible .menu-texto,
+.menu-mobile ul a:active .menu-texto { transform: translateX(4px); }
 
 html.menu-aberto { overflow: hidden; }
 
@@ -154,5 +176,7 @@ html.menu-aberto { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) {
   .cabecalho,
   .cabecalho-nav a,
-  .cabecalho-menu span { transition: none; }
+  .cabecalho-menu span,
+  .menu-selo,
+  .menu-texto { transition: none; }
 }

@@ -3,7 +3,8 @@ GERA, A PARTIR DOS ORIGINAIS EM MARCA/ E DO POSTER DO HERO:
   PUBLIC/IMAGENS/LOGO-SEM-FUNDO-RECORTADO.WEBP  (RECORTE JUSTO, TRANSPARÊNCIA MANTIDA)
   PUBLIC/ARQUIVOS/OG-IMAGE-V2.JPG               (1200X630: POSTER À ESQUERDA, LOGO + FRASE À DIREITA)
   PUBLIC/FAVICON-32.PNG E PUBLIC/APPLE-TOUCH-ICON.PNG (DO SÍMBOLO DO PEIXE)
-USO (NA RAIZ DO PROJETO): python3 ferramentas/derivados.py [recorte|og|favicons]  (SEM ARGUMENTO, GERA TODOS)
+  PUBLIC/IMAGENS/SIMBOLO-PEIXE-MENU.WEBP        (SELO DO MENU MOBILE, 96PX DE ALTURA = 3X DE 32PX)
+USO (NA RAIZ DO PROJETO): python3 ferramentas/derivados.py [recorte|og|favicons|selo]  (SEM ARGUMENTO, GERA TODOS)
 """
 import sys
 from pathlib import Path
@@ -19,6 +20,7 @@ SIMBOLO = Path('marca/simbolo-peixe.webp')
 LOGO_RECORTADO = Path('public/imagens/logo-sem-fundo-recortado.webp')
 POSTER = Path('public/imagens/hero-poster.jpg')
 OG = Path('public/arquivos/og-image-v2.jpg')
+SELO_MENU = Path('public/imagens/simbolo-peixe-menu.webp')
 
 
 # === RECORTE JUSTO DO LOGO (MARGEM DE 2PX) ===
@@ -77,7 +79,16 @@ def gerar_favicons():
     print('public/favicon-32.png public/apple-touch-icon.png')
 
 
-TAREFAS = {'recorte': gerar_recorte, 'og': gerar_og, 'favicons': gerar_favicons}
+# === SELO DO MENU MOBILE (ALTURA 96PX, PROPORÇÃO MANTIDA) ===
+def gerar_selo():
+    simbolo = Image.open(SIMBOLO).convert('RGB')
+    altura = 96
+    selo = simbolo.resize((round(simbolo.width * altura / simbolo.height), altura), Image.LANCZOS)
+    selo.save(SELO_MENU, 'WEBP', quality=85, method=6)
+    print(f'{SELO_MENU} {selo.width}x{selo.height} (exibido a {selo.width / 3:g}x32: atualize width/height dos <img> se mudar)')
+
+
+TAREFAS = {'recorte': gerar_recorte, 'og': gerar_og, 'favicons': gerar_favicons, 'selo': gerar_selo}
 
 if __name__ == '__main__':
     for nome in sys.argv[1:] or TAREFAS:

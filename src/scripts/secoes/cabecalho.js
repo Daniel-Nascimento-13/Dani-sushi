@@ -46,6 +46,7 @@ function iniciarMenu(cabecalho, botao, menu, lenis) {
     if (abrir) {
       lenis?.stop();
       menu.querySelector('a')?.focus();
+      animarItens(menu);
     } else {
       lenis?.start();
     }
@@ -69,4 +70,15 @@ function iniciarMenu(cabecalho, botao, menu, lenis) {
   window.matchMedia('(min-width: 900px)').addEventListener('change', (evento) => {
     if (evento.matches && aberto()) alternar(false);
   });
+}
+
+/* === ITENS DO MENU ENTRAM EM SEQUÊNCIA (SELO + TEXTO JUNTOS) === */
+function animarItens(menu) {
+  if (reduzirMovimento) return;
+
+  gsap.fromTo(
+    menu.querySelectorAll('li'),
+    { y: 20, autoAlpha: 0 },
+    { y: 0, autoAlpha: 1, duration: 0.8, ease: 'power3.out', stagger: 0.08, overwrite: true },
+  );
 }
