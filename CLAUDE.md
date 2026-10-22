@@ -14,10 +14,10 @@ Vite + HTML/CSS/JS vanilla + Tailwind v4 (`@tailwindcss/vite`) + GSAP + ScrollTr
 ```
 index.html                    → home; todo o conteúdo fica aqui; carrega só /src/main.js
 public/                       → servido na raiz, SEM hash (cache pela Vercel, ver vercel.json)
-  imagens/                    → logo-claro.png, hero-poster.jpg e demais imagens (<img src="/imagens/...">)
+  imagens/                    → logos, hero-poster.jpg e demais imagens (<img src="/imagens/...">)
   videos/                     → hero.mp4 (<source src="/videos/...">)
-  arquivos/og-image.jpg       → imagem de compartilhamento (1200x630)
-  favicon.svg, robots.txt, sitemap.xml
+  arquivos/og-image-v2.jpg    → imagem de compartilhamento (1200x630)
+  favicon-32.png, apple-touch-icon.png, robots.txt, sitemap.xml
 vercel.json                   → Cache-Control: /imagens e /videos 1 dia + SWR 7 dias; /assets (hash) 1 ano, imutável
 ferramentas/
   kanji.js                    → gera src/assets/fontes/*.woff2 e src/estilos/fontes-kanji.css
@@ -94,7 +94,7 @@ Use `var(--color-...)` no CSS ou os utilitários do Tailwind (`bg-fundo`, `text-
 - Estrutura: `.hero > .container.hero-grade > .hero-conteudo` (texto) + `.hero-quadro > .hero-midia > video.hero-video` + `.hero-legenda`.
 - **Mobile (até 899px):** `.hero-midia` fica absoluta no topo do `.hero` (100% de largura, altura `min(100vw * 1.3, 520px)`, `object-position: center 40%`). O `::after` aplica o degradê: topo escuro para o cabeçalho, transparente no meio e base fundindo 100% com `--color-fundo`. O `.hero` tem `padding-top: min(100vw * 1.05, 420px)`, então o texto começa abaixo do vídeo, sobre fundo sólido. A legenda fica escondida.
 - **Desktop (900px+):** duas colunas alinhadas embaixo. O texto fica à esquerda (flex 1) e o quadro vertical à direita, em fluxo normal: largura `min(clamp(300px, 28vw, 400px), (100svh - 290px) * 9 / 16)` (o limite pela altura faz quadro e legenda caberem na tela), `aspect-ratio: 9/16` e raio de 4px. Fundo `--color-superficie`, sem degradê. A legenda embaixo mostra "本物 Evento real" à esquerda e "Role ↓" à direita.
-- **Carregamento:** o `<video>` tem `muted loop playsinline preload="metadata"` e poster com preload no `<head>`, mas NÃO tem `autoplay`. O `hero.js` chama `play().catch(() => {})` quando o hero entra na tela e `pause()` quando sai (IntersectionObserver). Com `prefers-reduced-motion` ou `navigator.connection.saveData`, o vídeo nunca é iniciado e fica no poster.
+- **Carregamento:** o `<video>` tem `muted loop playsinline preload="none"` e poster com preload no `<head>`, mas NÃO tem `autoplay` (o download só começa no `play()`). O `hero.js` chama `play().catch(() => {})` quando o hero entra na tela e `pause()` quando sai (IntersectionObserver). Com `prefers-reduced-motion` ou `navigator.connection.saveData`, o vídeo nunca é iniciado e fica no poster.
 
 ## Animações
 GSAP + ScrollTrigger; duração 1.2–1.4s; ease `power3.out`. **Tudo desligado com `reduzirMovimento`.** Funcionalidades (menu, comanda, ano) continuam rodando.
@@ -127,6 +127,16 @@ GSAP + ScrollTrigger; duração 1.2–1.4s; ease `power3.out`. **Tudo desligado 
 ## SEO e acessibilidade
 - Um único h1 por página; hierarquia h2 → h3 (use `.visualmente-oculto` quando a seção não tiver título visível). Use `lang="ja"` em todo kanji.
 - Imagens com `width`/`height` reais; placeholders com `aspect-ratio` fixo (CLS zero).
+## Mídias da marca
+| Arquivo | Onde | Observação |
+|---|---|---|
+| `imagens/logo-sem-fundo-recortado.webp` (332×252) | cabeçalho (`alt="Dani Sushi"`, `fetchpriority="high"`; 42px mobile / 52px desktop) e rodapé (`alt=""`, lazy; 72px) | recorte justo do `logo-sem-fundo.webp` (letras claras, fundo transparente) |
+| `imagens/logo-sem-fundo.webp` (500×500) | não usado direto | original com muita margem transparente; fonte do recorte e da og-image |
+| `imagens/logo.webp` (1200×1200) | não usado | logo sobre fundo escuro texturizado (arte de perfil/redes) |
+| `imagens/simbolo-peixe.webp` | fonte dos favicons | selo vermelho com o peixe |
+| `favicon-32.png` / `apple-touch-icon.png` (180, fundo #0B0908, 14% de respiro) | `<link rel="icon">` / `<link rel="apple-touch-icon">` | gerados do símbolo |
+| `arquivos/og-image-v2.jpg` (1200×630) | `og:image` e `image` do JSON-LD | à esquerda, o recorte do poster; à direita, o logo + "Sushi bar ao vivo · Desde 2020" (Shippori, #BDB5AE) |
+
 - Poster do vídeo do hero (sem texto sobreposto): extraído com `ffmpeg -ss 9 -i public/videos/hero.mp4 -frames:v 1 -q:v 4 public/imagens/hero-poster.jpg` (frame com a mesa montada, sem texto).
 - Contraste ≥ 4.5:1; foco visível (acento-claro no escuro, carimbo no papel); labels reais; o menu mobile fecha com Esc, deixa o resto da página `inert` e devolve o foco ao botão.
 - JSON-LD `FoodEstablishment` no `<head>` (o Instagram em `sameAs` ainda é TODO).
