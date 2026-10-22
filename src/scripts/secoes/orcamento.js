@@ -44,9 +44,7 @@ function iniciarComanda(comanda) {
       return;
     }
 
-    /* SAUDAÇÃO E RÓTULOS VÊM DO HTML (DATA-MENSAGEM); O VALOR VAI COMO A PESSOA DIGITOU */
-    const linhas = campos.map((campo) => `${campo.dataset.mensagem}: ${formatar(campo)}`);
-    const mensagem = [comanda.dataset.mensagem, ...linhas].join('\n');
+    const mensagem = montarMensagem(comanda, campos);
     window.open(`https://wa.me/${comanda.dataset.whatsapp}?text=${encodeURIComponent(mensagem)}`, '_blank', 'noopener');
   });
 }
@@ -87,8 +85,28 @@ function hojeIso() {
   return [hoje.getFullYear(), hoje.getMonth() + 1, hoje.getDate()].map((n) => String(n).padStart(2, '0')).join('-');
 }
 
-/* DATA AAAA-MM-DD → DD/MM/AAAA; DEMAIS CAMPOS COMO DIGITADOS */
+/* === MENSAGEM: SAUDAÇÃO + LINHA EM BRANCO + "* RÓTULO: VALOR" + LINHA EM BRANCO + DESPEDIDA ===
+   TEXTOS NO HTML (DATA-MENSAGEM / DATA-DESPEDIDA DO FORM, DATA-MENSAGEM DE CADA CAMPO).
+   "* " NO INÍCIO DA LINHA VIRA LISTA COM MARCADORES NO WHATSAPP */
+function montarMensagem(comanda, campos) {
+  const itens = campos.map((campo) => `* ${campo.dataset.mensagem}: ${formatar(campo)}`);
+  return [comanda.dataset.mensagem, '', ...itens, '', comanda.dataset.despedida]
+    .join('\n')
+    .split('\n')
+    .map((linha) => linha.trimEnd())
+    .join('\n')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+}
+
+/* DATA AAAA-MM-DD → "QUINTA-FEIRA, 29/10/2026" (FUSO LOCAL); DEMAIS CAMPOS COMO DIGITADOS */
+const DIA_DA_SEMANA = new Intl.DateTimeFormat('pt-BR', { weekday: 'long' });
+
 function formatar(campo) {
   const valor = campo.value.trim();
-  return campo.type === 'date' ? valor.split('-').reverse().join('/') : valor;
+  if (campo.type !== 'date') return valor;
+
+  const [ano, mes, dia] = valor.split('-').map(Number);
+  const semana = DIA_DA_SEMANA.format(new Date(ano, mes - 1, dia)).toLocaleLowerCase('pt-BR');
+  return `${semana}, ${valor.split('-').reverse().join('/')}`;
 }

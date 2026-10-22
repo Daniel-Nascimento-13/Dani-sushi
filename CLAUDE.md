@@ -143,7 +143,22 @@ GSAP + ScrollTrigger; duração 1.2–1.4s; ease `power3.out`. **Tudo desligado 
 - Hero e cabeçalho iniciam no `main.js`; as demais seções entram em `secoesSobDemanda` com `carregarAoAproximar`.
 
 ## Comanda (orçamento)
-- **Dados no HTML:** o número do WhatsApp fica em `data-whatsapp` no `<form>` e a saudação em `data-mensagem`. Cada campo tem `data-mensagem` com o rótulo usado na mensagem. A data sai em dd/mm/aaaa; os outros valores saem **como a pessoa digitou** (nada é arredondado nem alterado).
+- **Dados no HTML:** no `<form>` ficam o número do WhatsApp (`data-whatsapp`), a saudação (`data-mensagem`, com `&#10;` para quebrar a linha) e a despedida (`data-despedida`). Cada campo tem `data-mensagem` com o rótulo usado na mensagem (Tipo, Data, Convidados, Cidade). Os valores saem **como a pessoa digitou** (nada é arredondado nem alterado), exceto a data.
+- **Formato da mensagem (`montarMensagem` em `orcamento.js`), sem emojis:**
+  ```
+  Olá, Dani! Tudo bem?
+  Vi o site e gostaria de um orçamento para o meu evento:
+
+  * Tipo: Evento social
+  * Data: quinta-feira, 29/10/2026
+  * Convidados: 30
+  * Cidade: Lajeado
+
+  Fico no aguardo para conversarmos!
+  ```
+  - O JS adiciona o `* ` antes de cada item; o WhatsApp renderiza `* ` no início da linha como lista com marcadores.
+  - Linhas sem espaço no fim e nunca duas linhas em branco seguidas.
+  - A data é montada com `new Date(ano, mes - 1, dia)` (fuso local) + `Intl.DateTimeFormat('pt-BR', { weekday: 'long' })` em minúsculas + dd/mm/aaaa.
 - **Validação própria:** o form tem `novalidate`, sem balão do navegador e sem `reportValidity`/`setCustomValidity`.
   - **Convidados:** inteiro ≥ `min` (10). Vazio, não numérico, decimal ou < 10 bloqueia o envio.
   - **Data:** ≥ hoje; o `min` é definido via JS no carregamento, no fuso local (AAAA-MM-DD).
