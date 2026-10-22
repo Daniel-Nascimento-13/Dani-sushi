@@ -53,7 +53,7 @@ src/
 | Momentos | `.momentos` / `#momentos` | `momentos.js` | `.fundo-superficie` |
 | Depoimentos | `.depoimentos` / `#depoimentos` | `depoimentos.js` | `.fundo-base` |
 | Orçamento (comanda) | `.orcamento` / `#orcamento` | `orcamento.js` | `.fundo-superficie` (2 colunas só a partir de 1200px; abaixo disso, comanda embaixo com máx. 560px) |
-| Rodapé | `.rodape` | `rodape.js` (ano atual) | `.fundo-base` |
+| Rodapé | `.rodape` | `rodape.js` (ano atual em `[data-ano-atual]`) | `.fundo-base`. **Tudo centralizado**, um embaixo do outro, em todas as larguras: logo (72px) → 24px → frase "Você faz a vibe e o Dani Sushi!" (Shippori uppercase, 0.12em, `clamp(16px, 2.2vw, 22px)`, "Dani Sushi!" em `.destaque`; no mobile, `<br class="so-mobile">` quebra em "VOCÊ FAZ A VIBE / E O DANI SUSHI!") → 40px → nav centralizada (máx. 360px no mobile, para quebrar 3 + 2 sem item sozinho) → hairline → "© 2020–{ano} · Dani Sushi · Todos os direitos reservados." (mono 11px, texto-3; no mobile, 2 linhas sem o "·" pendurado, via `.so-desktop` e `<br class="so-mobile">`) |
 
 **Fundos alternados:**
 - **O hero é sempre preto.** A partir dele, as seções alternam `.fundo-base` (`--color-fundo`) e `.fundo-superficie` (`--color-superficie`) pela ordem real do HTML, até o rodapé. As classes ficam no HTML e são definidas em `base.css`; nenhum CSS de seção define `background` próprio.
@@ -95,7 +95,7 @@ Use `var(--color-...)` no CSS ou os utilitários do Tailwind (`bg-fundo`, `text-
 - **h2 com `<br>` forçado** ("Cada evento,<br>uma história." etc.) precisa ficar em exatamente 2 linhas. Se uma coluna ficar estreita demais, empilhe o layout em vez de deixar o h2 quebrar em mais linhas.
 - Texto corrido: Inter Tight 16/17px (`.texto-intro`: 17/19px), line-height 1.6, texto-2.
 - `.botao.botao-primario` (acento, pill, 52px) · `.botao.botao-secundario` (borda 1px rgba(242,238,234,.28)).
-- `.metadado` (mono 12px) · `.destaque` (acento-claro) · `.apagado` (texto-3) · `.visualmente-oculto`.
+- `.metadado` (mono 12px) · `.destaque` (acento-claro) · `.apagado` (texto-3) · `.visualmente-oculto` · `.so-mobile` (some a partir de 600px; ex.: `<br class="so-mobile">`) · `.so-desktop` (só a partir de 600px; ex.: um separador " ·").
 - `.secao-topo`: rótulo + h2 à esquerda e texto ou link à direita (≥900px); margem até o conteúdo de 56px (mobile) / 64px (desktop).
 - Layout: `.envoltorio` (conteúdo com máx. 1344px; respiro de 20 → 32 → 48px exposto em `--respiro`). **Nunca use a classe `container`:** o Tailwind v4 gera um utilitário `container` com `max-width` por breakpoint (768/1024/1280...) na layer utilities, que vence a nossa base. Evite também outros nomes de utilitário do Tailwind como classe (`hidden`, `static`, `flex`...) e `.secao` (96px → 140px a partir de 900px).
 - Mobile-first: `min-width` 600 / 900 / 1200, com as media queries no fim de cada arquivo, da menor para a maior.

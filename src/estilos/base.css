@@ -37,6 +37,9 @@ button { background: none; border: 0; cursor: pointer; }
   white-space: nowrap;
 }
 
+/* === SÓ MOBILE / SÓ DESKTOP (ATÉ 599PX / A PARTIR DE 600PX), PARA QUEBRAS E SEPARADORES === */
+.so-desktop { display: none; }
+
 /* === LAYOUT === */
 .envoltorio {
   --respiro: 20px;
@@ -141,6 +144,8 @@ h3 { font-size: 17px; font-weight: 500; letter-spacing: 0.14em; }
 /* === RESPONSIVIDADE === */
 @media (min-width: 600px) {
   .envoltorio { --respiro: 32px; }
+  .so-mobile  { display: none; }
+  .so-desktop { display: inline; }
 }
 
 @media (min-width: 900px) {
