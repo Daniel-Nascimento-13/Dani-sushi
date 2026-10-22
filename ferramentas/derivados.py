@@ -3,7 +3,7 @@ GERA, A PARTIR DOS ORIGINAIS EM MARCA/ E DO POSTER DO HERO:
   PUBLIC/IMAGENS/LOGO-SEM-FUNDO-RECORTADO.WEBP  (RECORTE JUSTO, TRANSPARÊNCIA MANTIDA)
   PUBLIC/ARQUIVOS/OG-IMAGE-V2.JPG               (1200X630: POSTER À ESQUERDA, LOGO + FRASE À DIREITA)
   PUBLIC/FAVICON-32.PNG E PUBLIC/APPLE-TOUCH-ICON.PNG (DO SÍMBOLO DO PEIXE)
-  PUBLIC/IMAGENS/SIMBOLO-PEIXE-MENU.WEBP        (SELO DO MENU MOBILE, 96PX DE ALTURA = 3X DE 32PX)
+  PUBLIC/IMAGENS/SIMBOLO-PEIXE-MENU.WEBP        (SELO DO MENU MOBILE, 96PX DE ALTURA = 4X DE 24PX EXIBIDO)
 USO (NA RAIZ DO PROJETO): python3 ferramentas/derivados.py [recorte|og|favicons|selo]  (SEM ARGUMENTO, GERA TODOS)
 """
 import sys
@@ -85,7 +85,7 @@ def gerar_selo():
     altura = 96
     selo = simbolo.resize((round(simbolo.width * altura / simbolo.height), altura), Image.LANCZOS)
     selo.save(SELO_MENU, 'WEBP', quality=85, method=6)
-    print(f'{SELO_MENU} {selo.width}x{selo.height} (exibido a {selo.width / 3:g}x32: atualize width/height dos <img> se mudar)')
+    print(f'{SELO_MENU} {selo.width}x{selo.height} (exibido a {round(selo.width / 4)}x24: atualize width/height dos <img> se mudar)')
 
 
 TAREFAS = {'recorte': gerar_recorte, 'og': gerar_og, 'favicons': gerar_favicons, 'selo': gerar_selo}
