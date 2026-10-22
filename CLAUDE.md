@@ -37,6 +37,7 @@ src/
     secoes/<secao>.js         → um módulo por seção, exporta iniciar<Secao>(elemento)
     utils/movimento.js        → export const reduzirMovimento (prefers-reduced-motion)
     utils/revelar.js          → revelar(elementos) e revelarEmSequencia(elementos, gatilho)
+    utils/teclado.js          → detectarTeclado(): html.usando-teclado enquanto a navegação for por teclado
   assets/fontes/              → GERADO pelo ferramentas/kanji.js
 ```
 
@@ -151,7 +152,8 @@ GSAP + ScrollTrigger; duração 1.2–1.4s; ease `power3.out`. **Tudo desligado 
   - A dica é o `<p class="comanda-ajuda" aria-live="polite">` ligado por `aria-describedby`. O texto normal dela fica no HTML e é restaurado ao corrigir.
   - A validação roda no blur (se algo foi preenchido) e no envio, quando o foco vai para o primeiro campo inválido. Ao digitar, o erro sai assim que o campo fica válido.
 - **Dica:** mono 11px, tinta a 60% (4,51:1 sobre o papel, no limite; não clareie).
-- **Foco padronizado em todos os campos:** linha inferior de 2px em acento (`box-shadow`, sem mudar a altura) e, com `:focus-visible`, `outline: 2px solid var(--color-acento); outline-offset: 4px`. No Chrome, inputs e select casam `:focus-visible` também no clique, então o contorno aparece igual em todos.
+- **Foco padronizado em todos os campos:** linha inferior de 2px em acento em qualquer foco (`box-shadow`, sem mudar a altura). O contorno (`outline: 2px solid var(--color-acento); outline-offset: 4px`) aparece **só na navegação por teclado**: `html.usando-teclado .comanda-campo :focus-visible`. Ele não depende só de `:focus-visible` porque, no Chrome, inputs e select casam `:focus-visible` até no clique.
+- **`utils/teclado.js` (`detectarTeclado`, iniciado no `main.js`):** Tab ou setas adicionam `html.usando-teclado`; `pointerdown` remove. Botões e links do site seguem com o `:focus-visible` padrão.
 
 ## Regras
 1. `index.html` carrega apenas `<script type="module" src="/src/main.js"></script>` (o JSON-LD é dado, não script).

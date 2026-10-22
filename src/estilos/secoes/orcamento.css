@@ -98,8 +98,9 @@
 
 .comanda-campo input::placeholder { color: rgba(26,21,19,0.5); }
 
-/* FOCO PADRONIZADO EM TODOS OS CAMPOS: LINHA INFERIOR DE 2PX EM ACENTO (BOX-SHADOW, SEM MUDAR A ALTURA)
-   + OUTLINE SUTIL SÓ COM :FOCUS-VISIBLE */
+/* FOCO PADRONIZADO EM TODOS OS CAMPOS: LINHA INFERIOR DE 2PX EM ACENTO EM QUALQUER FOCO (BOX-SHADOW,
+   SEM MUDAR A ALTURA) + CONTORNO SÓ NA NAVEGAÇÃO POR TECLADO (HTML.USANDO-TECLADO, VER UTILS/TECLADO.JS).
+   NO CHROME OS CAMPOS CASAM :FOCUS-VISIBLE ATÉ NO CLIQUE, POR ISSO A CLASSE */
 .comanda-campo input:focus,
 .comanda-campo select:focus {
   outline: none;
@@ -107,8 +108,8 @@
   box-shadow: 0 1px 0 0 var(--color-acento);
 }
 
-.comanda-campo input:focus-visible,
-.comanda-campo select:focus-visible {
+html.usando-teclado .comanda-campo input:focus-visible,
+html.usando-teclado .comanda-campo select:focus-visible {
   outline: 2px solid var(--color-acento);
   outline-offset: 4px;
 }

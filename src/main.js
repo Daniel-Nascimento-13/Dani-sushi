@@ -8,11 +8,15 @@ import '@fontsource/jetbrains-mono/latin-400.css';
 import './estilos/main.css';
 import { iniciarScroll } from './scripts/core/scroll.js';
 import { carregarAoAproximar } from './scripts/core/carregador.js';
+import { detectarTeclado } from './scripts/utils/teclado.js';
 import { iniciarCabecalho } from './scripts/secoes/cabecalho.js';
 import { iniciarHero } from './scripts/secoes/hero.js';
 
 /* === ROLAGEM SUAVE === */
 const lenis = iniciarScroll();
+
+/* === TECLADO × PONTEIRO (CONTORNO DE FOCO DA COMANDA SÓ NO TECLADO) === */
+detectarTeclado();
 
 /* === ACIMA DA DOBRA === */
 const cabecalho = document.querySelector('.cabecalho');
