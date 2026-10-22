@@ -18,11 +18,11 @@
 
 .numeros-item:first-child { border-left: 0; }
 
-/* O MAIS LARGO É "+50" (1.627EM NO SHIPPORI; "+10" = 1.612EM) → DIVISOR 1.69 (4% DE FOLGA) */
+/* O MAIS LARGO É "2020" (2.062EM NO SHIPPORI; "+50" = 1.627EM, "+10" = 1.612EM) → DIVISOR 2.14 (4% DE FOLGA) */
 .numeros-valor {
   order: -1;
   font-family: var(--font-titulo);
-  font-size: min(44px, 100cqi / 1.69);
+  font-size: min(44px, 100cqi / 2.14);
   line-height: 1;
   color: var(--color-texto);
 }
