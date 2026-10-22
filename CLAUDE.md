@@ -105,6 +105,7 @@ Use `var(--color-...)` no CSS ou os utilitários do Tailwind (`bg-fundo`, `text-
   - line-height 1.25 e margin-bottom de 20px no mobile / 28px no desktop;
   - fallback sem cqi: `clamp(20px, 5.6vw, 56px)`.
   Se mudar a copy, a fonte ou o letter-spacing do h1, **meça de novo a linha mais longa** e recalcule o divisor.
+- **Frase do hero (`.hero-texto`) em uma linha** quando a coluna tem 700px ou mais (`@container (min-width: 700px)`: `max-width: none` e `nowrap`), o que acontece a partir de ~1200px de tela. Abaixo disso fica em 2 linhas (máx. 520px), porque caber em 1 linha exigiria 9–12px. Se a frase mudar, meça de novo (hoje: ~680px a 19px).
 - **Carregamento:** o `<video>` tem `muted loop playsinline preload="none"` e poster com preload no `<head>`, mas NÃO tem `autoplay` (o download só começa no `play()`). O `hero.js` chama `play().catch(() => {})` quando o hero entra na tela e `pause()` quando sai (IntersectionObserver). Com `prefers-reduced-motion` ou `navigator.connection.saveData`, o vídeo nunca é iniciado e fica no poster.
 
 ## Animações

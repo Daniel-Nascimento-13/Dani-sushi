@@ -69,6 +69,15 @@
 
 .hero-texto { max-width: 520px; }
 
+/* FRASE EM UMA LINHA QUANDO CABE NO TAMANHO NORMAL (PRECISA DE ~680PX A 19PX; 700PX COM FOLGA).
+   EM COLUNAS MENORES CONTINUA EM 2 LINHAS: CABER EM 1 EXIGIRIA FONTE DE 9–12PX */
+@container (min-width: 700px) {
+  .hero-texto {
+    max-width: none;
+    white-space: nowrap;
+  }
+}
+
 /* LOCALIZAÇÃO (PIN + TEXTO) */
 .hero-local {
   display: flex;
