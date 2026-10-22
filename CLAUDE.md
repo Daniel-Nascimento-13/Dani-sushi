@@ -116,6 +116,7 @@ GSAP + ScrollTrigger; duração 1.2–1.4s; ease `power3.out`. **Tudo desligado 
 - Pilares e linhas de Formatos: `revelarEmSequencia()`.
 - Momentos: foto com `clip-path: inset()` de baixo para cima.
 - Cabeçalho: vira fixo e desce (yPercent -100 → 0) depois do hero.
+- Botão hambúrguer (`.cabecalho-menu`, área de 44×44px): 3 `<span aria-hidden="true">`. Cada span é uma caixa de **4px** com o risco de **1,5px** pintado no meio por `linear-gradient` (31.25%–68.75%). Uma altura de 1,5px direto no span faz o Chrome arredondar cada risco para 1 ou 2px, desiguais. Os centros ficam a 8px (`gap: 4px`). Os riscos têm 22px de largura; o do meio tem 16px, alinhado à direita, e cresce para 22px no hover/foco (0.4s). Aberto (`aria-expanded="true"`) vira X: o de cima com `translateY(8px) rotate(45deg)`, o do meio com `opacity: 0` e `scaleX(0)`, o de baixo com `translateY(-8px) rotate(-45deg)`. A transição é de 0.5s com `cubic-bezier(0.65, 0, 0.35, 1)`, e sem transição com movimento reduzido. Se mudar a espessura ou a distância, o `translateY` é igual à distância entre os centros.
 - Hero e cabeçalho iniciam no `main.js`; as demais seções entram em `secoesSobDemanda` com `carregarAoAproximar`.
 
 ## Comanda (orçamento)
