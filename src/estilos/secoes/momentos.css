@@ -8,8 +8,6 @@
   transition: border-color 0.4s ease;
 }
 
-.momentos-link:hover { border-color: var(--color-texto); }
-
 /* CARROSSEL HORIZONTAL NO MOBILE */
 .momentos-lista {
   display: flex;
@@ -66,6 +64,11 @@
 
   .momentos-card:nth-child(2) .momentos-foto { aspect-ratio: 1 / 1; }
   .momentos-card:nth-child(3) .momentos-foto { aspect-ratio: 3 / 4; }
+}
+
+/* === HOVER (SÓ MOUSE: NO TOQUE O :HOVER GRUDA DEPOIS DO TAP) === */
+@media (hover: hover) and (pointer: fine) {
+  .momentos-link:hover { border-color: var(--color-texto); }
 }
 
 /* === MOVIMENTO REDUZIDO === */

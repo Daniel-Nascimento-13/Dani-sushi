@@ -1,9 +1,10 @@
 /* === FORMATOS === */
 .formatos-lista { border-top: 1px solid var(--color-linha); }
 
+/* LINHA INTEIRA É O LINK (#ORCAMENTO): NÚMERO + TÍTULO, DESCRIÇÃO EMBAIXO NO MOBILE */
 .formatos-linha {
   display: grid;
-  grid-template-columns: 32px minmax(0, 1fr) auto;
+  grid-template-columns: 32px minmax(0, 1fr);
   column-gap: 16px;
   row-gap: 10px;
   align-items: baseline;
@@ -14,49 +15,33 @@
 .formatos-numero {
   font-family: var(--font-mono);
   font-size: 12px;
-  color: var(--color-texto-3);
+  color: var(--color-acento-claro);
 }
 
 .formatos-titulo { transition: color 0.4s ease; }
 
-.formatos-descricao { grid-column: 2 / -1; }
+.formatos-descricao { grid-column: 2; }
 
-.formatos-seta {
-  grid-row: 1;
-  grid-column: 3;
-  font-size: 20px;
-  line-height: 1;
-  color: var(--color-texto-3);
-  transition: transform 0.5s ease, color 0.4s ease;
-}
-
-.formatos-linha:hover .formatos-titulo { color: var(--color-acento-claro); }
-
-.formatos-linha:hover .formatos-seta,
-.formatos-linha:focus-visible .formatos-seta {
-  transform: translateX(6px);
-  color: var(--color-acento-claro);
-}
+.formatos-linha:focus-visible .formatos-titulo { color: var(--color-acento-claro); }
 
 /* === RESPONSIVIDADE === */
 @media (min-width: 900px) {
   .formatos-linha {
-    grid-template-columns: 80px minmax(0, 1fr) minmax(0, 1.1fr) 48px;
+    grid-template-columns: 80px minmax(0, 1fr) minmax(0, 1.1fr);
     column-gap: 32px;
     align-items: center;
     padding-block: 40px;
   }
 
   .formatos-descricao { grid-column: 3; }
+}
 
-  .formatos-seta {
-    grid-column: 4;
-    justify-self: end;
-  }
+/* === HOVER (SÓ MOUSE: NO TOQUE O :HOVER GRUDA DEPOIS DO TAP) === */
+@media (hover: hover) and (pointer: fine) {
+  .formatos-linha:hover .formatos-titulo { color: var(--color-acento-claro); }
 }
 
 /* === MOVIMENTO REDUZIDO === */
 @media (prefers-reduced-motion: reduce) {
-  .formatos-titulo,
-  .formatos-seta { transition: none; }
+  .formatos-titulo { transition: none; }
 }

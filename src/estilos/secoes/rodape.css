@@ -55,8 +55,6 @@
   transition: color 0.4s ease;
 }
 
-.rodape-nav a:hover { color: var(--color-acento-claro); }
-
 /* COPYRIGHT: HAIRLINE ACIMA, MONO 11PX */
 .rodape-copia {
   width: 100%;
@@ -75,6 +73,11 @@
   .rodape { padding-block: 96px 48px; }
 
   .rodape-copia { margin-top: 64px; }
+}
+
+/* === HOVER (SÓ MOUSE: NO TOQUE O :HOVER GRUDA DEPOIS DO TAP) === */
+@media (hover: hover) and (pointer: fine) {
+  .rodape-nav a:hover { color: var(--color-acento-claro); }
 }
 
 /* === MOVIMENTO REDUZIDO === */

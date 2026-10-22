@@ -135,14 +135,15 @@ h3 { font-size: 17px; font-weight: 500; letter-spacing: 0.14em; }
   color: #ffffff;
 }
 
-.botao-primario:hover { background: color-mix(in srgb, var(--color-acento) 82%, #000000); }
-
 .botao-secundario {
   border: 1px solid rgba(242,238,234,0.28);
   color: var(--color-texto);
 }
 
-.botao-secundario:hover { border-color: var(--color-texto); }
+/* TOQUE: FEEDBACK IMEDIATO NO :ACTIVE (VOLTA COM A TRANSIÇÃO NORMAL AO SOLTAR) */
+.botao:active { transition-duration: 0s; }
+.botao-primario:active   { background: color-mix(in srgb, var(--color-acento) 82%, #000000); }
+.botao-secundario:active { border-color: var(--color-texto); }
 
 /* === TOPO DE SEÇÃO (RÓTULO + H2 + TEXTO AO LADO) === */
 .secao-topo {
@@ -195,6 +196,12 @@ h3 { font-size: 17px; font-weight: 500; letter-spacing: 0.14em; }
 
 @media (min-width: 1200px) {
   h3 { font-size: 26px; }
+}
+
+/* === HOVER (SÓ MOUSE: NO TOQUE O :HOVER GRUDA DEPOIS DO TAP) === */
+@media (hover: hover) and (pointer: fine) {
+  .botao-primario:hover   { background: color-mix(in srgb, var(--color-acento) 82%, #000000); }
+  .botao-secundario:hover { border-color: var(--color-texto); }
 }
 
 /* === MOVIMENTO REDUZIDO === */
