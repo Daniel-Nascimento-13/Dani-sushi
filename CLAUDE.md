@@ -122,7 +122,7 @@ GSAP + ScrollTrigger; duração 1.2–1.4s; ease `power3.out`. **Tudo desligado 
 7. Identificadores de CSS/JS em português. Comentários em CAIXA ALTA; seções divididas com `/* === TITULO === */`.
 8. HTML, CSS e JS em arquivos separados. Sem código morto, sem `console.log`.
 9. Remover arquivos e dependências que ficarem sem uso.
-10. Imagens e vídeos ficam em public/ (sem hash). Ao trocar o conteúdo de um arquivo, renomeie-o (ex.: hero-v2.jpg) e atualize as referências, para não servir versão antiga do cache. Referencie sempre com caminho absoluto da raiz (`/imagens/...`, `/videos/...`) e, em metatags e JSON-LD, com a URL completa (`https://danisushii.com.br/...`).
+10. Imagens e vídeos ficam em public/ (sem hash). Ao trocar o conteúdo de um arquivo, renomeie-o (ex.: hero-v2.jpg) e atualize as referências, para não servir versão antiga do cache. Antes do lançamento, mídias podem ser sobrescritas com o mesmo nome; depois que a v2 for para produção, vale a regra de renomear. Referencie sempre com caminho absoluto da raiz (`/imagens/...`, `/videos/...`) e, em metatags e JSON-LD, com a URL completa (`https://danisushii.com.br/...`).
 
 ## SEO e acessibilidade
 - Um único h1 por página; hierarquia h2 → h3 (use `.visualmente-oculto` quando a seção não tiver título visível). Use `lang="ja"` em todo kanji.
@@ -137,7 +137,13 @@ GSAP + ScrollTrigger; duração 1.2–1.4s; ease `power3.out`. **Tudo desligado 
 | `favicon-32.png` / `apple-touch-icon.png` (180, fundo #0B0908, 14% de respiro) | `<link rel="icon">` / `<link rel="apple-touch-icon">` | gerados do símbolo |
 | `arquivos/og-image-v2.jpg` (1200×630) | `og:image` e `image` do JSON-LD | à esquerda, o recorte do poster; à direita, o logo + "Sushi bar ao vivo · Desde 2020" (Shippori, #BDB5AE) |
 
-- Poster do vídeo do hero (sem texto sobreposto): extraído com `ffmpeg -ss 9 -i public/videos/hero.mp4 -frames:v 1 -q:v 4 public/imagens/hero-poster.jpg` (frame com a mesa montada, sem texto).
+### Vídeo do hero (`videos/hero.mp4`)
+- Padrão de exportação: 720×1280, 30fps constante, H.264 High, yuv420p, sem áudio, faststart.
+  `ffmpeg -i ENTRADA -vf "scale=720:1280:flags=lanczos" -r 30 -c:v libx264 -crf 28 -preset slow -profile:v high -pix_fmt yuv420p -an -movflags +faststart public/videos/hero.mp4`
+- Meta: até 5 MB (versão atual: 30,4s, 4,97 MB). O master em alta fica fora do repositório (`~/Desktop/hero-master-1080.mp4`).
+- Poster: frame dos **20s** (mesa montada, sem texto sobreposto e sem pessoas em close):
+  `ffmpeg -ss 20 -i public/videos/hero.mp4 -frames:v 1 -q:v 4 public/imagens/hero-poster.jpg`
+- Ao trocar o vídeo, regere o poster e a `og-image-v2.jpg` (mesmo layout).
 - Contraste ≥ 4.5:1; foco visível (acento-claro no escuro, carimbo no papel); labels reais; o menu mobile fecha com Esc, deixa o resto da página `inert` e devolve o foco ao botão.
 - JSON-LD `FoodEstablishment` no `<head>` (o Instagram em `sameAs` ainda é TODO).
 - Domínio canônico: `https://danisushii.com.br/` (canonical, og:url, og:image, sitemap, robots).
