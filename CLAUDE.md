@@ -51,7 +51,7 @@ src/
 | Formatos | `.formatos` | `formatos.js` | fundo |
 | Momentos | `.momentos` / `#momentos` | `momentos.js` | superfície |
 | Depoimentos | `.depoimentos` / `#depoimentos` | `depoimentos.js` | fundo |
-| Orçamento (comanda) | `.orcamento` / `#orcamento` | `orcamento.js` | superfície |
+| Orçamento (comanda) | `.orcamento` / `#orcamento` | `orcamento.js` | superfície (2 colunas só a partir de 1200px; abaixo disso, comanda embaixo com máx. 560px) |
 | Rodapé | `.rodape` | `rodape.js` (ano atual) | fundo |
 
 Páginas futuras: /momentos, /depoimentos, /orcamento.
@@ -83,11 +83,13 @@ Use `var(--color-...)` no CSS ou os utilitários do Tailwind (`bg-fundo`, `text-
 ## Padrões tipográficos e componentes (base.css)
 - `.rotulo`: Shippori 13px, uppercase, letter-spacing 4px, texto-3.
   `<p class="rotulo"><span class="rotulo-kanji" lang="ja">形</span> Katachi · <em>Formatos</em></p>` (o kanji em acento-claro; o `<em>` em itálico, sem uppercase)
-- h1/h2: Shippori 400, UPPERCASE, letter-spacing 0.1em, line-height 1.15. h1 base `clamp(36px, 6vw, 80px)` (o h1 do hero tem regra própria, ver "Hero com vídeo"), h2 `clamp(24px, 4.2vw, 52px)`, h3 20 → 24 → 26px (letter-spacing 0.12–0.14em).
+- h1/h2: Shippori 400, UPPERCASE, letter-spacing 0.1em, line-height 1.15. h1 base `clamp(36px, 6vw, 80px)` (o h1 do hero tem regra própria, ver "Hero com vídeo"), h2 `clamp(20px, 3vw, 44px)`, h3 17 → 24 → 26px (letter-spacing 0.12–0.14em). Rótulo → h1: 20px; rótulo → h2: 14px no mobile / 18px no desktop.
+- **Hierarquia: o h1 do hero é sempre o maior título da página**, em qualquer largura: h1 ≥ h2 > h3. Ao mexer em tamanhos de título (ou na largura da coluna do hero), confira em 320–1920px.
+- **h2 com `<br>` forçado** ("Cada evento,<br>uma história." etc.) precisa ficar em exatamente 2 linhas. Se uma coluna ficar estreita demais, empilhe o layout em vez de deixar o h2 quebrar em mais linhas.
 - Texto corrido: Inter Tight 16/17px (`.texto-intro`: 17/19px), line-height 1.6, texto-2.
 - `.botao.botao-primario` (acento, pill, 52px) · `.botao.botao-secundario` (borda 1px rgba(242,238,234,.28)).
 - `.metadado` (mono 12px) · `.destaque` (acento-claro) · `.apagado` (texto-3) · `.visualmente-oculto`.
-- `.secao-topo`: rótulo + h2 à esquerda e texto ou link à direita (≥900px).
+- `.secao-topo`: rótulo + h2 à esquerda e texto ou link à direita (≥900px); margem até o conteúdo de 56px (mobile) / 64px (desktop).
 - Layout: `.envoltorio` (conteúdo com máx. 1344px; respiro de 20 → 32 → 48px exposto em `--respiro`). **Nunca use a classe `container`:** o Tailwind v4 gera um utilitário `container` com `max-width` por breakpoint (768/1024/1280...) na layer utilities, que vence a nossa base. Evite também outros nomes de utilitário do Tailwind como classe (`hidden`, `static`, `flex`...) e `.secao` (96px → 140px a partir de 900px).
 - Mobile-first: `min-width` 600 / 900 / 1200, com as media queries no fim de cada arquivo, da menor para a maior.
 
