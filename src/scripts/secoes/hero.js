@@ -8,6 +8,7 @@ export function iniciarHero(hero) {
   const rotulo = hero.querySelector('.rotulo');
   const titulo = hero.querySelector('.hero-titulo');
   const texto = hero.querySelector('.hero-texto');
+  const local = hero.querySelector('.hero-local');
   const botoes = hero.querySelector('.hero-botoes');
   const linhas = titulo ? dividirLinhas(titulo) : [];
 
@@ -17,7 +18,7 @@ export function iniciarHero(hero) {
   entrada
     .from(rotulo, { y: 30, autoAlpha: 0 }, 0)
     .from(linhas, { yPercent: 110, stagger: passo }, passo)
-    .from([texto, botoes], { y: 30, autoAlpha: 0, stagger: passo }, passo * (linhas.length + 1));
+    .from([texto, local, botoes], { y: 30, autoAlpha: 0, stagger: passo }, passo * (linhas.length + 1));
 
   /* MÍDIA ESCURECE E ESCALA DE 1 PARA 1.06 (SCRUB) */
   const rolagem = { trigger: hero, start: 'top top', end: 'bottom top', scrub: true };

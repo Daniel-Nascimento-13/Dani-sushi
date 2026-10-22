@@ -65,9 +65,25 @@
 
 .hero-linha-interna { display: block; }
 
-.hero-texto {
-  max-width: 520px;
-  margin-bottom: 36px;
+.hero-texto { max-width: 520px; }
+
+/* LOCALIZAÇÃO (PIN + TEXTO) */
+.hero-local {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-block: 14px 36px;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--color-texto-2);
+}
+
+.hero-local svg {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+  color: var(--color-acento-claro);
 }
 
 .hero-botoes {
@@ -83,7 +99,17 @@
   .hero { padding-bottom: 96px; }
 
   .hero-titulo { margin-bottom: 32px; }
-  .hero-texto  { margin-bottom: 44px; }
+  .hero-local {
+    align-items: center;
+    margin-bottom: 44px;
+    font-size: 1rem;
+  }
+
+  .hero-local svg {
+    width: 18px;
+    height: 18px;
+    margin-top: 0;
+  }
 
   .hero-rolar {
     display: block;
