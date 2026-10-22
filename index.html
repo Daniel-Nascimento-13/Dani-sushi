@@ -291,7 +291,7 @@
           </div>
 
           <div class="comanda-campos">
-            <div class="comanda-campo">
+            <div class="comanda-campo comanda-campo-tipo">
               <label for="comanda-tipo">Tipo de evento</label>
               <select id="comanda-tipo" name="tipo" required data-mensagem="Tipo">
                 <option value="" disabled selected>Selecione</option>
@@ -302,19 +302,22 @@
               </select>
             </div>
 
-            <div class="comanda-campo comanda-campo-metade">
+            <div class="comanda-campo comanda-campo-data">
               <label for="comanda-data">Data</label>
-              <input id="comanda-data" name="data" type="date" required aria-describedby="comanda-data-ajuda" data-mensagem="Data">
+              <div class="comanda-data">
+                <input id="comanda-data" name="data" type="date" required aria-describedby="comanda-data-ajuda" data-mensagem="Data">
+                <span class="comanda-data-vazia" aria-hidden="true">Escolha a data</span>
+              </div>
               <p id="comanda-data-ajuda" class="comanda-ajuda" aria-live="polite" data-erro="Escolha uma data a partir de hoje."></p>
             </div>
 
-            <div class="comanda-campo comanda-campo-metade">
+            <div class="comanda-campo comanda-campo-convidados">
               <label for="comanda-convidados">Convidados</label>
               <input id="comanda-convidados" name="convidados" type="number" min="10" step="1" inputmode="numeric" placeholder="10+" required aria-describedby="comanda-convidados-ajuda" data-mensagem="Convidados">
               <p id="comanda-convidados-ajuda" class="comanda-ajuda" aria-live="polite" data-erro="O atendimento é a partir de 10 convidados.">A partir de 10 convidados.</p>
             </div>
 
-            <div class="comanda-campo">
+            <div class="comanda-campo comanda-campo-cidade">
               <label for="comanda-cidade">Cidade</label>
               <input id="comanda-cidade" name="cidade" type="text" autocomplete="address-level2" required data-mensagem="Cidade">
             </div>

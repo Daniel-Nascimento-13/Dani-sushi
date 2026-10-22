@@ -51,9 +51,17 @@
   color: rgba(26,21,19,0.72);
 }
 
+/* MOBILE: TIPO / DATA (LINHAS INTEIRAS: O DATE NÃO CABE EM MEIA COLUNA NO IPHONE) / CONVIDADOS + CIDADE.
+   A PARTIR DE 600PX: TIPO / DATA + CONVIDADOS / CIDADE. A ORDEM DO HTML (E DA MENSAGEM) NÃO MUDA.
+   ALINHADOS NO TOPO: A DICA DE 2 LINHAS DE CONVIDADOS NÃO EMPURRA A CIDADE AO LADO */
 .comanda-campos {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-areas:
+    "tipo tipo"
+    "data data"
+    "convidados cidade";
+  align-items: start;
   gap: 24px 20px;
 }
 
@@ -61,11 +69,13 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
-  grid-column: 1 / -1;
   min-width: 0;
 }
 
-.comanda-campo-metade { grid-column: auto; }
+.comanda-campo-tipo       { grid-area: tipo; }
+.comanda-campo-data       { grid-area: data; }
+.comanda-campo-convidados { grid-area: convidados; }
+.comanda-campo-cidade     { grid-area: cidade; }
 
 .comanda-campo label {
   font-family: var(--font-mono);
@@ -97,6 +107,43 @@
 }
 
 .comanda-campo input::placeholder { color: rgba(26,21,19,0.5); }
+
+/* DATE NO SAFARI/IOS: SEM APARÊNCIA NATIVA, ALINHADO À ESQUERDA, MESMA ALTURA DOS OUTROS MESMO VAZIO.
+   O CALENDÁRIO NATIVO CONTINUA ABRINDO NO TOQUE */
+.comanda-campo input[type="date"] {
+  -webkit-appearance: none;
+  display: block;
+  /* ALTURA FIXA: O CONTEÚDO NATIVO DO DATE DEIXAVA O CAMPO COM 45PX (CHROME) / 47PX (WEBKIT) */
+  height: 44px;
+  min-width: 0;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.comanda-campo input[type="date"]::-webkit-date-and-time-value {
+  margin: 0;
+  text-align: left;
+}
+
+/* "ESCOLHA A DATA" ENQUANTO VAZIO E SEM FOCO (O SAFARI NÃO TEM PLACEHOLDER EM DATE). O JS APLICA
+   .COMANDA-DATA-PREENCHIDA; NO FOCO VOLTA O TEXTO NATIVO (DD/MM/AAAA NO DESKTOP, PARA DIGITAR) */
+.comanda-data { position: relative; }
+
+.comanda-data-vazia {
+  position: absolute;
+  inset: 0 auto 0 0;
+  display: flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 16px;
+  color: rgba(26,21,19,0.5);
+  pointer-events: none;
+}
+
+.comanda-data:not(.comanda-data-preenchida) input:not(:focus) { color: transparent; }
+
+.comanda-data-preenchida .comanda-data-vazia,
+.comanda-data:focus-within .comanda-data-vazia { display: none; }
 
 /* FOCO PADRONIZADO EM TODOS OS CAMPOS: LINHA INFERIOR DE 2PX EM ACENTO EM QUALQUER FOCO (BOX-SHADOW,
    SEM MUDAR A ALTURA) + CONTORNO SÓ NA NAVEGAÇÃO POR TECLADO (HTML.USANDO-TECLADO, VER UTILS/TECLADO.JS).
@@ -137,6 +184,13 @@ html.usando-teclado .comanda-campo select:focus-visible {
 /* === RESPONSIVIDADE === */
 @media (min-width: 600px) {
   .comanda { padding: 40px; }
+
+  .comanda-campos {
+    grid-template-areas:
+      "tipo tipo"
+      "data convidados"
+      "cidade cidade";
+  }
 }
 
 /* 2 COLUNAS SÓ A PARTIR DE 1200PX: ANTES DISSO O H2 FICARIA COM ~260PX E QUEBRARIA EM 4 LINHAS */

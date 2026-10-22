@@ -15,7 +15,11 @@ function iniciarComanda(comanda) {
 
   /* DATA: SÓ A PARTIR DE HOJE */
   const data = comanda.querySelector('input[type="date"]');
-  if (data) data.min = hojeIso();
+  if (data) {
+    data.min = hojeIso();
+    marcarPreenchida(data);
+    ['input', 'change'].forEach((evento) => data.addEventListener(evento, () => marcarPreenchida(data)));
+  }
 
   /* GUARDA O TEXTO NORMAL DE CADA DICA PARA VOLTAR A ELE */
   campos.forEach((campo) => {
@@ -77,6 +81,11 @@ function marcar(campo, ok) {
 function ajudaDe(campo) {
   const id = campo.getAttribute('aria-describedby');
   return id ? document.getElementById(id) : null;
+}
+
+/* "ESCOLHA A DATA" SOME QUANDO HÁ VALOR (OU DATA DIGITADA PELA METADE, QUE NÃO TEM VALUE AINDA) */
+function marcarPreenchida(data) {
+  data.parentElement.classList.toggle('comanda-data-preenchida', data.value !== '' || data.validity.badInput);
 }
 
 /* HOJE NO FUSO LOCAL (AAAA-MM-DD), SEM O DESVIO DE UTC DO TOISOSTRING */

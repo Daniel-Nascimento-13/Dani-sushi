@@ -163,6 +163,18 @@ GSAP + ScrollTrigger; duração 1.2–1.4s; ease `power3.out`. **Tudo desligado 
   - O JS adiciona o `* ` antes de cada item; o WhatsApp renderiza `* ` no início da linha como lista com marcadores.
   - Linhas sem espaço no fim e nunca duas linhas em branco seguidas.
   - A data é montada com `new Date(ano, mes - 1, dia)` (fuso local) + `Intl.DateTimeFormat('pt-BR', { weekday: 'long' })` em minúsculas + dd/mm/aaaa.
+- **Ordem dos campos** (a do HTML e da mensagem não muda; o layout usa `grid-template-areas` com `.comanda-campo-tipo/-data/-convidados/-cidade`):
+  - **Até 599px:** Tipo / Data / Convidados + Cidade. A data ocupa a linha inteira porque, em meia coluna, quebrava no iPhone.
+  - **A partir de 600px:** Tipo / Data + Convidados / Cidade, o layout de antes. Conferido em 1200 e 1440px, sem quebra.
+  - `align-items: start`: a dica de Convidados, que tem 2 linhas em meia coluna, não empurra a Cidade, e os inputs ficam alinhados.
+- **Date no Safari/iOS:**
+  - O `input[type="date"]` tem `-webkit-appearance: none`, `display: block`, `height: 44px` (o conteúdo nativo deixava o campo com 45px no Chrome e 47px no WebKit), `min-width: 0`, `text-align: left` e `nowrap`.
+  - `::-webkit-date-and-time-value` com `margin: 0` e `text-align: left`: sem centralizar e sem a margem do iOS.
+  - O calendário nativo continua abrindo no toque.
+- **"Escolha a data":** o Safari não mostra placeholder em date. O input fica dentro de `.comanda-data`, com um `<span class="comanda-data-vazia" aria-hidden="true">` no HTML (`pointer-events: none`, então o toque chega ao input).
+  - O span aparece com o campo vazio e sem foco; nesse estado a cor do input fica `transparent`, para não sobrepor o "dd/mm/aaaa" do desktop.
+  - No foco, o texto nativo volta (dá para digitar no desktop).
+  - O JS (`marcarPreenchida`, no carregamento e em `input`/`change`) aplica `.comanda-data-preenchida` quando há `value` ou `validity.badInput` (data digitada pela metade).
 - **Validação própria:** o form tem `novalidate`, sem balão do navegador e sem `reportValidity`/`setCustomValidity`.
   - **Convidados:** inteiro ≥ `min` (10). Vazio, não numérico, decimal ou < 10 bloqueia o envio.
   - **Data:** ≥ hoje; o `min` é definido via JS no carregamento, no fuso local (AAAA-MM-DD).
