@@ -1,65 +1,166 @@
 /* === RESET === */
-* { margin: 0; padding: 0; box-sizing: border-box; }
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-html { -webkit-text-size-adjust: 100%; }
+html {
+  -webkit-text-size-adjust: 100%;
+  background: var(--color-fundo);
+}
 
 body {
-  font-family: Arial, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
-  background: linear-gradient(0deg, #7a0000 0%, var(--color-escura) 30%, var(--color-fundo) 60%, var(--color-preto) 100%);
-  color: var(--color-branco);
-  line-height: 1.45;
+  font-family: var(--font-texto);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--color-texto-2);
+  background: var(--color-fundo);
   -webkit-font-smoothing: antialiased;
 }
 
+img, svg, video { display: block; max-width: 100%; height: auto; }
+a { color: inherit; text-decoration: none; }
+ul, ol { list-style: none; }
+button, input, select { font: inherit; color: inherit; }
+button { background: none; border: 0; cursor: pointer; }
+
+/* === FOCO VISÍVEL === */
+:focus-visible {
+  outline: 2px solid var(--color-acento-claro);
+  outline-offset: 4px;
+}
+
+/* === ACESSIBILIDADE — VISUALMENTE OCULTO === */
+.visualmente-oculto {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* === LAYOUT === */
+.container {
+  --respiro: 20px;
+  width: 100%;
+  max-width: calc(1344px + var(--respiro) * 2);
+  margin-inline: auto;
+  padding-inline: var(--respiro);
+}
+
+.secao { padding-block: 96px; }
+
 /* === TIPOGRAFIA === */
-h1, h2, h3 { color: var(--color-branco); }
-p { color: var(--color-branco); }
-
-h2 {
-  font-size: 1.6rem;
-  font-weight: 700;
-  text-align: center;
-  margin-bottom: 25px;
-  text-shadow:
-    0 0 8px rgba(255,255,255,0.35),
-    0 0 16px rgba(255,80,80,0.35);
+h1, h2, h3 {
+  font-family: var(--font-titulo);
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: 1.15;
+  color: var(--color-texto);
 }
 
-a { color: inherit; }
+h1 { font-size: clamp(36px, 6vw, 80px); letter-spacing: 0.1em; }
+h2 { font-size: clamp(30px, 4.2vw, 60px); letter-spacing: 0.1em; }
+h3 { font-size: 20px; font-weight: 500; letter-spacing: 0.14em; }
 
-/* === BOTÃO CTA (WHATSAPP) === */
-.cta {
-  display: inline-block;
-  background: var(--color-whatsapp);
-  color: var(--color-whatsapp-texto);
-  padding: 12px 22px;
-  border-radius: 10px;
-  font-weight: 700;
-  text-decoration: none;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-  border: none;
-  box-shadow: 0 0 0 rgba(37,211,102,0);
+.rotulo + h1,
+.rotulo + h2 { margin-top: 20px; }
+
+.texto-intro { font-size: 17px; }
+
+.destaque { color: var(--color-acento-claro); }
+.apagado  { color: var(--color-texto-3); }
+
+/* RÓTULO: KANJI + NOME + TRADUÇÃO */
+.rotulo {
+  font-family: var(--font-titulo);
+  font-size: 13px;
+  line-height: 1.4;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  color: var(--color-texto-3);
 }
 
-.cta:hover {
-  transform: scale(1.07);
-  box-shadow:
-    0 0 20px rgba(37,211,102,0.75),
-    0 0 30px rgba(37,211,102,0.45);
+.rotulo-kanji { color: var(--color-acento-claro); }
+
+.rotulo em {
+  font-style: italic;
+  text-transform: none;
+  letter-spacing: 1px;
 }
 
-.cta:active {
-  transform: scale(0.96);
-  box-shadow: 0 0 14px rgba(37,211,102,0.55);
+/* METADADOS EM MONO */
+.metadado {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--color-texto-3);
 }
 
-/* FOCO VISÍVEL — NAVEGAÇÃO POR TECLADO */
-.cta:focus-visible {
-  outline: 2px solid var(--color-branco);
-  outline-offset: 3px;
+/* === BOTÕES === */
+.botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 52px;
+  padding-inline: 28px;
+  border-radius: 999px;
+  font-family: var(--font-texto);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease;
+}
+
+.botao-primario {
+  background: var(--color-acento);
+  color: #ffffff;
+}
+
+.botao-primario:hover { background: color-mix(in srgb, var(--color-acento) 82%, #000000); }
+
+.botao-secundario {
+  border: 1px solid rgba(242,238,234,0.28);
+  color: var(--color-texto);
+}
+
+.botao-secundario:hover { border-color: var(--color-texto); }
+
+/* === TOPO DE SEÇÃO (RÓTULO + H2 + TEXTO AO LADO) === */
+.secao-topo {
+  display: grid;
+  gap: 24px;
+  margin-bottom: 56px;
+}
+
+.secao-topo-texto { max-width: 460px; }
+
+/* === RESPONSIVIDADE === */
+@media (min-width: 600px) {
+  .container { --respiro: 32px; }
+}
+
+@media (min-width: 900px) {
+  body        { font-size: 17px; }
+  .container  { --respiro: 48px; }
+  .secao      { padding-block: 140px; }
+  h3          { font-size: 24px; letter-spacing: 0.12em; }
+  .texto-intro { font-size: 19px; }
+
+  .secao-topo {
+    grid-template-columns: 1fr 1fr;
+    align-items: end;
+    gap: 48px;
+    margin-bottom: 80px;
+  }
+
+  .secao-topo-texto { justify-self: end; }
+}
+
+@media (min-width: 1200px) {
+  h3 { font-size: 26px; }
 }
 
 /* === MOVIMENTO REDUZIDO === */
 @media (prefers-reduced-motion: reduce) {
-  .cta { transition: none; }
+  .botao { transition: none; }
 }

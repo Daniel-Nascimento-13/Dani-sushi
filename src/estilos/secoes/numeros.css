@@ -1,0 +1,44 @@
+/* === NÚMEROS === */
+.numeros-lista { display: grid; }
+
+.numeros-item {
+  padding-block: 40px;
+  border-top: 1px solid var(--color-linha);
+}
+
+.numeros-item:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.numeros-valor {
+  margin-block: 16px 12px;
+  font-family: var(--font-titulo);
+  font-size: 72px;
+  line-height: 1;
+  color: var(--color-texto);
+}
+
+.numeros-legenda { max-width: 300px; }
+
+/* === RESPONSIVIDADE === */
+@media (min-width: 900px) {
+  .numeros-lista { grid-template-columns: repeat(3, 1fr); }
+
+  .numeros-item,
+  .numeros-item:first-child {
+    padding: 8px 40px;
+    border-top: 0;
+    border-left: 1px solid var(--color-linha);
+  }
+
+  .numeros-item:first-child {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .numeros-valor {
+    margin-block: 24px 16px;
+    font-size: 104px;
+  }
+}

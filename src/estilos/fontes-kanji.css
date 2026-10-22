@@ -1,0 +1,72 @@
+/* === KANJI DO SHIPPORI MINCHO (GERADO POR FERRAMENTAS/KANJI.JS — NÃO EDITAR) === */
+@font-face {
+  font-family: "Shippori Mincho";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/src/assets/fontes/shippori-kanji-119.woff2") format("woff2");
+  unicode-range: U+304A,U+3057,U+3066,U+306A,U+3082;
+}
+
+@font-face {
+  font-family: "Shippori Mincho";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/src/assets/fontes/shippori-kanji-117.woff2") format("woff2");
+  unicode-range: U+4E00,U+9593;
+}
+
+@font-face {
+  font-family: "Shippori Mincho";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/src/assets/fontes/shippori-kanji-113.woff2") format("woff2");
+  unicode-range: U+4E09;
+}
+
+@font-face {
+  font-family: "Shippori Mincho";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/src/assets/fontes/shippori-kanji-111.woff2") format("woff2");
+  unicode-range: U+4E8C,U+5F62,U+63D0,U+6848;
+}
+
+@font-face {
+  font-family: "Shippori Mincho";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/src/assets/fontes/shippori-kanji-108.woff2") format("woff2");
+  unicode-range: U+58F0;
+}
+
+@font-face {
+  font-family: "Shippori Mincho";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/src/assets/fontes/shippori-kanji-116.woff2") format("woff2");
+  unicode-range: U+6587;
+}
+
+@font-face {
+  font-family: "Shippori Mincho";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/src/assets/fontes/shippori-kanji-114.woff2") format("woff2");
+  unicode-range: U+6CE8;
+}
+
+@font-face {
+  font-family: "Shippori Mincho";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/src/assets/fontes/shippori-kanji-94.woff2") format("woff2");
+  unicode-range: U+77AC;
+}

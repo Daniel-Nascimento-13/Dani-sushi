@@ -1,0 +1,121 @@
+/* === CABEÇALHO === */
+.cabecalho {
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 50;
+}
+
+.cabecalho-conteudo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  height: 76px;
+}
+
+.cabecalho-logo { margin-right: auto; }
+.cabecalho-logo img { width: auto; height: 42px; }
+
+.cabecalho-nav { display: none; }
+
+.cabecalho-nav ul {
+  display: flex;
+  gap: 36px;
+}
+
+.cabecalho-nav a {
+  font-size: 15px;
+  color: var(--color-texto);
+  transition: color 0.4s ease;
+}
+
+.cabecalho-nav a:hover { color: var(--color-acento-claro); }
+
+.cabecalho-botao {
+  display: none;
+  height: 44px;
+  padding-inline: 22px;
+}
+
+/* FIXO DEPOIS DO HERO */
+.cabecalho-fixo {
+  position: fixed;
+  background: rgba(11,9,8,0.82);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-linha);
+}
+
+/* === BOTÃO HAMBÚRGUER === */
+.cabecalho-menu {
+  display: grid;
+  place-content: center;
+  gap: 7px;
+  width: 44px;
+  height: 44px;
+  margin-right: -10px;
+}
+
+.cabecalho-menu span {
+  display: block;
+  width: 22px;
+  height: 1px;
+  background: var(--color-texto);
+  transition: transform 0.4s ease;
+}
+
+.cabecalho-menu[aria-expanded="true"] span:first-child { transform: translateY(4px) rotate(45deg); }
+.cabecalho-menu[aria-expanded="true"] span:last-child  { transform: translateY(-4px) rotate(-45deg); }
+
+/* === MENU MOBILE EM TELA CHEIA === */
+.menu-mobile {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 40px;
+  padding: 136px 20px 40px;
+  background: var(--color-fundo);
+  overflow-y: auto;
+}
+
+.menu-mobile[hidden] { display: none; }
+
+.menu-mobile ul {
+  display: grid;
+  gap: 8px;
+}
+
+.menu-mobile ul a {
+  display: block;
+  padding-block: 12px;
+  border-bottom: 1px solid var(--color-linha);
+  font-family: var(--font-titulo);
+  font-size: 32px;
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-texto);
+}
+
+html.menu-aberto { overflow: hidden; }
+
+/* === RESPONSIVIDADE === */
+@media (min-width: 600px) {
+  .cabecalho-botao { display: inline-flex; }
+  .menu-mobile     { padding-inline: 32px; }
+}
+
+@media (min-width: 900px) {
+  .cabecalho-conteudo { height: 96px; gap: 40px; }
+  .cabecalho-logo img { height: 52px; }
+  .cabecalho-nav      { display: block; }
+  .cabecalho-menu     { display: none; }
+}
+
+/* === MOVIMENTO REDUZIDO === */
+@media (prefers-reduced-motion: reduce) {
+  .cabecalho-nav a,
+  .cabecalho-menu span { transition: none; }
+}
