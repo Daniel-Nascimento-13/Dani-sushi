@@ -42,14 +42,25 @@
   position: relative;
   z-index: 1;
   padding-bottom: 56px;
+  container-type: inline-size;
 }
 
-.hero-titulo { margin-bottom: 24px; }
+/* H1 SEMPRE EM 2 LINHAS: O TAMANHO SEGUE A LARGURA DA COLUNA.
+   DIVISOR = LARGURA DE "PARA QUEM TEM FOME" EM EM (MEDIDA NO SHIPPORI) + ~2% DE FOLGA:
+   0.04EM → 13.445EM → 13.7 · 0.1EM → 14.525EM → 14.8 */
+.hero-titulo {
+  margin-bottom: 20px;
+  font-size: calc(100cqi / 13.7);
+  line-height: 1.25;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
 
 /* MÁSCARA DAS LINHAS DO H1 (CRIADA PELO JS) */
 .hero-linha {
   display: block;
   overflow: hidden;
+  white-space: nowrap;
   padding-block: 0.1em;
   margin-block: -0.1em;
 }
@@ -87,6 +98,12 @@
 .hero-legenda { display: none; }
 
 /* === RESPONSIVIDADE === */
+@media (min-width: 600px) {
+  .hero-titulo {
+    font-size: min(64px, 100cqi / 14.8);
+    letter-spacing: 0.1em;
+  }
+}
 
 /* DESKTOP: TEXTO À ESQUERDA, VÍDEO EM QUADRO VERTICAL À DIREITA */
 @media (min-width: 900px) {
@@ -129,7 +146,7 @@
 
   .hero-midia::after { content: none; }
 
-  .hero-titulo { margin-bottom: 32px; }
+  .hero-titulo { margin-bottom: 28px; }
 
   .hero-local {
     align-items: center;
@@ -156,4 +173,9 @@
   }
 
   .hero-legenda-kanji { color: var(--color-acento-claro); }
+}
+
+/* === SEM CONTAINER QUERY (FALLBACK) === */
+@supports not (font-size: 1cqi) {
+  .hero-titulo { font-size: clamp(20px, 5.6vw, 56px); }
 }

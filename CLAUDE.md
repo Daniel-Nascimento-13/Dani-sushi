@@ -47,7 +47,7 @@ src/
 | Hero | `.hero` | `hero.js` (main.js) | mobile: fundo; desktop: superfície (ver "Hero com vídeo") |
 | Números | `.numeros` | `numeros.js` | fundo |
 | Manifesto | `.manifesto` | `manifesto.js` | superfície |
-| Pilares | `.pilares` | `pilares.js` | fundo |
+| Pilares | `.pilares` | `pilares.js` | fundo (3 colunas só a partir de 1200px: "PERSONALIZAÇÃO" não quebra e não cabe em 1/3 antes disso) |
 | Formatos | `.formatos` | `formatos.js` | fundo |
 | Momentos | `.momentos` / `#momentos` | `momentos.js` | superfície |
 | Depoimentos | `.depoimentos` / `#depoimentos` | `depoimentos.js` | fundo |
@@ -83,19 +83,26 @@ Use `var(--color-...)` no CSS ou os utilitários do Tailwind (`bg-fundo`, `text-
 ## Padrões tipográficos e componentes (base.css)
 - `.rotulo`: Shippori 13px, uppercase, letter-spacing 4px, texto-3.
   `<p class="rotulo"><span class="rotulo-kanji" lang="ja">形</span> Katachi · <em>Formatos</em></p>` (o kanji em acento-claro; o `<em>` em itálico, sem uppercase)
-- h1/h2: Shippori 400, UPPERCASE, letter-spacing 0.1em, line-height 1.15. h1 `clamp(36px, 6vw, 80px)`, h2 `clamp(30px, 4.2vw, 60px)`, h3 20 → 24 → 26px (letter-spacing 0.12–0.14em).
+- h1/h2: Shippori 400, UPPERCASE, letter-spacing 0.1em, line-height 1.15. h1 base `clamp(36px, 6vw, 80px)` (o h1 do hero tem regra própria, ver "Hero com vídeo"), h2 `clamp(24px, 4.2vw, 52px)`, h3 20 → 24 → 26px (letter-spacing 0.12–0.14em).
 - Texto corrido: Inter Tight 16/17px (`.texto-intro`: 17/19px), line-height 1.6, texto-2.
 - `.botao.botao-primario` (acento, pill, 52px) · `.botao.botao-secundario` (borda 1px rgba(242,238,234,.28)).
 - `.metadado` (mono 12px) · `.destaque` (acento-claro) · `.apagado` (texto-3) · `.visualmente-oculto`.
 - `.secao-topo`: rótulo + h2 à esquerda e texto ou link à direita (≥900px).
-- Layout: `.container` (conteúdo com máx. 1344px; respiro de 20 → 32 → 48px exposto em `--respiro`) e `.secao` (96px → 140px a partir de 900px).
+- Layout: `.envoltorio` (conteúdo com máx. 1344px; respiro de 20 → 32 → 48px exposto em `--respiro`). **Nunca use a classe `container`:** o Tailwind v4 gera um utilitário `container` com `max-width` por breakpoint (768/1024/1280...) na layer utilities, que vence a nossa base. Evite também outros nomes de utilitário do Tailwind como classe (`hidden`, `static`, `flex`...) e `.secao` (96px → 140px a partir de 900px).
 - Mobile-first: `min-width` 600 / 900 / 1200, com as media queries no fim de cada arquivo, da menor para a maior.
 
 ## Hero com vídeo
 **O texto NUNCA fica sobre o vídeo, em nenhuma largura.**
-- Estrutura: `.hero > .container.hero-grade > .hero-conteudo` (texto) + `.hero-quadro > .hero-midia > video.hero-video` + `.hero-legenda`.
+- Estrutura: `.hero > .envoltorio.hero-grade > .hero-conteudo` (texto) + `.hero-quadro > .hero-midia > video.hero-video` + `.hero-legenda`.
 - **Mobile (até 899px):** `.hero-midia` fica absoluta no topo do `.hero` (100% de largura, altura `min(100vw * 1.3, 520px)`, `object-position: center 40%`). A base some por `mask-image` no próprio `.hero-midia` (preto até 55%, transparente em 96%, `mask-repeat: no-repeat`, `overflow: hidden`). A máscara fica parada e quem se move no scroll é o `<video>`, então nunca vaza uma linha na transição. O `::after` cuida só do topo escuro (leitura do cabeçalho) e de uma transição suave no meio. O `.hero` tem `padding-top: min(100vw * 1.05, 420px)`, então o texto começa abaixo do vídeo, sobre fundo sólido. A legenda fica escondida.
 - **Desktop (900px+):** duas colunas alinhadas embaixo. O texto fica à esquerda (flex 1) e o quadro vertical à direita, em fluxo normal: largura `min(clamp(300px, 28vw, 400px), (100svh - 290px) * 9 / 16)` (o limite pela altura faz quadro e legenda caberem na tela), `aspect-ratio: 9/16` e raio de 4px. Fundo `--color-superficie`, sem degradê. A legenda embaixo mostra "本物 Evento real" à esquerda e "Role ↓" à direita.
+- **h1 sempre em 2 linhas fixas:** "PARA QUEM TEM FOME" / "DE EXPERIÊNCIA." em qualquer largura. A `.hero-conteudo` tem `container-type: inline-size`, e o tamanho segue a coluna, tomando a linha 1 como referência. O divisor é a largura de "PARA QUEM TEM FOME" em em, medida no Shippori, com ~2% de folga:
+  - até 599px: letter-spacing 0.04em → 13,445em → `font-size: calc(100cqi / 13.7)`;
+  - a partir de 600px: letter-spacing 0.1em → 14,525em → `font-size: min(64px, 100cqi / 14.8)`;
+  - `white-space: nowrap` no `.hero-titulo` e em cada `.hero-linha` (máscara criada pelo JS a partir do `<br>`);
+  - line-height 1.25 e margin-bottom de 20px no mobile / 28px no desktop;
+  - fallback sem cqi: `clamp(20px, 5.6vw, 56px)`.
+  Se mudar a copy, a fonte ou o letter-spacing do h1, **meça de novo a linha mais longa** e recalcule o divisor.
 - **Carregamento:** o `<video>` tem `muted loop playsinline preload="none"` e poster com preload no `<head>`, mas NÃO tem `autoplay` (o download só começa no `play()`). O `hero.js` chama `play().catch(() => {})` quando o hero entra na tela e `pause()` quando sai (IntersectionObserver). Com `prefers-reduced-motion` ou `navigator.connection.saveData`, o vídeo nunca é iniciado e fica no poster.
 
 ## Animações
