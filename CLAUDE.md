@@ -43,7 +43,7 @@ src/
 ## Seções da home (ordem)
 | Seção | Classe / id | JS | Fundo |
 |---|---|---|---|
-| Cabeçalho + menu mobile | `.cabecalho`, `#menu-mobile` | `cabecalho.js` (main.js) | transparente → fixo com blur depois do hero |
+| Cabeçalho + menu mobile | `.cabecalho`, `#menu-mobile` | `cabecalho.js` (main.js) | sempre com fundo sutil: rgba(11,9,8,.45) + `blur(14px) saturate(140%)` + hairline; fixo depois do hero, com .75 (transição de 0.6s); sem backdrop-filter, .85 |
 | Hero | `.hero` | `hero.js` (main.js) | mobile: fundo; desktop: superfície (ver "Hero com vídeo") |
 | Números | `.numeros` | `numeros.js` | fundo |
 | Manifesto | `.manifesto` | `manifesto.js` | superfície |
@@ -94,14 +94,14 @@ Use `var(--color-...)` no CSS ou os utilitários do Tailwind (`bg-fundo`, `text-
 ## Hero com vídeo
 **O texto NUNCA fica sobre o vídeo, em nenhuma largura.**
 - Estrutura: `.hero > .container.hero-grade > .hero-conteudo` (texto) + `.hero-quadro > .hero-midia > video.hero-video` + `.hero-legenda`.
-- **Mobile (até 899px):** `.hero-midia` fica absoluta no topo do `.hero` (100% de largura, altura `min(100vw * 1.3, 520px)`, `object-position: center 40%`). O `::after` aplica o degradê: topo escuro para o cabeçalho, transparente no meio e base fundindo 100% com `--color-fundo`. O `.hero` tem `padding-top: min(100vw * 1.05, 420px)`, então o texto começa abaixo do vídeo, sobre fundo sólido. A legenda fica escondida.
+- **Mobile (até 899px):** `.hero-midia` fica absoluta no topo do `.hero` (100% de largura, altura `min(100vw * 1.3, 520px)`, `object-position: center 40%`). A base some por `mask-image` no próprio `.hero-midia` (preto até 55%, transparente em 96%, `mask-repeat: no-repeat`, `overflow: hidden`). A máscara fica parada e quem se move no scroll é o `<video>`, então nunca vaza uma linha na transição. O `::after` cuida só do topo escuro (leitura do cabeçalho) e de uma transição suave no meio. O `.hero` tem `padding-top: min(100vw * 1.05, 420px)`, então o texto começa abaixo do vídeo, sobre fundo sólido. A legenda fica escondida.
 - **Desktop (900px+):** duas colunas alinhadas embaixo. O texto fica à esquerda (flex 1) e o quadro vertical à direita, em fluxo normal: largura `min(clamp(300px, 28vw, 400px), (100svh - 290px) * 9 / 16)` (o limite pela altura faz quadro e legenda caberem na tela), `aspect-ratio: 9/16` e raio de 4px. Fundo `--color-superficie`, sem degradê. A legenda embaixo mostra "本物 Evento real" à esquerda e "Role ↓" à direita.
 - **Carregamento:** o `<video>` tem `muted loop playsinline preload="none"` e poster com preload no `<head>`, mas NÃO tem `autoplay` (o download só começa no `play()`). O `hero.js` chama `play().catch(() => {})` quando o hero entra na tela e `pause()` quando sai (IntersectionObserver). Com `prefers-reduced-motion` ou `navigator.connection.saveData`, o vídeo nunca é iniciado e fica no poster.
 
 ## Animações
 GSAP + ScrollTrigger; duração 1.2–1.4s; ease `power3.out`. **Tudo desligado com `reduzirMovimento`.** Funcionalidades (menu, comanda, ano) continuam rodando.
 - Hero, texto: rótulo, h1 (linha a linha, com máscara criada pelo JS a partir dos `<br>`), `.hero-texto`, `.hero-local` e botões em stagger de 0.12s.
-- Hero, vídeo (com `gsap.matchMedia`): no mobile, opacidade 0 → 1 em 1.4s e, no scroll, `yPercent` 0 → 15 e scale 1 → 1.06 (scrub). No desktop, o quadro abre com `clip-path: inset(100% 0 0 0)` → `inset(0)` em 1.4s, junto com o texto, e no scroll sobe com y 0 → -60 (scrub).
+- Hero, vídeo (com `gsap.matchMedia`): no mobile, opacidade 0 → 1 em 1.4s na `.hero-midia` e, no scroll, o `<video>` (não o container mascarado) vai de `yPercent` 0 → 8 e scale 1 → 1.06 (scrub). No desktop, o quadro abre com `clip-path: inset(100% 0 0 0)` → `inset(0)` em 1.4s, junto com o texto, e no scroll sobe com y 0 → -60 (scrub).
 - Números: contagem até o valor escrito no HTML (`data-contar-de` define o início, padrão 0).
 - Rótulos, h2 e textos de topo: `revelar()` (y 30 → 0 + opacidade).
 - Pilares e linhas de Formatos: `revelarEmSequencia()`.
