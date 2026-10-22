@@ -28,8 +28,8 @@
   text-wrap: balance;
 }
 
-/* NAV COM 4 ITENS: 1 LINHA QUANDO CABE (~375PX), SENÃO 2 + 2; NUNCA 3 + 1.
-   ABAIXO DE 380PX DE COLUNA A LISTA TEM NO MÁX. 240PX: CABEM 2 ITENS (PAR MAIS LARGO 183PX), NUNCA 3 (MÍN. 283PX) */
+/* NAV COM 4 ITENS EM 1 LINHA QUANDO CABE: 64.8 + 80.3 + 67.4 + 60.1 + 3 × 18 = 326.7PX A 14PX (+2% = 334PX).
+   ABAIXO DISSO, GRID 2 × 2 DE COLUNAS IGUAIS (MOMENTOS SOBRE ORÇAMENTO, DEPOIMENTOS SOBRE INSTAGRAM) */
 .rodape-nav {
   width: 100%;
   margin-top: 40px;
@@ -37,25 +37,29 @@
 }
 
 .rodape-nav ul {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px 28px;
-  max-width: 240px;
-  margin-inline: auto;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  justify-items: center;
 }
 
-@container (min-width: 380px) {
-  .rodape-nav ul { max-width: none; }
+@container (min-width: 334px) {
+  .rodape-nav ul {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+  }
 }
 
+/* ÁREA DE TOQUE DE 44PX MESMO COM A FONTE DE 14PX */
 .rodape-nav a {
-  font-size: 15px;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: 14px;
+  white-space: nowrap;
   color: var(--color-texto);
   transition: color 0.4s ease;
 }
-
-.rodape-nav a:hover { color: var(--color-acento-claro); }
 
 /* COPYRIGHT: HAIRLINE ACIMA, MONO 11PX */
 .rodape-copia {
@@ -71,10 +75,21 @@
 }
 
 /* === RESPONSIVIDADE === */
+/* A PARTIR DE 600PX: COMO ANTES (15PX, GAP DE 28PX) */
+@media (min-width: 600px) {
+  .rodape-nav ul { gap: 28px; }
+  .rodape-nav a  { font-size: 15px; }
+}
+
 @media (min-width: 900px) {
   .rodape { padding-block: 96px 48px; }
 
   .rodape-copia { margin-top: 64px; }
+}
+
+/* === HOVER (SÓ MOUSE: NO TOQUE O :HOVER GRUDA DEPOIS DO TAP) === */
+@media (hover: hover) and (pointer: fine) {
+  .rodape-nav a:hover { color: var(--color-acento-claro); }
 }
 
 /* === MOVIMENTO REDUZIDO === */

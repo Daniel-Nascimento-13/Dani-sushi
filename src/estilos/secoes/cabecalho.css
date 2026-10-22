@@ -44,8 +44,6 @@ html { scroll-padding-top: var(--altura-cabecalho); }
   transition: color 0.4s ease;
 }
 
-.cabecalho-nav a:hover { color: var(--color-acento-claro); }
-
 .cabecalho-botao {
   display: none;
   height: 44px;
@@ -156,11 +154,9 @@ html { scroll-padding-top: var(--altura-cabecalho); }
 
 .menu-texto { transition: transform 0.5s ease; }
 
-.menu-mobile ul a:hover .menu-selo,
 .menu-mobile ul a:focus-visible .menu-selo,
 .menu-mobile ul a:active .menu-selo { opacity: 1; }
 
-.menu-mobile ul a:hover .menu-texto,
 .menu-mobile ul a:focus-visible .menu-texto,
 .menu-mobile ul a:active .menu-texto { transform: translateX(4px); }
 
@@ -179,6 +175,14 @@ html.menu-aberto { overflow: hidden; }
   .cabecalho-logo img { height: 52px; }
   .cabecalho-nav      { display: block; }
   .cabecalho-menu     { display: none; }
+}
+
+/* === HOVER (SÓ MOUSE: NO TOQUE O :HOVER GRUDA DEPOIS DO TAP) === */
+@media (hover: hover) and (pointer: fine) {
+  .cabecalho-nav a:hover { color: var(--color-acento-claro); }
+
+  .menu-mobile ul a:hover .menu-selo  { opacity: 1; }
+  .menu-mobile ul a:hover .menu-texto { transform: translateX(4px); }
 }
 
 /* === MOVIMENTO REDUZIDO === */

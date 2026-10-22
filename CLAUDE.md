@@ -49,11 +49,11 @@ src/
 | Números | `.numeros` | `numeros.js` | `.fundo-superficie`. Conteúdo: 2020 O começo ("Mais de cinco anos servindo experiências."; conta a partir de 2000 via `data-contar-de`) / +50 Eventos ("Jantares, celebrações e eventos corporativos.") / +10 Cidades atendidas ("No Vale do Taquari, Serra e Porto Alegre."); nos dois últimos o "+" é fixo e a contagem vai de 0 ao número. **Mobile (até 899px):** 3 colunas lado a lado com hairline vertical; número em cima (`order: -1`), com `min(44px, 100cqi / 2.14)` (o mais largo é "2020", com 2,062em, mais 4% de folga; "+50" = 1,627em e "+10" = 1,612em; se mudar um número, meça de novo; `container-type` no item), e rótulo embaixo (10px, 0.18em, margin-top de 10px); legenda escondida; padding de 56px. **Desktop:** rótulo, número de 104px e legenda, padding da `.secao` (`revert-layer`) |
 | Manifesto | `.manifesto` | `manifesto.js` | `.fundo-base` |
 | Pilares | `.pilares` | `pilares.js` | `.fundo-superficie` (3 colunas só a partir de 1200px: "PERSONALIZAÇÃO" não quebra e não cabe em 1/3 antes disso) |
-| Formatos | `.formatos` | `formatos.js` | `.fundo-base` |
+| Formatos | `.formatos` | `formatos.js` | `.fundo-base`. Cada linha é um link inteiro para `#orcamento`. **Sem seta.** Número (mono 12px) em `--color-acento-claro`; grid de `32px 1fr` no mobile (descrição embaixo, na coluna 2) e de `80px 1fr 1.1fr` a partir de 900px. O título fica vermelho no hover (só com mouse) e no `:focus-visible`. No mobile, "Jantares residenciais" e "Eventos corporativos" quebram em 2 linhas até 360px e cabem em 1 a partir de 390px (quebra natural, sem nowrap) |
 | Momentos | `.momentos` / `#momentos` | `momentos.js` | `.fundo-superficie` |
 | Depoimentos | `.depoimentos` / `#depoimentos` | `depoimentos.js` | `.fundo-base` |
 | Orçamento (comanda) | `.orcamento` / `#orcamento` | `orcamento.js` | `.fundo-superficie` (2 colunas só a partir de 1200px; abaixo disso, comanda embaixo com máx. 560px) |
-| Rodapé | `.rodape` | `rodape.js` (ano atual em `[data-ano-atual]`) | `.fundo-base`. **Tudo centralizado**, um embaixo do outro, em todas as larguras: logo (72px) → 24px → frase "Você faz a vibe e o Dani Sushi!" (Shippori uppercase, 0.12em, `clamp(16px, 2.2vw, 22px)`, "Dani Sushi!" em `.destaque`; no mobile, `<br class="so-mobile">` quebra em "VOCÊ FAZ A VIBE / E O DANI SUSHI!") → 40px → nav centralizada com 4 itens (Momentos, Depoimentos, Orçamento, Instagram; o WhatsApp fica na comanda e nos botões): 1 linha quando a coluna tem 380px ou mais (container query; os 4 somam ~375px), senão `max-width: 240px` força **2 + 2**, nunca 3 + 1 → hairline → "© 2020–{ano} · Dani Sushi · Todos os direitos reservados." (mono 11px, texto-3; no mobile, 2 linhas sem o "·" pendurado, via `.so-desktop` e `<br class="so-mobile">`) |
+| Rodapé | `.rodape` | `rodape.js` (ano atual em `[data-ano-atual]`) | `.fundo-base`. **Tudo centralizado**, um embaixo do outro, em todas as larguras: logo (72px) → 24px → frase "Você faz a vibe e o Dani Sushi!" (Shippori uppercase, 0.12em, `clamp(16px, 2.2vw, 22px)`, "Dani Sushi!" em `.destaque`; no mobile, `<br class="so-mobile">` quebra em "VOCÊ FAZ A VIBE / E O DANI SUSHI!") → 40px → nav centralizada com 4 itens (Momentos, Depoimentos, Orçamento, Instagram; o WhatsApp fica na comanda e nos botões): cada link `inline-flex` com `min-height: 44px` (área de toque) e `nowrap`. **Até 599px:** 14px com gap de 18px; os 4 somam 326,7px (64,8 + 80,3 + 67,4 + 60,1 + 3 × 18), então ficam em **1 linha** com `@container (min-width: 334px)` (2% de folga), ou seja, a partir de 375px. Abaixo disso (320 e 360) viram um **grid 2 × 2 de colunas iguais** (`repeat(2, minmax(0, 1fr))`, `justify-items: center`): Momentos sobre Orçamento e Depoimentos sobre Instagram, alinhados. Nunca o 2 + 2 solto nem 3 + 1. **A partir de 600px:** 15px, gap de 28px, 1 linha. Se um link mudar, meça de novo → hairline → "© 2020–{ano} · Dani Sushi · Todos os direitos reservados." (mono 11px, texto-3; no mobile, 2 linhas sem o "·" pendurado, via `.so-desktop` e `<br class="so-mobile">`) |
 
 **Fundos alternados:**
 - **O hero é sempre preto.** A partir dele, as seções alternam `.fundo-base` (`--color-fundo`) e `.fundo-superficie` (`--color-superficie`) pela ordem real do HTML, até o rodapé. As classes ficam no HTML e são definidas em `base.css`; nenhum CSS de seção define `background` próprio.
@@ -88,13 +88,14 @@ Use `var(--color-...)` no CSS ou os utilitários do Tailwind (`bg-fundo`, `text-
 - Todas com `font-display: swap`. Só o Shippori 400 latin tem preload (no `<head>`, apontando para `/node_modules/...`; o Vite aplica o hash).
 
 ## Padrões tipográficos e componentes (base.css)
-- `.rotulo`: Shippori 13px, uppercase, letter-spacing 4px, texto-3.
+- `.rotulo`: Shippori, uppercase, texto-3. **A partir de 600px:** 13px, letter-spacing 4px (tradução em 1px). **Até 599px (todos os rótulos):** letter-spacing 0.14em (kanji 0.06em, tradução 0.08em) e `font-size: max(10px, min(13px, 100cqi / 27.7))`. O divisor vem do mais longo, o do hero ("おもてなし OMOTENASHI · A arte de servir bem" = 27,14em, mais 2% de folga). O `.envoltorio` tem `container-type: inline-size` só no mobile, como referência da coluna. `nowrap` só com `@container (min-width: 277px)` (10px × 27,7); em 320px a coluna tem 280, então cabe a 10px. Se um rótulo mais longo entrar, meça de novo. O `.numeros .rotulo` tem regra própria (10px, 0.18em).
   `<p class="rotulo"><span class="rotulo-kanji" lang="ja">形</span> Katachi · <em>Formatos</em></p>` (o kanji em acento-claro; o `<em>` em itálico, sem uppercase)
 - h1/h2: Shippori 400, UPPERCASE, letter-spacing 0.1em, line-height 1.15. h1 base `clamp(36px, 6vw, 80px)` (o h1 do hero tem regra própria, ver "Hero com vídeo"), h2 `clamp(20px, 3vw, 44px)`, h3 17 → 24 → 26px (letter-spacing 0.12–0.14em). Rótulo → h1: 20px; rótulo → h2: 14px no mobile / 18px no desktop.
 - **Hierarquia: o h1 do hero é sempre o maior título da página**, em qualquer largura: h1 ≥ h2 > h3. Ao mexer em tamanhos de título (ou na largura da coluna do hero), confira em 320–1920px.
 - **h2 com `<br>` forçado** ("Cada evento,<br>uma história." etc.) precisa ficar em exatamente 2 linhas. Se uma coluna ficar estreita demais, empilhe o layout em vez de deixar o h2 quebrar em mais linhas.
 - Texto corrido: Inter Tight 16/17px (`.texto-intro`: 17/19px), line-height 1.6, texto-2.
 - `.botao.botao-primario` (acento, pill, 52px) · `.botao.botao-secundario` (borda 1px rgba(242,238,234,.28)).
+- **Hover só no mouse:** todo `:hover` do site fica dentro de `@media (hover: hover) and (pointer: fine)`, num bloco `/* === HOVER (SÓ MOUSE...) === */` depois da responsividade de cada arquivo. No toque, o `:hover` gruda depois do tap e deixava o item vermelho. Feedback de toque só com `:active`, onde faz sentido: botões (`transition-duration: 0s` no `:active`, mesma cor do hover) e links do menu mobile. `:focus-visible` continua fora do bloco.
 - `.metadado` (mono 12px) · `.destaque` (acento-claro) · `.apagado` (texto-3) · `.visualmente-oculto` · `.so-mobile` (some a partir de 600px; ex.: `<br class="so-mobile">`) · `.so-desktop` (só a partir de 600px; ex.: um separador " ·").
 - `.secao-topo`: rótulo + h2 à esquerda e texto ou link à direita (≥900px); margem até o conteúdo de 56px (mobile) / 64px (desktop).
 - Layout: `.envoltorio` (conteúdo com máx. 1344px; respiro de 20 → 32 → 48px exposto em `--respiro`). **Nunca use a classe `container`:** o Tailwind v4 gera um utilitário `container` com `max-width` por breakpoint (768/1024/1280...) na layer utilities, que vence a nossa base. Evite também outros nomes de utilitário do Tailwind como classe (`hidden`, `static`, `flex`...) e `.secao` (96px → 140px a partir de 900px).
@@ -118,6 +119,8 @@ Use `var(--color-...)` no CSS ou os utilitários do Tailwind (`bg-fundo`, `text-
   - **`nowrap`:** só com `@container (min-width: 285px)` (15px × 18,98). Abaixo disso a frase pode quebrar; na prática, em 320px (coluna 280) ela coube a 15px.
   - **Versão completa (`@container (min-width: 700px)`):** mostra o span, sem max-width, ~680px a 19px.
   - Se a frase mudar, meça de novo as duas versões.
+- **Localização (`.hero-local`), mobile:** `font-size: max(12px, min(14px, (100cqi - 26px) / 24.4))`. O texto mede 23,93em, mais 2% de folga; os 26px são o pin (16px) + o gap (10px). `nowrap` + pin centralizado (`align-items: center`) com `@container (min-width: 319px)`, ou seja, 1 linha a partir de 360px; em 320 quebra a 12px. A partir de 600px volta a 14px (16px no desktop).
+- **Botões do hero, mobile:** flex com gap de 10px e `flex-wrap`; cada `.botao` com `flex: 1 1 auto`, `min-height: 48px`, padding 0 18px e 15px. Lado a lado a partir de 360px (169 + 10 + 138 = 317px numa coluna de 320; folga de só 3px, então se o texto de um botão crescer, eles empilham no 360). Em 320 o wrap empilha, cada um com 100%. A partir de 600px voltam ao padrão (52px, padding 28px, gap 12px, sem esticar).
 - **Ritmo do hero:** h1 → frase → localização → botões com espaços iguais, de 20px no mobile e 28px no desktop. A máscara das linhas do h1 usa `clip-path: inset()` negativo; não use padding/margin negativa, porque a margem vaza para fora do h1 e encurta o espaço até a frase.
 - **Carregamento:** o `<video>` tem `muted loop playsinline preload="none"` e poster com preload no `<head>`, mas NÃO tem `autoplay` (o download só começa no `play()`). O `hero.js` chama `play().catch(() => {})` quando o hero entra na tela e `pause()` quando sai (IntersectionObserver). Com `prefers-reduced-motion` ou `navigator.connection.saveData`, o vídeo nunca é iniciado e fica no poster.
 
@@ -139,14 +142,15 @@ GSAP + ScrollTrigger; duração 1.2–1.4s; ease `power3.out`. **Tudo desligado 
   - **Aberto (`aria-expanded="true"`):** o `clip-path` passa para um risco reto (mesmo número de pontos, para a forma se transformar), as larguras vão para 22px e os riscos formam o X: `translateY(±8px) rotate(±45deg)`, com o do meio em `opacity: 0` e `scaleX(0)`.
   - **Transição:** 0.5s `cubic-bezier(0.65, 0, 0.35, 1)`; sem transição com movimento reduzido.
   - O `translateY` é igual à distância entre os centros.
-- Menu mobile (`#menu-mobile`): cada link tem `<img class="menu-selo">` (selo do peixe, 24px de altura, `width="14" height="24"`, opacity .85, raio de 2px) + `<span class="menu-texto">`, em flex com gap de 14px. No hover, `:focus-visible` e `:active`, o selo vai a opacity 1 e o texto a `translateX(4px)` (0.5s). Ao abrir, os itens (selo e texto juntos) entram com y 20 → 0 e opacidade, 0.8s power3.out, stagger 0.08s (`animarItens` em `cabecalho.js`); sem animação com movimento reduzido.
+- Menu mobile (`#menu-mobile`): cada link tem `<img class="menu-selo">` (selo do peixe, 24px de altura, `width="14" height="24"`, opacity .85, raio de 2px) + `<span class="menu-texto">`, em flex com gap de 14px. No hover (só mouse), `:focus-visible` e `:active`, o selo vai a opacity 1 e o texto a `translateX(4px)` (0.5s). Ao abrir, os itens (selo e texto juntos) entram com y 20 → 0 e opacidade, 0.8s power3.out, stagger 0.08s (`animarItens` em `cabecalho.js`); sem animação com movimento reduzido.
 - Hero e cabeçalho iniciam no `main.js`; as demais seções entram em `secoesSobDemanda` com `carregarAoAproximar`.
 
 ## Comanda (orçamento)
-- **Dados no HTML:** no `<form>` ficam o número do WhatsApp (`data-whatsapp`), a saudação (`data-mensagem`, com `&#10;` para quebrar a linha) e a despedida (`data-despedida`). Cada campo tem `data-mensagem` com o rótulo usado na mensagem (Tipo, Data, Convidados, Cidade). Os valores saem **como a pessoa digitou** (nada é arredondado nem alterado), exceto a data.
+- **Dados no HTML:** no `<form>` ficam o número do WhatsApp (`data-whatsapp`), a saudação (`data-mensagem`, com `&#10;&#10;` para a linha em branco entre "Olá, Dani! Tudo bem?" e a frase) e a despedida (`data-despedida`). Cada campo tem `data-mensagem` com o rótulo usado na mensagem (Tipo, Data, Convidados, Cidade). Os valores saem **como a pessoa digitou** (nada é arredondado nem alterado), exceto a data.
 - **Formato da mensagem (`montarMensagem` em `orcamento.js`), sem emojis:**
   ```
   Olá, Dani! Tudo bem?
+
   Vi o site e gostaria de um orçamento para o meu evento:
 
   * Tipo: Evento social
@@ -159,6 +163,18 @@ GSAP + ScrollTrigger; duração 1.2–1.4s; ease `power3.out`. **Tudo desligado 
   - O JS adiciona o `* ` antes de cada item; o WhatsApp renderiza `* ` no início da linha como lista com marcadores.
   - Linhas sem espaço no fim e nunca duas linhas em branco seguidas.
   - A data é montada com `new Date(ano, mes - 1, dia)` (fuso local) + `Intl.DateTimeFormat('pt-BR', { weekday: 'long' })` em minúsculas + dd/mm/aaaa.
+- **Ordem dos campos** (a do HTML e da mensagem não muda; o layout usa `grid-template-areas` com `.comanda-campo-tipo/-data/-convidados/-cidade`):
+  - **Até 599px:** Tipo / Data / Convidados + Cidade. A data ocupa a linha inteira porque, em meia coluna, quebrava no iPhone.
+  - **A partir de 600px:** Tipo / Data + Convidados / Cidade, o layout de antes. Conferido em 1200 e 1440px, sem quebra.
+  - `align-items: start`: a dica de Convidados, que tem 2 linhas em meia coluna, não empurra a Cidade, e os inputs ficam alinhados.
+- **Date no Safari/iOS:**
+  - O `input[type="date"]` tem `-webkit-appearance: none`, `display: block`, `height: 44px` (o conteúdo nativo deixava o campo com 45px no Chrome e 47px no WebKit), `min-width: 0`, `text-align: left` e `nowrap`.
+  - `::-webkit-date-and-time-value` com `margin: 0` e `text-align: left`: sem centralizar e sem a margem do iOS.
+  - O calendário nativo continua abrindo no toque.
+- **"Escolha a data":** o Safari não mostra placeholder em date. O input fica dentro de `.comanda-data`, com um `<span class="comanda-data-vazia" aria-hidden="true">` no HTML (`pointer-events: none`, então o toque chega ao input).
+  - O span aparece com o campo vazio e sem foco; nesse estado a cor do input fica `transparent`, para não sobrepor o "dd/mm/aaaa" do desktop.
+  - No foco, o texto nativo volta (dá para digitar no desktop).
+  - O JS (`marcarPreenchida`, no carregamento e em `input`/`change`) aplica `.comanda-data-preenchida` quando há `value` ou `validity.badInput` (data digitada pela metade).
 - **Validação própria:** o form tem `novalidate`, sem balão do navegador e sem `reportValidity`/`setCustomValidity`.
   - **Convidados:** inteiro ≥ `min` (10). Vazio, não numérico, decimal ou < 10 bloqueia o envio.
   - **Data:** ≥ hoje; o `min` é definido via JS no carregamento, no fuso local (AAAA-MM-DD).
