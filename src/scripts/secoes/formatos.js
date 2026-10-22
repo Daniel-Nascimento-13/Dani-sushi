@@ -7,5 +7,4 @@ export function iniciarFormatos(secao) {
 
   revelar(secao.querySelectorAll('.rotulo, h2, .secao-topo-texto'));
   revelarEmSequencia(secao.querySelectorAll('.formatos-lista li'), secao.querySelector('.formatos-lista'));
-  revelar(secao.querySelector('.formatos-nota'));
 }

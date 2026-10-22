@@ -38,8 +38,6 @@
   color: var(--color-acento-claro);
 }
 
-.formatos-nota { margin-top: 32px; }
-
 /* === RESPONSIVIDADE === */
 @media (min-width: 900px) {
   .formatos-linha {
@@ -55,8 +53,6 @@
     grid-column: 4;
     justify-self: end;
   }
-
-  .formatos-nota { margin-top: 40px; }
 }
 
 /* === MOVIMENTO REDUZIDO === */
