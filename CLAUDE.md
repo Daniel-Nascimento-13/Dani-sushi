@@ -19,8 +19,10 @@ public/                       → servido na raiz, SEM hash (cache pela Vercel, 
   arquivos/og-image-v2.jpg    → imagem de compartilhamento (1200x630)
   favicon-32.png, apple-touch-icon.png, robots.txt, sitemap.xml
 vercel.json                   → Cache-Control: /imagens e /videos 1 dia + SWR 7 dias; /assets (hash) 1 ano, imutável
+marca/                        → ORIGINAIS da marca (logo, símbolo); só fonte dos derivados, fora do deploy
 ferramentas/
   kanji.js                    → gera src/assets/fontes/*.woff2 e src/estilos/fontes-kanji.css
+  derivados.py                → gera o recorte do logo, a og-image e os favicons a partir de marca/
 src/
   main.js                     → ENTRADA ÚNICA: fontes, CSS, scroll, cabeçalho e hero; o resto sob demanda
   estilos/
@@ -128,22 +130,37 @@ GSAP + ScrollTrigger; duração 1.2–1.4s; ease `power3.out`. **Tudo desligado 
 - Um único h1 por página; hierarquia h2 → h3 (use `.visualmente-oculto` quando a seção não tiver título visível). Use `lang="ja"` em todo kanji.
 - Imagens com `width`/`height` reais; placeholders com `aspect-ratio` fixo (CLS zero).
 ## Mídias da marca
-| Arquivo | Onde | Observação |
+Os **originais** ficam em `marca/` (fora de `public/`, não vão para o deploy) e servem só de fonte. O site usa apenas os **derivados**. Nenhum HTML/CSS/JS pode referenciar `marca/`.
+
+| Arquivo | Onde | Origem |
 |---|---|---|
-| `imagens/logo-sem-fundo-recortado.webp` (332×252) | cabeçalho (`alt="Dani Sushi"`, `fetchpriority="high"`; 42px mobile / 52px desktop) e rodapé (`alt=""`, lazy; 72px) | recorte justo do `logo-sem-fundo.webp` (letras claras, fundo transparente) |
-| `imagens/logo-sem-fundo.webp` (500×500) | não usado direto | original com muita margem transparente; fonte do recorte e da og-image |
-| `imagens/logo.webp` (1200×1200) | não usado | logo sobre fundo escuro texturizado (arte de perfil/redes) |
-| `imagens/simbolo-peixe.webp` | fonte dos favicons | selo vermelho com o peixe |
-| `favicon-32.png` / `apple-touch-icon.png` (180, fundo #0B0908, 14% de respiro) | `<link rel="icon">` / `<link rel="apple-touch-icon">` | gerados do símbolo |
-| `arquivos/og-image-v2.jpg` (1200×630) | `og:image` e `image` do JSON-LD | à esquerda, o recorte do poster; à direita, o logo + "Sushi bar ao vivo · Desde 2020" (Shippori, #BDB5AE) |
+| `marca/logo-sem-fundo.webp` (500×500) | não vai para o site | logo com letras claras e fundo transparente (com muita margem); fonte do recorte |
+| `marca/logo.webp` (1200×1200) | não vai para o site | logo sobre fundo escuro texturizado (arte de perfil/redes) |
+| `marca/simbolo-peixe.webp` (828×1472) | não vai para o site | selo vermelho com o peixe; fonte dos favicons |
+| `public/imagens/logo-sem-fundo-recortado.webp` (332×252) | cabeçalho (`alt="Dani Sushi"`, `fetchpriority="high"`; 42px mobile / 52px desktop) e rodapé (`alt=""`, lazy; 72px) | recorte justo de `marca/logo-sem-fundo.webp` |
+| `public/favicon-32.png` / `public/apple-touch-icon.png` (180, fundo #0B0908, 14% de respiro) | `<link rel="icon">` / `<link rel="apple-touch-icon">` | `marca/simbolo-peixe.webp` |
+| `public/arquivos/og-image-v2.jpg` (1200×630) | `og:image` e `image` do JSON-LD | à esquerda, o recorte do `hero-poster.jpg`; à direita, o logo recortado + "Sushi bar ao vivo · Desde 2020" (Shippori, #BDB5AE) |
+| `public/imagens/hero-poster.jpg` | `poster` do vídeo + preload | frame do `hero.mp4` (ver abaixo) |
+
+### Regerar os derivados (na raiz do projeto)
+O `ferramentas/derivados.py` (python3 + Pillow) tem toda a lógica. Ele lê de `marca/` e do poster e grava em `public/`:
+```bash
+python3 ferramentas/derivados.py            # tudo: recorte, og-image e favicons
+python3 ferramentas/derivados.py recorte    # public/imagens/logo-sem-fundo-recortado.webp
+python3 ferramentas/derivados.py og         # public/arquivos/og-image-v2.jpg (depende do recorte e do poster)
+python3 ferramentas/derivados.py favicons   # public/favicon-32.png e public/apple-touch-icon.png
+ffmpeg -ss 20 -i public/videos/hero.mp4 -frames:v 1 -q:v 4 public/imagens/hero-poster.jpg   # poster
+```
+- **Logo mudou:** substitua `marca/logo-sem-fundo.webp` e rode `recorte` e `og`. Se o tamanho do recorte mudar (o script imprime), atualize o `width`/`height` dos dois `<img>`.
+- **Símbolo mudou:** substitua `marca/simbolo-peixe.webp` e rode `favicons`.
+- **Vídeo mudou:** regere o poster (ffmpeg) e depois rode `og`.
+- A og-image precisa da fonte em `node_modules/` (rode `npm install` antes). Depois do lançamento, siga a regra 10 (renomear arquivos alterados).
 
 ### Vídeo do hero (`videos/hero.mp4`)
 - Padrão de exportação: 720×1280, 30fps constante, H.264 High, yuv420p, sem áudio, faststart.
   `ffmpeg -i ENTRADA -vf "scale=720:1280:flags=lanczos" -r 30 -c:v libx264 -crf 28 -preset slow -profile:v high -pix_fmt yuv420p -an -movflags +faststart public/videos/hero.mp4`
 - Meta: até 5 MB (versão atual: 30,4s, 4,97 MB). O master em alta fica fora do repositório (`~/Desktop/hero-master-1080.mp4`).
-- Poster: frame dos **20s** (mesa montada, sem texto sobreposto e sem pessoas em close):
-  `ffmpeg -ss 20 -i public/videos/hero.mp4 -frames:v 1 -q:v 4 public/imagens/hero-poster.jpg`
-- Ao trocar o vídeo, regere o poster e a `og-image-v2.jpg` (mesmo layout).
+- Poster: frame dos **20s** (mesa montada, sem texto sobreposto e sem pessoas em close). Ao trocar o vídeo, escolha um frame com os mesmos critérios, regere o poster e rode `python3 ferramentas/derivados.py og`.
 - Contraste ≥ 4.5:1; foco visível (acento-claro no escuro, carimbo no papel); labels reais; o menu mobile fecha com Esc, deixa o resto da página `inert` e devolve o foco ao botão.
 - JSON-LD `FoodEstablishment` no `<head>` (o Instagram em `sameAs` ainda é TODO).
 - Domínio canônico: `https://danisushii.com.br/` (canonical, og:url, og:image, sitemap, robots).
