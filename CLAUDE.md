@@ -143,10 +143,11 @@ GSAP + ScrollTrigger; duração 1.2–1.4s; ease `power3.out`. **Tudo desligado 
 - Hero e cabeçalho iniciam no `main.js`; as demais seções entram em `secoesSobDemanda` com `carregarAoAproximar`.
 
 ## Comanda (orçamento)
-- **Dados no HTML:** no `<form>` ficam o número do WhatsApp (`data-whatsapp`), a saudação (`data-mensagem`, com `&#10;` para quebrar a linha) e a despedida (`data-despedida`). Cada campo tem `data-mensagem` com o rótulo usado na mensagem (Tipo, Data, Convidados, Cidade). Os valores saem **como a pessoa digitou** (nada é arredondado nem alterado), exceto a data.
+- **Dados no HTML:** no `<form>` ficam o número do WhatsApp (`data-whatsapp`), a saudação (`data-mensagem`, com `&#10;&#10;` para a linha em branco entre "Olá, Dani! Tudo bem?" e a frase) e a despedida (`data-despedida`). Cada campo tem `data-mensagem` com o rótulo usado na mensagem (Tipo, Data, Convidados, Cidade). Os valores saem **como a pessoa digitou** (nada é arredondado nem alterado), exceto a data.
 - **Formato da mensagem (`montarMensagem` em `orcamento.js`), sem emojis:**
   ```
   Olá, Dani! Tudo bem?
+
   Vi o site e gostaria de um orçamento para o meu evento:
 
   * Tipo: Evento social
