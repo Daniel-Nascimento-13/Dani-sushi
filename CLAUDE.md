@@ -116,7 +116,7 @@ GSAP + ScrollTrigger; duração 1.2–1.4s; ease `power3.out`. **Tudo desligado 
 - Pilares e linhas de Formatos: `revelarEmSequencia()`.
 - Momentos: foto com `clip-path: inset()` de baixo para cima.
 - Cabeçalho: vira fixo e desce (yPercent -100 → 0) depois do hero.
-- Botão hambúrguer (`.cabecalho-menu`, área de 44×44px): 3 `<span aria-hidden="true">` desenhados como o **kanji 三** do Shippori (o mesmo da contagem dos Pilares), em acento-claro:
+- Botão hambúrguer (`.cabecalho-menu`, área de 44×44px): 3 `<span aria-hidden="true">` desenhados como o **kanji 三** do Shippori (o mesmo da contagem dos Pilares), na cor `--color-texto` (branco):
   - **Larguras:** 19,4 / 15,4 / 22px (88% / 70% / 100%, medidas no glyph); o do meio é recuado.
   - **Forma:** corpo de 1,5px com a "escama" (uroko) Mincho na ponta direita.
   - **Técnica:** cada span é uma caixa de **4px** recortada por `clip-path: polygon(...)`. Uma altura fracionária faz o Chrome arredondar os riscos de forma desigual.
