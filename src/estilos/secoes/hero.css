@@ -3,7 +3,6 @@
   position: relative;
   padding-top: min(100vw * 1.05, 420px);
   overflow: hidden;
-  background: var(--color-fundo);
 }
 
 /* MÍDIA (VÍDEO EM LOOP) */
@@ -130,7 +129,6 @@
 @media (min-width: 900px) {
   .hero {
     padding-block: 152px 96px;
-    background: var(--color-superficie);
   }
 
   .hero-grade {

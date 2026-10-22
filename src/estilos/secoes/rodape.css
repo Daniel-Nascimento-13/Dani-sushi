@@ -1,8 +1,5 @@
 /* === RODAPÉ === */
-.rodape {
-  padding-block: 72px 40px;
-  border-top: 1px solid var(--color-linha);
-}
+.rodape { padding-block: 72px 40px; }
 
 .rodape-conteudo {
   display: grid;

@@ -44,15 +44,21 @@ src/
 | Seção | Classe / id | JS | Fundo |
 |---|---|---|---|
 | Cabeçalho + menu mobile | `.cabecalho`, `#menu-mobile` | `cabecalho.js` (main.js) | sempre com fundo sutil: rgba(11,9,8,.45) + `blur(14px) saturate(140%)` + hairline; fixo depois do hero, com .75 (transição de 0.6s); sem backdrop-filter, .85 |
-| Hero | `.hero` | `hero.js` (main.js) | mobile: fundo; desktop: superfície (ver "Hero com vídeo") |
-| Números | `.numeros` | `numeros.js` | fundo |
-| Manifesto | `.manifesto` | `manifesto.js` | superfície |
-| Pilares | `.pilares` | `pilares.js` | fundo (3 colunas só a partir de 1200px: "PERSONALIZAÇÃO" não quebra e não cabe em 1/3 antes disso) |
-| Formatos | `.formatos` | `formatos.js` | fundo |
-| Momentos | `.momentos` / `#momentos` | `momentos.js` | superfície |
-| Depoimentos | `.depoimentos` / `#depoimentos` | `depoimentos.js` | fundo |
-| Orçamento (comanda) | `.orcamento` / `#orcamento` | `orcamento.js` | superfície (2 colunas só a partir de 1200px; abaixo disso, comanda embaixo com máx. 560px) |
-| Rodapé | `.rodape` | `rodape.js` (ano atual) | fundo |
+| Hero | `.hero` | `hero.js` (main.js) | `.fundo-base` (sempre preto, em todas as larguras) |
+| Números | `.numeros` | `numeros.js` | `.fundo-superficie` |
+| Manifesto | `.manifesto` | `manifesto.js` | `.fundo-base` |
+| Pilares | `.pilares` | `pilares.js` | `.fundo-superficie` (3 colunas só a partir de 1200px: "PERSONALIZAÇÃO" não quebra e não cabe em 1/3 antes disso) |
+| Formatos | `.formatos` | `formatos.js` | `.fundo-base` |
+| Momentos | `.momentos` / `#momentos` | `momentos.js` | `.fundo-superficie` |
+| Depoimentos | `.depoimentos` / `#depoimentos` | `depoimentos.js` | `.fundo-base` |
+| Orçamento (comanda) | `.orcamento` / `#orcamento` | `orcamento.js` | `.fundo-superficie` (2 colunas só a partir de 1200px; abaixo disso, comanda embaixo com máx. 560px) |
+| Rodapé | `.rodape` | `rodape.js` (ano atual) | `.fundo-base` |
+
+**Fundos alternados:**
+- **O hero é sempre preto.** A partir dele, as seções alternam `.fundo-base` (`--color-fundo`) e `.fundo-superficie` (`--color-superficie`) pela ordem real do HTML, até o rodapé. As classes ficam no HTML e são definidas em `base.css`; nenhum CSS de seção define `background` próprio.
+- **Sem `nth-child`:** a alternância quebraria quando uma seção entra ou sai.
+- **Ao adicionar ou mover uma seção, refaça a alternância.**
+- **Divisórias:** a mudança de fundo já separa as seções, então não use bordas superior/inferior entre seções. As hairlines ficam só dentro dos blocos (listas de Números, Pilares e Formatos; o © do rodapé).
 
 Páginas futuras: /momentos, /depoimentos, /orcamento.
 
@@ -60,8 +66,8 @@ Páginas futuras: /momentos, /depoimentos, /orcamento.
 | Token | Valor | Uso |
 |---|---|---|
 | `--color-fundo` | #0B0908 | fundo base |
-| `--color-superficie` | #120E0C | seções alternadas |
-| `--color-placeholder` | #1B1613 | placeholders de foto/vídeo |
+| `--color-superficie` | #17120F | seções alternadas (contraste de 1,07:1 com o fundo: perceptível sem acinzentar; não passe de #1A1511) |
+| `--color-placeholder` | #221B18 | placeholders de foto/vídeo (visível também sobre a superfície) |
 | `--color-texto` | #F2EEEA | títulos e links |
 | `--color-texto-2` | #BDB5AE | parágrafos |
 | `--color-texto-3` | #8E8680 | rótulos, metadados |
@@ -97,7 +103,7 @@ Use `var(--color-...)` no CSS ou os utilitários do Tailwind (`bg-fundo`, `text-
 **O texto NUNCA fica sobre o vídeo, em nenhuma largura.**
 - Estrutura: `.hero > .envoltorio.hero-grade > .hero-conteudo` (texto) + `.hero-quadro > .hero-midia > video.hero-video` + `.hero-legenda`.
 - **Mobile (até 899px):** `.hero-midia` fica absoluta no topo do `.hero` (100% de largura, altura `min(100vw * 1.3, 520px)`, `object-position: center 40%`). A base some por `mask-image` no próprio `.hero-midia` (preto até 55%, transparente em 96%, `mask-repeat: no-repeat`, `overflow: hidden`). A máscara fica parada e quem se move no scroll é o `<video>`, então nunca vaza uma linha na transição. O `::after` cuida só do topo escuro (leitura do cabeçalho) e de uma transição suave no meio. O `.hero` tem `padding-top: min(100vw * 1.05, 420px)`, então o texto começa abaixo do vídeo, sobre fundo sólido. A legenda fica escondida.
-- **Desktop (900px+):** duas colunas alinhadas embaixo. O texto fica à esquerda (flex 1) e o quadro vertical à direita, em fluxo normal: largura `min(clamp(300px, 28vw, 400px), (100svh - 290px) * 9 / 16)` (o limite pela altura faz quadro e legenda caberem na tela), `aspect-ratio: 9/16` e raio de 4px. Fundo `--color-superficie`, sem degradê. A legenda embaixo mostra "本物 Evento real" à esquerda e "Role ↓" à direita.
+- **Desktop (900px+):** duas colunas alinhadas embaixo. O texto fica à esquerda (flex 1) e o quadro vertical à direita, em fluxo normal: largura `min(clamp(300px, 28vw, 400px), (100svh - 290px) * 9 / 16)` (o limite pela altura faz quadro e legenda caberem na tela), `aspect-ratio: 9/16` e raio de 4px. Fundo preto (`.fundo-base`), sem degradê. A legenda embaixo mostra "本物 Evento real" à esquerda e "Role ↓" à direita.
 - **h1 sempre em 2 linhas fixas:** "PARA QUEM TEM FOME" / "DE EXPERIÊNCIA." em qualquer largura. A `.hero-conteudo` tem `container-type: inline-size`, e o tamanho segue a coluna, tomando a linha 1 como referência. O divisor é a largura de "PARA QUEM TEM FOME" em em, medida no Shippori, com ~2% de folga:
   - até 599px: letter-spacing 0.04em → 13,445em → `font-size: calc(100cqi / 13.7)`;
   - a partir de 600px: letter-spacing 0.1em → 14,525em → `font-size: min(64px, 100cqi / 14.8)`;

@@ -48,6 +48,10 @@ button { background: none; border: 0; cursor: pointer; }
 
 .secao { padding-block: 96px; }
 
+/* === FUNDOS ALTERNADOS (APLICADOS NO HTML, NA ORDEM DAS SEÇÕES; HERO SEMPRE .FUNDO-BASE) === */
+.fundo-base       { background: var(--color-fundo); }
+.fundo-superficie { background: var(--color-superficie); }
+
 /* === TIPOGRAFIA === */
 h1, h2, h3 {
   font-family: var(--font-titulo);

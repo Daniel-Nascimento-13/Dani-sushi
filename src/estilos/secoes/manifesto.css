@@ -1,8 +1,5 @@
 /* === MANIFESTO === */
-.manifesto {
-  background: var(--color-superficie);
-  text-align: center;
-}
+.manifesto { text-align: center; }
 
 .manifesto-texto {
   max-width: 1040px;
