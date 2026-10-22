@@ -86,13 +86,14 @@
   .hero-texto-extra { display: inline; }
 }
 
-/* LOCALIZAÇÃO (PIN + TEXTO) */
+/* LOCALIZAÇÃO (PIN + TEXTO): NO MOBILE A FONTE SEGUE A COLUNA, COM PISO DE 12PX.
+   TEXTO = 23.93EM → DIVISOR 24.4 (2% DE FOLGA); PIN 16PX + GAP 10PX = 26PX FORA DA DIVISÃO */
 .hero-local {
   display: flex;
   align-items: flex-start;
   gap: 10px;
   margin-block: 20px;
-  font-size: 0.875rem;
+  font-size: max(12px, min(14px, (100cqi - 26px) / 24.4));
   line-height: 1.5;
   color: var(--color-texto-2);
 }
@@ -105,10 +106,29 @@
   color: var(--color-acento-claro);
 }
 
+/* UMA LINHA SÓ QUANDO CABE: 26PX + 12PX × 24.4 = 319PX DE COLUNA; PIN NO CENTRO DA LINHA */
+@container (min-width: 319px) {
+  .hero-local {
+    align-items: center;
+    white-space: nowrap;
+  }
+
+  .hero-local svg { margin-top: 0; }
+}
+
+/* BOTÕES LADO A LADO NO MOBILE: 169 + 10 + 138 = 317PX A 15PX (CABE NA COLUNA DE 320PX DO 360);
+   ABAIXO DISSO O WRAP EMPILHA E CADA UM OCUPA A LINHA INTEIRA */
 .hero-botoes {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 10px;
+}
+
+.hero-botoes .botao {
+  flex: 1 1 auto;
+  height: auto;
+  min-height: 48px;
+  padding-inline: 18px;
 }
 
 /* LEGENDA DO QUADRO (SÓ NO DESKTOP) */
@@ -122,6 +142,24 @@
   .hero-titulo {
     font-size: min(64px, 100cqi / 14.8);
     letter-spacing: 0.1em;
+  }
+
+  /* LOCALIZAÇÃO E BOTÕES VOLTAM AO PADRÃO (14PX; BOTÕES DE 52PX, SEM ESTICAR) */
+  .hero-local {
+    align-items: flex-start;
+    font-size: 0.875rem;
+    white-space: normal;
+  }
+
+  .hero-local svg { margin-top: 2px; }
+
+  .hero-botoes { gap: 12px; }
+
+  .hero-botoes .botao {
+    flex: none;
+    height: 52px;
+    min-height: 0;
+    padding-inline: 28px;
   }
 }
 

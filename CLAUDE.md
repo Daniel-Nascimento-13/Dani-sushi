@@ -88,7 +88,7 @@ Use `var(--color-...)` no CSS ou os utilitários do Tailwind (`bg-fundo`, `text-
 - Todas com `font-display: swap`. Só o Shippori 400 latin tem preload (no `<head>`, apontando para `/node_modules/...`; o Vite aplica o hash).
 
 ## Padrões tipográficos e componentes (base.css)
-- `.rotulo`: Shippori 13px, uppercase, letter-spacing 4px, texto-3.
+- `.rotulo`: Shippori, uppercase, texto-3. **A partir de 600px:** 13px, letter-spacing 4px (tradução em 1px). **Até 599px (todos os rótulos):** letter-spacing 0.14em (kanji 0.06em, tradução 0.08em) e `font-size: max(10px, min(13px, 100cqi / 27.7))`. O divisor vem do mais longo, o do hero ("おもてなし OMOTENASHI · A arte de servir bem" = 27,14em, mais 2% de folga). O `.envoltorio` tem `container-type: inline-size` só no mobile, como referência da coluna. `nowrap` só com `@container (min-width: 277px)` (10px × 27,7); em 320px a coluna tem 280, então cabe a 10px. Se um rótulo mais longo entrar, meça de novo. O `.numeros .rotulo` tem regra própria (10px, 0.18em).
   `<p class="rotulo"><span class="rotulo-kanji" lang="ja">形</span> Katachi · <em>Formatos</em></p>` (o kanji em acento-claro; o `<em>` em itálico, sem uppercase)
 - h1/h2: Shippori 400, UPPERCASE, letter-spacing 0.1em, line-height 1.15. h1 base `clamp(36px, 6vw, 80px)` (o h1 do hero tem regra própria, ver "Hero com vídeo"), h2 `clamp(20px, 3vw, 44px)`, h3 17 → 24 → 26px (letter-spacing 0.12–0.14em). Rótulo → h1: 20px; rótulo → h2: 14px no mobile / 18px no desktop.
 - **Hierarquia: o h1 do hero é sempre o maior título da página**, em qualquer largura: h1 ≥ h2 > h3. Ao mexer em tamanhos de título (ou na largura da coluna do hero), confira em 320–1920px.
@@ -118,6 +118,8 @@ Use `var(--color-...)` no CSS ou os utilitários do Tailwind (`bg-fundo`, `text-
   - **`nowrap`:** só com `@container (min-width: 285px)` (15px × 18,98). Abaixo disso a frase pode quebrar; na prática, em 320px (coluna 280) ela coube a 15px.
   - **Versão completa (`@container (min-width: 700px)`):** mostra o span, sem max-width, ~680px a 19px.
   - Se a frase mudar, meça de novo as duas versões.
+- **Localização (`.hero-local`), mobile:** `font-size: max(12px, min(14px, (100cqi - 26px) / 24.4))`. O texto mede 23,93em, mais 2% de folga; os 26px são o pin (16px) + o gap (10px). `nowrap` + pin centralizado (`align-items: center`) com `@container (min-width: 319px)`, ou seja, 1 linha a partir de 360px; em 320 quebra a 12px. A partir de 600px volta a 14px (16px no desktop).
+- **Botões do hero, mobile:** flex com gap de 10px e `flex-wrap`; cada `.botao` com `flex: 1 1 auto`, `min-height: 48px`, padding 0 18px e 15px. Lado a lado a partir de 360px (169 + 10 + 138 = 317px numa coluna de 320; folga de só 3px, então se o texto de um botão crescer, eles empilham no 360). Em 320 o wrap empilha, cada um com 100%. A partir de 600px voltam ao padrão (52px, padding 28px, gap 12px, sem esticar).
 - **Ritmo do hero:** h1 → frase → localização → botões com espaços iguais, de 20px no mobile e 28px no desktop. A máscara das linhas do h1 usa `clip-path: inset()` negativo; não use padding/margin negativa, porque a margem vaza para fora do h1 e encurta o espaço até a frase.
 - **Carregamento:** o `<video>` tem `muted loop playsinline preload="none"` e poster com preload no `<head>`, mas NÃO tem `autoplay` (o download só começa no `play()`). O `hero.js` chama `play().catch(() => {})` quando o hero entra na tela e `pause()` quando sai (IntersectionObserver). Com `prefers-reduced-motion` ou `navigator.connection.saveData`, o vídeo nunca é iniciado e fica no poster.
 

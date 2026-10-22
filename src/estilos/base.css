@@ -47,6 +47,8 @@ button { background: none; border: 0; cursor: pointer; }
   max-width: calc(1344px + var(--respiro) * 2);
   margin-inline: auto;
   padding-inline: var(--respiro);
+  /* NO MOBILE, REFERÊNCIA DO TAMANHO DOS RÓTULOS (100CQI = LARGURA DA COLUNA) */
+  container-type: inline-size;
 }
 
 .secao { padding-block: 96px; }
@@ -77,21 +79,31 @@ h3 { font-size: 17px; font-weight: 500; letter-spacing: 0.14em; }
 .apagado  { color: var(--color-texto-3); }
 
 /* RÓTULO: KANJI + NOME + TRADUÇÃO */
+/* MOBILE: TAMANHO PELA COLUNA, MEDIDO NO MAIS LONGO ("おもてなし OMOTENASHI · A ARTE DE SERVIR BEM"):
+   27.14EM (0.14EM / KANJI 0.06EM / TRADUÇÃO 0.08EM) → DIVISOR 27.7 (2% DE FOLGA); PISO DE 10PX */
 .rotulo {
   font-family: var(--font-titulo);
-  font-size: 13px;
+  font-size: max(10px, min(13px, 100cqi / 27.7));
   line-height: 1.4;
   text-transform: uppercase;
-  letter-spacing: 4px;
+  letter-spacing: 0.14em;
   color: var(--color-texto-3);
 }
 
-.rotulo-kanji { color: var(--color-acento-claro); }
+.rotulo-kanji {
+  letter-spacing: 0.06em;
+  color: var(--color-acento-claro);
+}
 
 .rotulo em {
   font-style: italic;
   text-transform: none;
-  letter-spacing: 1px;
+  letter-spacing: 0.08em;
+}
+
+/* UMA LINHA SÓ QUANDO CABE: 10PX × 27.7 = 277PX DE COLUNA */
+@container (min-width: 277px) {
+  .rotulo { white-space: nowrap; }
 }
 
 /* METADADOS EM MONO */
@@ -143,7 +155,21 @@ h3 { font-size: 17px; font-weight: 500; letter-spacing: 0.14em; }
 
 /* === RESPONSIVIDADE === */
 @media (min-width: 600px) {
-  .envoltorio { --respiro: 32px; }
+  .envoltorio {
+    --respiro: 32px;
+    container-type: normal;
+  }
+
+  /* RÓTULO FIXO A PARTIR DE 600PX: 13PX, 4PX, KANJI SEM AJUSTE, TRADUÇÃO 1PX */
+  .rotulo {
+    font-size: 13px;
+    letter-spacing: 4px;
+    white-space: normal;
+  }
+
+  .rotulo-kanji { letter-spacing: inherit; }
+  .rotulo em    { letter-spacing: 1px; }
+
   .so-mobile  { display: none; }
   .so-desktop { display: inline; }
 }
