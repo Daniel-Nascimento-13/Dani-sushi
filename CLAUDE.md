@@ -14,9 +14,8 @@ Vite + HTML/CSS/JS vanilla + Tailwind v4 (`@tailwindcss/vite`) + GSAP + ScrollTr
 ```
 index.html                    → home; todo o conteúdo fica aqui; carrega só /src/main.js
 public/                       → servido na raiz, SEM hash (cache pela Vercel, ver vercel.json)
-  imagens/                    → logos, hero-poster.jpg e demais imagens (<img src="/imagens/...">)
+  imagens/                    → logos, hero-poster.jpg, og-image.jpg (compartilhamento, 1200x630) e demais imagens (<img src="/imagens/...">)
   videos/                     → hero.mp4 (<source src="/videos/...">)
-  arquivos/og-image-v2.jpg    → imagem de compartilhamento (1200x630)
   favicon-32.png, apple-touch-icon.png, robots.txt, sitemap.xml
 vercel.json                   → Cache-Control: /imagens e /videos 1 dia + SWR 7 dias; /assets (hash) 1 ano, imutável
 marca/                        → ORIGINAIS da marca (logo, símbolo); só fonte dos derivados, fora do deploy
@@ -211,7 +210,7 @@ Os **originais** ficam em `marca/` (fora de `public/`, não vão para o deploy) 
 | `marca/simbolo-peixe.webp` (828×1472) | não vai para o site | selo vermelho com o peixe; fonte dos favicons |
 | `public/imagens/logo-sem-fundo-recortado.webp` (332×252) | cabeçalho (`alt="Dani Sushi"`, `fetchpriority="high"`; 42px mobile / 52px desktop) e rodapé (`alt=""`, lazy; 72px) | recorte justo de `marca/logo-sem-fundo.webp` |
 | `public/favicon-32.png` / `public/apple-touch-icon.png` (180, fundo #0B0908, 14% de respiro) | `<link rel="icon">` / `<link rel="apple-touch-icon">` | `marca/simbolo-peixe.webp` |
-| `public/arquivos/og-image-v2.jpg` (1200×630) | `og:image` e `image` do JSON-LD | à esquerda, o recorte do `hero-poster.jpg`; à direita, o logo recortado + "Sushi bar ao vivo · Desde 2020" (Shippori, #BDB5AE) |
+| `public/imagens/og-image.jpg` (1200×630) | `og:image` e `image` do JSON-LD | à esquerda, o recorte do `hero-poster.jpg`; à direita, o logo recortado + "Sushi bar ao vivo · Desde 2020" (Shippori, #BDB5AE) |
 | `public/imagens/hero-poster.jpg` | `poster` do vídeo + preload | frame do `hero.mp4` (ver abaixo) |
 | `public/imagens/simbolo-peixe-menu.webp` (54×96, ~1,6 KB) | menu mobile, antes de cada opção (`.menu-selo`, exibido a 14×24, `alt=""`, lazy) | `marca/simbolo-peixe.webp`, 96px de altura (4× dos 24px exibidos), WebP q85 |
 
@@ -220,7 +219,7 @@ O `ferramentas/derivados.py` (python3 + Pillow) tem toda a lógica. Ele lê de `
 ```bash
 python3 ferramentas/derivados.py            # tudo: recorte, og-image e favicons
 python3 ferramentas/derivados.py recorte    # public/imagens/logo-sem-fundo-recortado.webp
-python3 ferramentas/derivados.py og         # public/arquivos/og-image-v2.jpg (depende do recorte e do poster)
+python3 ferramentas/derivados.py og         # public/imagens/og-image.jpg (depende do recorte e do poster)
 python3 ferramentas/derivados.py favicons   # public/favicon-32.png e public/apple-touch-icon.png
 python3 ferramentas/derivados.py selo       # public/imagens/simbolo-peixe-menu.webp (selo do menu mobile)
 ffmpeg -ss 20 -i public/videos/hero.mp4 -frames:v 1 -q:v 4 public/imagens/hero-poster.jpg   # poster

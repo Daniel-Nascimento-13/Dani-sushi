@@ -1,7 +1,7 @@
 """=== DERIVADOS DA MARCA ===
 GERA, A PARTIR DOS ORIGINAIS EM MARCA/ E DO POSTER DO HERO:
   PUBLIC/IMAGENS/LOGO-SEM-FUNDO-RECORTADO.WEBP  (RECORTE JUSTO, TRANSPARÊNCIA MANTIDA)
-  PUBLIC/ARQUIVOS/OG-IMAGE-V2.JPG               (1200X630: POSTER À ESQUERDA, LOGO + FRASE À DIREITA)
+  PUBLIC/IMAGENS/OG-IMAGE.JPG                   (1200X630: POSTER À ESQUERDA, LOGO + FRASE À DIREITA)
   PUBLIC/FAVICON-32.PNG E PUBLIC/APPLE-TOUCH-ICON.PNG (DO SÍMBOLO DO PEIXE)
   PUBLIC/IMAGENS/SIMBOLO-PEIXE-MENU.WEBP        (SELO DO MENU MOBILE, 96PX DE ALTURA = 4X DE 24PX EXIBIDO)
 USO (NA RAIZ DO PROJETO): python3 ferramentas/derivados.py [recorte|og|favicons|selo]  (SEM ARGUMENTO, GERA TODOS)
@@ -19,7 +19,7 @@ LOGO_ORIGINAL = Path('marca/logo-sem-fundo.webp')
 SIMBOLO = Path('marca/simbolo-peixe.webp')
 LOGO_RECORTADO = Path('public/imagens/logo-sem-fundo-recortado.webp')
 POSTER = Path('public/imagens/hero-poster.jpg')
-OG = Path('public/arquivos/og-image-v2.jpg')
+OG = Path('public/imagens/og-image.jpg')
 SELO_MENU = Path('public/imagens/simbolo-peixe-menu.webp')
 
 
