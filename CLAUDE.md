@@ -45,7 +45,7 @@ src/
 |---|---|---|---|
 | Cabeçalho + menu mobile | `.cabecalho`, `#menu-mobile` | `cabecalho.js` (main.js) | sempre com fundo sutil: rgba(11,9,8,.45) + `blur(14px) saturate(140%)` + hairline; fixo depois do hero, com .75 (transição de 0.6s); sem backdrop-filter, .85 |
 | Hero | `.hero` | `hero.js` (main.js) | `.fundo-base` (sempre preto, em todas as larguras) |
-| Números | `.numeros` | `numeros.js` | `.fundo-superficie` |
+| Números | `.numeros` | `numeros.js` | `.fundo-superficie`. Rótulos: Fundação / Eventos / Regiões. **Mobile (até 899px):** 3 colunas lado a lado com hairline vertical; número em cima (`order: -1`), com `min(44px, 100cqi / 2.14)` (o "2020" mede 2,062em, com 4% de folga; `container-type` no item), e rótulo embaixo (10px, 0.18em, margin-top de 10px); legenda escondida; padding de 56px. **Desktop:** rótulo, número de 104px e legenda, padding da `.secao` (`revert-layer`) |
 | Manifesto | `.manifesto` | `manifesto.js` | `.fundo-base` |
 | Pilares | `.pilares` | `pilares.js` | `.fundo-superficie` (3 colunas só a partir de 1200px: "PERSONALIZAÇÃO" não quebra e não cabe em 1/3 antes disso) |
 | Formatos | `.formatos` | `formatos.js` | `.fundo-base` |
