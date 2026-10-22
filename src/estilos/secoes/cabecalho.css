@@ -1,8 +1,14 @@
 /* === CABEÇALHO === */
+/* FUNDO SUTIL SEMPRE (LOGO E MENU NÃO FICAM SOLTOS SOBRE O VÍDEO) */
 .cabecalho {
   position: absolute;
   inset: 0 0 auto;
   z-index: 50;
+  background: rgba(11,9,8,0.45);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  backdrop-filter: blur(14px) saturate(140%);
+  border-bottom: 1px solid var(--color-linha);
+  transition: background-color 0.6s ease;
 }
 
 .cabecalho-conteudo {
@@ -36,13 +42,16 @@
   padding-inline: 22px;
 }
 
-/* FIXO DEPOIS DO HERO */
+/* FIXO DEPOIS DO HERO: FUNDO UM POUCO MAIS SÓLIDO */
 .cabecalho-fixo {
   position: fixed;
-  background: rgba(11,9,8,0.82);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--color-linha);
+  background: rgba(11,9,8,0.75);
+}
+
+/* SEM BACKDROP-FILTER: FUNDO MAIS OPACO PARA COMPENSAR A FALTA DO BLUR */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .cabecalho,
+  .cabecalho-fixo { background: rgba(11,9,8,0.85); }
 }
 
 /* === BOTÃO HAMBÚRGUER === */
@@ -116,6 +125,7 @@ html.menu-aberto { overflow: hidden; }
 
 /* === MOVIMENTO REDUZIDO === */
 @media (prefers-reduced-motion: reduce) {
+  .cabecalho,
   .cabecalho-nav a,
   .cabecalho-menu span { transition: none; }
 }
