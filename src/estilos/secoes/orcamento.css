@@ -20,7 +20,7 @@
   color-scheme: light;
 }
 
-.comanda :focus-visible { outline-color: var(--color-carimbo); }
+.comanda .botao:focus-visible { outline-color: var(--color-carimbo); }
 
 .comanda-topo {
   display: flex;
@@ -88,7 +88,7 @@
   font-size: 16px;
   color: var(--color-tinta);
   appearance: none;
-  transition: border-color 0.4s ease;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
 .comanda-campo select {
@@ -98,10 +98,35 @@
 
 .comanda-campo input::placeholder { color: rgba(26,21,19,0.5); }
 
+/* FOCO PADRONIZADO EM TODOS OS CAMPOS: LINHA INFERIOR DE 2PX EM ACENTO (BOX-SHADOW, SEM MUDAR A ALTURA)
+   + OUTLINE SUTIL SÓ COM :FOCUS-VISIBLE */
 .comanda-campo input:focus,
-.comanda-campo select:focus { border-bottom-color: var(--color-tinta); }
+.comanda-campo select:focus {
+  outline: none;
+  border-bottom-color: var(--color-acento);
+  box-shadow: 0 1px 0 0 var(--color-acento);
+}
 
-.comanda-campo [aria-invalid="true"] { border-bottom-color: var(--color-carimbo); }
+.comanda-campo input:focus-visible,
+.comanda-campo select:focus-visible {
+  outline: 2px solid var(--color-acento);
+  outline-offset: 4px;
+}
+
+.comanda-campo [aria-invalid="true"] { border-bottom-color: var(--color-acento); }
+
+/* DICA / ERRO ABAIXO DO CAMPO (TEXTOS NO HTML; O JS SÓ TROCA PELO DATA-ERRO) */
+.comanda-ajuda {
+  margin-top: 4px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.4;
+  color: rgba(26,21,19,0.6);
+}
+
+.comanda-ajuda:empty { display: none; }
+
+.comanda-ajuda-erro { color: var(--color-acento); }
 
 .comanda-botao {
   width: 100%;

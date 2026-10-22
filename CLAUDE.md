@@ -142,9 +142,16 @@ GSAP + ScrollTrigger; duração 1.2–1.4s; ease `power3.out`. **Tudo desligado 
 - Hero e cabeçalho iniciam no `main.js`; as demais seções entram em `secoesSobDemanda` com `carregarAoAproximar`.
 
 ## Comanda (orçamento)
-- O número do WhatsApp fica em `data-whatsapp` no `<form>` e a saudação em `data-mensagem`.
-- Cada campo tem `data-mensagem` com o rótulo usado na mensagem. A data sai em dd/mm/aaaa.
-- A validação é a nativa (`required`, `min="10"`) com `aria-invalid`. O formulário abre `https://wa.me/<numero>?text=...`.
+- **Dados no HTML:** o número do WhatsApp fica em `data-whatsapp` no `<form>` e a saudação em `data-mensagem`. Cada campo tem `data-mensagem` com o rótulo usado na mensagem. A data sai em dd/mm/aaaa; os outros valores saem **como a pessoa digitou** (nada é arredondado nem alterado).
+- **Validação própria:** o form tem `novalidate`, sem balão do navegador e sem `reportValidity`/`setCustomValidity`.
+  - **Convidados:** inteiro ≥ `min` (10). Vazio, não numérico, decimal ou < 10 bloqueia o envio.
+  - **Data:** ≥ hoje; o `min` é definido via JS no carregamento, no fuso local (AAAA-MM-DD).
+  - **Tipo e cidade:** precisam estar preenchidos.
+- **Estado de erro:** `aria-invalid="true"` (nunca `toggleAttribute`, que grava `""` e equivale a "válido"), linha inferior em `--color-acento` e a dica trocada pelo texto do `data-erro`, em acento.
+  - A dica é o `<p class="comanda-ajuda" aria-live="polite">` ligado por `aria-describedby`. O texto normal dela fica no HTML e é restaurado ao corrigir.
+  - A validação roda no blur (se algo foi preenchido) e no envio, quando o foco vai para o primeiro campo inválido. Ao digitar, o erro sai assim que o campo fica válido.
+- **Dica:** mono 11px, tinta a 60% (4,51:1 sobre o papel, no limite; não clareie).
+- **Foco padronizado em todos os campos:** linha inferior de 2px em acento (`box-shadow`, sem mudar a altura) e, com `:focus-visible`, `outline: 2px solid var(--color-acento); outline-offset: 4px`. No Chrome, inputs e select casam `:focus-visible` também no clique, então o contorno aparece igual em todos.
 
 ## Regras
 1. `index.html` carrega apenas `<script type="module" src="/src/main.js"></script>` (o JSON-LD é dado, não script).

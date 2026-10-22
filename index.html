@@ -309,12 +309,14 @@
 
             <div class="comanda-campo comanda-campo-metade">
               <label for="comanda-data">Data</label>
-              <input id="comanda-data" name="data" type="date" required data-mensagem="Data">
+              <input id="comanda-data" name="data" type="date" required aria-describedby="comanda-data-ajuda" data-mensagem="Data">
+              <p id="comanda-data-ajuda" class="comanda-ajuda" aria-live="polite" data-erro="Escolha uma data a partir de hoje."></p>
             </div>
 
             <div class="comanda-campo comanda-campo-metade">
               <label for="comanda-convidados">Convidados</label>
-              <input id="comanda-convidados" name="convidados" type="number" min="10" step="1" inputmode="numeric" placeholder="10+" required data-mensagem="Convidados">
+              <input id="comanda-convidados" name="convidados" type="number" min="10" step="1" inputmode="numeric" placeholder="10+" required aria-describedby="comanda-convidados-ajuda" data-mensagem="Convidados">
+              <p id="comanda-convidados-ajuda" class="comanda-ajuda" aria-live="polite" data-erro="O atendimento é a partir de 10 convidados.">A partir de 10 convidados.</p>
             </div>
 
             <div class="comanda-campo">
