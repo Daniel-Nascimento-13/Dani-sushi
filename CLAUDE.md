@@ -45,7 +45,7 @@ src/
 |---|---|---|---|
 | Cabeçalho + menu mobile | `.cabecalho`, `#menu-mobile` | `cabecalho.js` (main.js) | sempre com fundo sutil: rgba(11,9,8,.45) + `blur(14px) saturate(140%)` + hairline; fixo depois do hero, com .75 (transição de 0.6s); sem backdrop-filter, .85 |
 | Hero | `.hero` | `hero.js` (main.js) | `.fundo-base` (sempre preto, em todas as larguras) |
-| Números | `.numeros` | `numeros.js` | `.fundo-superficie`. Rótulos: O começo / Eventos / Regiões. **Mobile (até 899px):** 3 colunas lado a lado com hairline vertical; número em cima (`order: -1`), com `min(44px, 100cqi / 2.14)` (o "2020" mede 2,062em, com 4% de folga; `container-type` no item), e rótulo embaixo (10px, 0.18em, margin-top de 10px); legenda escondida; padding de 56px. **Desktop:** rótulo, número de 104px e legenda, padding da `.secao` (`revert-layer`) |
+| Números | `.numeros` | `numeros.js` | `.fundo-superficie`. Conteúdo: +5 Anos ("Desde 2020.") / +50 Eventos ("Jantares, celebrações e eventos corporativos.") / +10 Cidades ("No Vale do Taquari, Serra e Porto Alegre."); o "+" é fixo e a contagem vai de 0 ao número. **Mobile (até 899px):** 3 colunas lado a lado com hairline vertical; número em cima (`order: -1`), com `min(44px, 100cqi / 1.69)` (o mais largo é "+50", com 1,627em, mais 4% de folga; se mudar um número, meça de novo; `container-type` no item), e rótulo embaixo (10px, 0.18em, margin-top de 10px); legenda escondida; padding de 56px. **Desktop:** rótulo, número de 104px e legenda, padding da `.secao` (`revert-layer`) |
 | Manifesto | `.manifesto` | `manifesto.js` | `.fundo-base` |
 | Pilares | `.pilares` | `pilares.js` | `.fundo-superficie` (3 colunas só a partir de 1200px: "PERSONALIZAÇÃO" não quebra e não cabe em 1/3 antes disso) |
 | Formatos | `.formatos` | `formatos.js` | `.fundo-base` |
@@ -124,7 +124,7 @@ Use `var(--color-...)` no CSS ou os utilitários do Tailwind (`bg-fundo`, `text-
 GSAP + ScrollTrigger; duração 1.2–1.4s; ease `power3.out`. **Tudo desligado com `reduzirMovimento`.** Funcionalidades (menu, comanda, ano) continuam rodando.
 - Hero, texto: rótulo, h1 (linha a linha, com máscara criada pelo JS a partir dos `<br>`), `.hero-texto`, `.hero-local` e botões em stagger de 0.12s.
 - Hero, vídeo (com `gsap.matchMedia`): no mobile, opacidade 0 → 1 em 1.4s na `.hero-midia` e, no scroll, o `<video>` (não o container mascarado) vai de `yPercent` 0 → 8 e scale 1 → 1.06 (scrub). No desktop, o quadro abre com `clip-path: inset(100% 0 0 0)` → `inset(0)` em 1.4s, junto com o texto, e no scroll sobe com y 0 → -60 (scrub).
-- Números: contagem até o valor escrito no HTML (`data-contar-de` define o início, padrão 0).
+- Números: contagem de 0 até o valor escrito no HTML, preservando prefixo/sufixo (ex.: "+"); `data-contar-de` muda o início, se precisar.
 - Rótulos, h2 e textos de topo: `revelar()` (y 30 → 0 + opacidade).
 - Pilares e linhas de Formatos: `revelarEmSequencia()`.
 - Momentos: foto com `clip-path: inset()` de baixo para cima.
