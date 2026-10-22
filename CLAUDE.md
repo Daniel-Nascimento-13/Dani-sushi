@@ -1,7 +1,12 @@
 # Dani Sushi — Site
 
 Site da Dani Sushi (https://danisushii.com.br): sushi bar ao vivo e jantares personalizados. A home leva o visitante a preencher a comanda e continuar a conversa pelo WhatsApp.
-Branch de trabalho do novo design: `v2`. A `main` só recebe a v2 quando ela for aprovada.
+
+## Fluxo de trabalho
+- **`main` = produção.** Todo o trabalho é feito direto na `main`. A Vercel publica cada push automaticamente em https://danisushii.com.br.
+- Ao fim de cada tarefa: `npm run build` (corrigir erros), commit e push na `main`.
+- **Se algo quebrar em produção:** rollback pelo painel da Vercel, em Deployments → Instant Rollback (volta ao deploy anterior na hora); depois corrija na `main`.
+- **Branch `v2`:** histórico do redesign. Não apague, não faça commits nem traga mudanças para ela.
 
 ## Stack
 Vite + HTML/CSS/JS vanilla + Tailwind v4 (`@tailwindcss/vite`) + GSAP + ScrollTrigger + Lenis + fontes self-hosted (@fontsource).
@@ -195,7 +200,7 @@ GSAP + ScrollTrigger; duração 1.2–1.4s; ease `power3.out`. **Tudo desligado 
 7. Identificadores de CSS/JS em português. Comentários em CAIXA ALTA; seções divididas com `/* === TITULO === */`.
 8. HTML, CSS e JS em arquivos separados. Sem código morto, sem `console.log`.
 9. Remover arquivos e dependências que ficarem sem uso.
-10. Imagens e vídeos ficam em public/ (sem hash). Ao trocar o conteúdo de um arquivo, renomeie-o (ex.: hero-v2.jpg) e atualize as referências, para não servir versão antiga do cache. Antes do lançamento, mídias podem ser sobrescritas com o mesmo nome; depois que a v2 for para produção, vale a regra de renomear. Referencie sempre com caminho absoluto da raiz (`/imagens/...`, `/videos/...`) e, em metatags e JSON-LD, com a URL completa (`https://danisushii.com.br/...`).
+10. Imagens e vídeos ficam em public/ (sem hash). Ao trocar o conteúdo de um arquivo, renomeie-o (ex.: hero-v2.jpg) e atualize as referências, para não servir versão antiga do cache. Referencie sempre com caminho absoluto da raiz (`/imagens/...`, `/videos/...`) e, em metatags e JSON-LD, com a URL completa (`https://danisushii.com.br/...`).
 
 ## SEO e acessibilidade
 - Um único h1 por página; hierarquia h2 → h3 (use `.visualmente-oculto` quando a seção não tiver título visível). Use `lang="ja"` em todo kanji.
