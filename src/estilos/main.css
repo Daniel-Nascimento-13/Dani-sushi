@@ -1,0 +1,30 @@
+/* === TAILWIND (SEM PREFLIGHT — O RESET FICA EM BASE.CSS) === */
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+/* === LENIS === */
+@import "lenis/dist/lenis.css";
+
+/* === BASE E SEÇÕES === */
+@import "./base.css" layer(base);
+@import "./secoes/hero.css" layer(components);
+@import "./secoes/quem-somos.css" layer(components);
+@import "./secoes/modelos.css" layer(components);
+@import "./secoes/informacoes.css" layer(components);
+@import "./secoes/cta-final.css" layer(components);
+@import "./secoes/rodape.css" layer(components);
+
+/* === TOKENS === */
+@theme static {
+  --color-escura:          #4a0000;
+  --color-fundo:           #1a0000;
+  --color-card:            #140000;
+  --color-borda:           rgba(92,0,0,0.9);
+  --color-borda-suave:     rgba(255,60,60,0.28);
+  --color-borda-caixa:     rgba(255,60,60,0.22);
+  --color-whatsapp:        #25D366;
+  --color-whatsapp-texto:  #032815;
+  --color-branco:          #ffffff;
+  --color-preto:           #000000;
+}

@@ -1,0 +1,65 @@
+/* === RESET === */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: Arial, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  background: linear-gradient(0deg, #7a0000 0%, var(--color-escura) 30%, var(--color-fundo) 60%, var(--color-preto) 100%);
+  color: var(--color-branco);
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* === TIPOGRAFIA === */
+h1, h2, h3 { color: var(--color-branco); }
+p { color: var(--color-branco); }
+
+h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 25px;
+  text-shadow:
+    0 0 8px rgba(255,255,255,0.35),
+    0 0 16px rgba(255,80,80,0.35);
+}
+
+a { color: inherit; }
+
+/* === BOTÃO CTA (WHATSAPP) === */
+.cta {
+  display: inline-block;
+  background: var(--color-whatsapp);
+  color: var(--color-whatsapp-texto);
+  padding: 12px 22px;
+  border-radius: 10px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  border: none;
+  box-shadow: 0 0 0 rgba(37,211,102,0);
+}
+
+.cta:hover {
+  transform: scale(1.07);
+  box-shadow:
+    0 0 20px rgba(37,211,102,0.75),
+    0 0 30px rgba(37,211,102,0.45);
+}
+
+.cta:active {
+  transform: scale(0.96);
+  box-shadow: 0 0 14px rgba(37,211,102,0.55);
+}
+
+/* FOCO VISÍVEL — NAVEGAÇÃO POR TECLADO */
+.cta:focus-visible {
+  outline: 2px solid var(--color-branco);
+  outline-offset: 3px;
+}
+
+/* === MOVIMENTO REDUZIDO === */
+@media (prefers-reduced-motion: reduce) {
+  .cta { transition: none; }
+}

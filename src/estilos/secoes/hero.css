@@ -1,0 +1,70 @@
+/* === HERO === */
+.hero-fundo {
+  position: relative;
+  width: 100%;
+  height: 60vh;
+  min-height: 360px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  background: url('/src/assets/imagens/hero.jpg') center/cover no-repeat;
+  padding: 40px 0;
+}
+
+.hero-sobreposicao {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(2px);
+}
+
+.hero-conteudo {
+  position: relative;
+  z-index: 2;
+  padding: 0 20px;
+  max-width: 980px;
+}
+
+.hero-conteudo h1 {
+  font-size: 2.6rem;
+  margin-bottom: 10px;
+  letter-spacing: .6px;
+}
+
+.hero-subtitulo {
+  margin-bottom: 18px;
+  color: #ffdede;
+}
+
+/* LINHA INFERIOR DO HERO */
+.hero-fundo::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--color-borda-suave);
+}
+
+/* === RESPONSIVIDADE === */
+
+/* TELAS MUITO PEQUENAS (≤360PX) */
+@media (max-width: 360px) {
+  .hero-conteudo h1 { font-size: 1.7rem; }
+  .hero-fundo       { height: 55vh; }
+}
+
+/* SMARTPHONES (≤600PX) */
+@media (max-width: 600px) {
+  .hero-conteudo h1 { font-size: 2rem; }
+  .hero-fundo       { height: 60vh; }
+  .hero-conteudo    { padding: 0 16px; }
+}
+
+/* TABLETS (≤900PX) */
+@media (max-width: 900px) {
+  .hero-conteudo h1 { font-size: 2.2rem; }
+}

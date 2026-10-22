@@ -13,8 +13,18 @@ Este repositório contem *uma landing page*, desenvolvida para uso na bio do *In
 ---
 
 **Tecnologias utilizadas**
-- HTML
-- CSS  
+- HTML, CSS e JavaScript (vanilla)
+- Vite
+- Tailwind CSS v4
+- GSAP + ScrollTrigger
+- Lenis
+
+**Como rodar**
+```bash
+npm install
+npm run dev     # servidor local
+npm run build   # build de produção em dist/
+```
 
 
 
