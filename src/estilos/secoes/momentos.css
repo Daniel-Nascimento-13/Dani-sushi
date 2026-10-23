@@ -28,18 +28,22 @@
 }
 
 .momentos-foto {
-  display: grid;
-  place-items: center;
+  position: relative;
+  display: block;
   aspect-ratio: 4 / 5;
   margin-bottom: 20px;
+  overflow: hidden;
   background: var(--color-placeholder);
 }
 
-.momentos-foto span {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  color: var(--color-texto-3);
+/* MOLDURA FIXA: A FOTO PREENCHE COM COVER; ENQUADRAMENTO POR FOTO COM style="--foco: X% Y%" NO HTML */
+.momentos-foto img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--foco, 50% 50%);
 }
 
 .momentos-card h3 { margin-bottom: 8px; }
@@ -104,7 +108,8 @@
 
 .momento-dados {
   display: flex;
-  gap: 48px;
+  flex-wrap: wrap;
+  gap: 24px 48px;
   margin-top: 32px;
 }
 
@@ -122,6 +127,23 @@
   font-size: clamp(32px, 3.6vw, 48px);
   line-height: 1;
   color: var(--color-acento-claro);
+}
+
+/* CIDADE: TEXTO EM VEZ DE NÚMERO, MENOR PARA CABER AO LADO DOS NÚMEROS ("CRUZEIRO DO SUL") */
+.momento-dados .momento-dados-texto {
+  font-size: clamp(20px, 2vw, 26px);
+  line-height: 1.2;
+  color: var(--color-texto);
+}
+
+/* COMPLEMENTO DAS PEÇAS (EX.: "+ YAKISOBA E POKE"), EMBAIXO DO NÚMERO */
+.momento-dados-extra {
+  display: block;
+  margin-top: 8px;
+  font-family: var(--font-texto);
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--color-texto-2);
 }
 
 /* GALERIA: FOTO 1 NAS 2 LINHAS À ESQUERDA (2FR), FOTOS 2 E 3 EMPILHADAS À DIREITA (1FR).
@@ -152,6 +174,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: var(--foco, 50% 50%);
 }
 
 /* FECHAMENTO */
@@ -204,11 +227,11 @@
     aspect-ratio: 4 / 3;
   }
 
-  .momento-dados { gap: 40px; }
+  .momento-dados { gap: 24px 40px; }
 }
 
 @media (max-width: 359px) {
-  .momento-dados { gap: 28px; }
+  .momento-dados { gap: 20px 28px; }
   .momento-dados dd { font-size: 28px; }
 }
 

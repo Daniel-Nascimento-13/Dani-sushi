@@ -5,7 +5,8 @@ GERA, A PARTIR DOS ORIGINAIS EM MARCA/ E DO POSTER DO HERO:
   PUBLIC/FAVICON-32.PNG E PUBLIC/APPLE-TOUCH-ICON.PNG (DO SÍMBOLO DO PEIXE)
   PUBLIC/IMAGENS/SIMBOLO-PEIXE-MENU.WEBP        (SELO DO MENU MOBILE, 96PX DE ALTURA = 4X DE 24PX EXIBIDO)
 E, SÓ COM O ARGUMENTO "momentos", A PARTIR DOS ORIGINAIS EM ~/DESKTOP/DANI-SUSHI-ORIGINAIS/ (<EVENTO>-<N>.WEBP):
-  PUBLIC/IMAGENS/MOMENTOS/<EVENTO>/<N>-500.WEBP|JPG E <N>-1000.WEBP|JPG (PROPORÇÃO ORIGINAL, SEM METADADOS)
+  PUBLIC/IMAGENS/MOMENTOS/<EVENTO>/<N>-500.WEBP|JPG E <N>-1000.WEBP|JPG (PROPORÇÃO ORIGINAL, SEM METADADOS;
+  NUNCA AMPLIA: ORIGINAL COM MENOS DE 1000PX GERA O "-1000" NA LARGURA ORIGINAL)
 USO (NA RAIZ DO PROJETO): python3 ferramentas/derivados.py [recorte|og|favicons|selo|momentos]
   (SEM ARGUMENTO, GERA OS DA MARCA; OS MOMENTOS DEPENDEM DOS ORIGINAIS, QUE FICAM FORA DO REPOSITÓRIO)
 """
@@ -106,12 +107,14 @@ def gerar_momentos():
         pasta.mkdir(parents=True, exist_ok=True)
         # APLICA A ROTAÇÃO DO EXIF ANTES DE DESCARTÁ-LO; A IMAGEM NOVA NÃO LEVA METADADOS
         foto = ImageOps.exif_transpose(Image.open(original)).convert('RGB')
-        for largura in LARGURAS_MOMENTOS:
+        geradas = []
+        for nome in LARGURAS_MOMENTOS:
+            largura = min(nome, foto.width)
             copia = foto.resize((largura, round(foto.height * largura / foto.width)), Image.LANCZOS)
-            copia.save(pasta / f'{numero}-{largura}.webp', 'WEBP', quality=78, method=6)
-            copia.save(pasta / f'{numero}-{largura}.jpg', 'JPEG', quality=80, optimize=True, progressive=True)
-        aviso = f' (ampliada de {foto.width}px)' if foto.width < max(LARGURAS_MOMENTOS) else ''
-        print(f'{pasta}/{numero} {foto.width}x{foto.height}{aviso}')
+            copia.save(pasta / f'{numero}-{nome}.webp', 'WEBP', quality=78, method=6)
+            copia.save(pasta / f'{numero}-{nome}.jpg', 'JPEG', quality=80, optimize=True, progressive=True)
+            geradas.append(f'{nome}: {copia.width}x{copia.height}')
+        print(f'{pasta}/{numero} ({", ".join(geradas)})')
 
 
 TAREFAS = {'recorte': gerar_recorte, 'og': gerar_og, 'favicons': gerar_favicons, 'selo': gerar_selo, 'momentos': gerar_momentos}
