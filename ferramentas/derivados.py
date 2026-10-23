@@ -17,10 +17,10 @@ FRASE = 'Sushi bar ao vivo · Desde 2020'
 
 LOGO_ORIGINAL = Path('marca/logo-sem-fundo.webp')
 SIMBOLO = Path('marca/simbolo-peixe.webp')
-LOGO_RECORTADO = Path('public/imagens/logo-sem-fundo-recortado.webp')
-POSTER = Path('public/imagens/hero-poster.jpg')
-OG = Path('public/imagens/og-image.jpg')
-SELO_MENU = Path('public/imagens/simbolo-peixe-menu.webp')
+LOGO_RECORTADO = Path('public/imagens/marca/logo-sem-fundo-recortado.webp')
+POSTER = Path('public/imagens/hero/hero-poster.jpg')
+OG = Path('public/imagens/compartilhamento/og-image.jpg')
+SELO_MENU = Path('public/imagens/marca/simbolo-peixe-menu.webp')
 
 
 # === RECORTE JUSTO DO LOGO (MARGEM DE 2PX) ===

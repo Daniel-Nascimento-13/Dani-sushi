@@ -25,7 +25,11 @@ api/                          → funções da Vercel (Node, sem dependências):
 supabase/schema.sql           → tabela depoimentos (rodar no SQL Editor do Supabase)
 .env.example                  → variáveis do fluxo de depoimentos (o .env nunca vai para o Git)
 public/                       → servido na raiz, SEM hash (cache pela Vercel, ver vercel.json)
-  imagens/                    → logos, hero-poster.jpg, og-image.jpg (compartilhamento, 1200x630) e demais imagens (<img src="/imagens/...">)
+  imagens/                    → imagens do site (<img src="/imagens/...">)
+    marca/                    → derivados da marca: logo-sem-fundo-recortado.webp, simbolo-peixe-menu.webp
+    hero/                     → hero-poster.jpg (poster do vídeo + preload)
+    compartilhamento/         → og-image.jpg (1200x630, og:image e JSON-LD)
+    momentos/                 → fotos da página /momentos
   videos/                     → hero.mp4 (<source src="/videos/...">)
   favicon-32.png, apple-touch-icon.png, robots.txt, sitemap.xml
 vercel.json                   → Cache-Control: /imagens e /videos 1 dia + SWR 7 dias; /assets (hash) 1 ano, imutável
@@ -235,28 +239,28 @@ GSAP + ScrollTrigger; duração 1.2–1.4s; ease `power3.out`. **Tudo desligado 
 - Um único h1 por página; hierarquia h2 → h3 (use `.visualmente-oculto` quando a seção não tiver título visível). Use `lang="ja"` em todo kanji.
 - Imagens com `width`/`height` reais; placeholders com `aspect-ratio` fixo (CLS zero).
 ## Mídias da marca
-Os **originais** ficam em `marca/` (fora de `public/`, não vão para o deploy) e servem só de fonte. O site usa apenas os **derivados**. Nenhum HTML/CSS/JS pode referenciar `marca/`.
+Os **originais** ficam em `marca/` (fora de `public/`, não vão para o deploy) e servem só de fonte. O site usa apenas os **derivados**. Nenhum HTML/CSS/JS pode referenciar a pasta `marca/` da raiz (a `public/imagens/marca/` guarda só os derivados).
 
 | Arquivo | Onde | Origem |
 |---|---|---|
 | `marca/logo-sem-fundo.webp` (500×500) | não vai para o site | logo com letras claras e fundo transparente (com muita margem); fonte do recorte |
 | `marca/logo.webp` (1200×1200) | não vai para o site | logo sobre fundo escuro texturizado (arte de perfil/redes) |
 | `marca/simbolo-peixe.webp` (828×1472) | não vai para o site | selo vermelho com o peixe; fonte dos favicons |
-| `public/imagens/logo-sem-fundo-recortado.webp` (332×252) | cabeçalho (`alt="Dani Sushi"`, `fetchpriority="high"`; 42px mobile / 52px desktop) e rodapé (`alt=""`, lazy; 72px) | recorte justo de `marca/logo-sem-fundo.webp` |
+| `public/imagens/marca/logo-sem-fundo-recortado.webp` (332×252) | cabeçalho (`alt="Dani Sushi"`, `fetchpriority="high"`; 42px mobile / 52px desktop) e rodapé (`alt=""`, lazy; 72px) | recorte justo de `marca/logo-sem-fundo.webp` |
 | `public/favicon-32.png` / `public/apple-touch-icon.png` (180, fundo #0B0908, 14% de respiro) | `<link rel="icon">` / `<link rel="apple-touch-icon">` | `marca/simbolo-peixe.webp` |
-| `public/imagens/og-image.jpg` (1200×630) | `og:image` e `image` do JSON-LD | à esquerda, o recorte do `hero-poster.jpg`; à direita, o logo recortado + "Sushi bar ao vivo · Desde 2020" (Shippori, #BDB5AE) |
-| `public/imagens/hero-poster.jpg` | `poster` do vídeo + preload | frame do `hero.mp4` (ver abaixo) |
-| `public/imagens/simbolo-peixe-menu.webp` (54×96, ~1,6 KB) | menu mobile, antes de cada opção (`.menu-selo`, exibido a 14×24, `alt=""`, lazy) | `marca/simbolo-peixe.webp`, 96px de altura (4× dos 24px exibidos), WebP q85 |
+| `public/imagens/compartilhamento/og-image.jpg` (1200×630) | `og:image` e `image` do JSON-LD | à esquerda, o recorte do `hero-poster.jpg`; à direita, o logo recortado + "Sushi bar ao vivo · Desde 2020" (Shippori, #BDB5AE) |
+| `public/imagens/hero/hero-poster.jpg` | `poster` do vídeo + preload | frame do `hero.mp4` (ver abaixo) |
+| `public/imagens/marca/simbolo-peixe-menu.webp` (54×96, ~1,6 KB) | menu mobile, antes de cada opção (`.menu-selo`, exibido a 14×24, `alt=""`, lazy) | `marca/simbolo-peixe.webp`, 96px de altura (4× dos 24px exibidos), WebP q85 |
 
 ### Regerar os derivados (na raiz do projeto)
 O `ferramentas/derivados.py` (python3 + Pillow) tem toda a lógica. Ele lê de `marca/` e do poster e grava em `public/`:
 ```bash
 python3 ferramentas/derivados.py            # tudo: recorte, og-image e favicons
-python3 ferramentas/derivados.py recorte    # public/imagens/logo-sem-fundo-recortado.webp
-python3 ferramentas/derivados.py og         # public/imagens/og-image.jpg (depende do recorte e do poster)
+python3 ferramentas/derivados.py recorte    # public/imagens/marca/logo-sem-fundo-recortado.webp
+python3 ferramentas/derivados.py og         # public/imagens/compartilhamento/og-image.jpg (depende do recorte e do poster)
 python3 ferramentas/derivados.py favicons   # public/favicon-32.png e public/apple-touch-icon.png
-python3 ferramentas/derivados.py selo       # public/imagens/simbolo-peixe-menu.webp (selo do menu mobile)
-ffmpeg -ss 20 -i public/videos/hero.mp4 -frames:v 1 -q:v 4 public/imagens/hero-poster.jpg   # poster
+python3 ferramentas/derivados.py selo       # public/imagens/marca/simbolo-peixe-menu.webp (selo do menu mobile)
+ffmpeg -ss 20 -i public/videos/hero.mp4 -frames:v 1 -q:v 4 public/imagens/hero/hero-poster.jpg   # poster
 ```
 - **Logo mudou:** substitua `marca/logo-sem-fundo.webp` e rode `recorte` e `og`. Se o tamanho do recorte mudar (o script imprime), atualize o `width`/`height` dos dois `<img>`.
 - **Símbolo mudou:** substitua `marca/simbolo-peixe.webp` e rode `favicons` e `selo`. Se a proporção mudar, atualize o `width`/`height` dos 3 `<img class="menu-selo">`.
