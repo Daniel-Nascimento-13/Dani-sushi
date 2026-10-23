@@ -4,11 +4,15 @@ GERA, A PARTIR DOS ORIGINAIS EM MARCA/ E DO POSTER DO HERO:
   PUBLIC/IMAGENS/OG-IMAGE.JPG                   (1200X630: POSTER À ESQUERDA, LOGO + FRASE À DIREITA)
   PUBLIC/FAVICON-32.PNG E PUBLIC/APPLE-TOUCH-ICON.PNG (DO SÍMBOLO DO PEIXE)
   PUBLIC/IMAGENS/SIMBOLO-PEIXE-MENU.WEBP        (SELO DO MENU MOBILE, 96PX DE ALTURA = 4X DE 24PX EXIBIDO)
-USO (NA RAIZ DO PROJETO): python3 ferramentas/derivados.py [recorte|og|favicons|selo]  (SEM ARGUMENTO, GERA TODOS)
+E, SÓ COM O ARGUMENTO "momentos", A PARTIR DOS ORIGINAIS EM ~/DESKTOP/DANI-SUSHI-ORIGINAIS/ (<EVENTO>-<N>.WEBP):
+  PUBLIC/IMAGENS/MOMENTOS/<EVENTO>/<N>-500.WEBP|JPG E <N>-1000.WEBP|JPG (PROPORÇÃO ORIGINAL, SEM METADADOS)
+USO (NA RAIZ DO PROJETO): python3 ferramentas/derivados.py [recorte|og|favicons|selo|momentos]
+  (SEM ARGUMENTO, GERA OS DA MARCA; OS MOMENTOS DEPENDEM DOS ORIGINAIS, QUE FICAM FORA DO REPOSITÓRIO)
 """
+import re
 import sys
 from pathlib import Path
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFont, ImageOps
 
 FUNDO = (11, 9, 8)
 TEXTO_2 = (189, 181, 174)
@@ -21,6 +25,9 @@ LOGO_RECORTADO = Path('public/imagens/marca/logo-sem-fundo-recortado.webp')
 POSTER = Path('public/imagens/hero/hero-poster.jpg')
 OG = Path('public/imagens/compartilhamento/og-image.jpg')
 SELO_MENU = Path('public/imagens/marca/simbolo-peixe-menu.webp')
+MOMENTOS_ORIGINAIS = Path.home() / 'Desktop/dani-sushi-originais'
+MOMENTOS = Path('public/imagens/momentos')
+LARGURAS_MOMENTOS = (500, 1000)
 
 
 # === RECORTE JUSTO DO LOGO (MARGEM DE 2PX) ===
@@ -88,8 +95,28 @@ def gerar_selo():
     print(f'{SELO_MENU} {selo.width}x{selo.height} (exibido a {round(selo.width / 4)}x24: atualize width/height dos <img> se mudar)')
 
 
-TAREFAS = {'recorte': gerar_recorte, 'og': gerar_og, 'favicons': gerar_favicons, 'selo': gerar_selo}
+# === FOTOS DOS MOMENTOS (500W E 1000W, WEBP + JPG, SEM EXIF/GPS) ===
+def gerar_momentos():
+    originais = sorted(MOMENTOS_ORIGINAIS.glob('*.webp'))
+    if not originais:
+        sys.exit(f'nenhum original em {MOMENTOS_ORIGINAIS}')
+    for original in originais:
+        evento, numero = re.fullmatch(r'(.+)-(\d+)', original.stem).groups()
+        pasta = MOMENTOS / evento
+        pasta.mkdir(parents=True, exist_ok=True)
+        # APLICA A ROTAÇÃO DO EXIF ANTES DE DESCARTÁ-LO; A IMAGEM NOVA NÃO LEVA METADADOS
+        foto = ImageOps.exif_transpose(Image.open(original)).convert('RGB')
+        for largura in LARGURAS_MOMENTOS:
+            copia = foto.resize((largura, round(foto.height * largura / foto.width)), Image.LANCZOS)
+            copia.save(pasta / f'{numero}-{largura}.webp', 'WEBP', quality=78, method=6)
+            copia.save(pasta / f'{numero}-{largura}.jpg', 'JPEG', quality=80, optimize=True, progressive=True)
+        aviso = f' (ampliada de {foto.width}px)' if foto.width < max(LARGURAS_MOMENTOS) else ''
+        print(f'{pasta}/{numero} {foto.width}x{foto.height}{aviso}')
+
+
+TAREFAS = {'recorte': gerar_recorte, 'og': gerar_og, 'favicons': gerar_favicons, 'selo': gerar_selo, 'momentos': gerar_momentos}
+PADRAO = ('recorte', 'og', 'favicons', 'selo')
 
 if __name__ == '__main__':
-    for nome in sys.argv[1:] or TAREFAS:
+    for nome in sys.argv[1:] or PADRAO:
         TAREFAS[nome]()

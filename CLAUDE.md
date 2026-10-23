@@ -29,7 +29,7 @@ public/                       → servido na raiz, SEM hash (cache pela Vercel, 
     marca/                    → derivados da marca: logo-sem-fundo-recortado.webp, simbolo-peixe-menu.webp
     hero/                     → hero-poster.jpg (poster do vídeo + preload)
     compartilhamento/         → og-image.jpg (1200x630, og:image e JSON-LD)
-    momentos/                 → fotos da página /momentos
+    momentos/<evento>/        → fotos da página /momentos: <N>-500|1000.webp|jpg (geradas por derivados.py momentos)
   videos/                     → hero.mp4 (<source src="/videos/...">)
   favicon-32.png, apple-touch-icon.png, robots.txt, sitemap.xml
 vercel.json                   → Cache-Control: /imagens e /videos 1 dia + SWR 7 dias; /assets (hash) 1 ano, imutável
@@ -79,7 +79,7 @@ src/
 - Vite multipágina: `build.rollupOptions.input` em `vite.config.js` (`principal` + `momentos`); o build gera `dist/momentos/index.html`, servido em `/momentos/`. Toda página nova entra nesse `input` e no `sitemap.xml`.
 - Cabeçalho, menu mobile e rodapé copiados da home, com links absolutos (`/momentos/`, `/#depoimentos`, `/#orcamento`). Link da página atual com `aria-current="page"` (sublinhado em `--color-acento`, em `cabecalho.css`).
 - Fundos: `.momentos-pagina` (abertura + registros, `.fundo-base`) → `.momentos-fechamento` (`.fundo-superficie`) → rodapé (`.fundo-base`).
-- Cada registro é um `<article class="momento">` (hairline no topo): tipo, h2, descrição, `<dl class="momento-dados">` e `.momento-galeria` com 3 `<picture>` (WebP + JPG, 500w/1000w, 1000×750). Galeria: 2fr/1fr com a foto 1 nas 2 linhas; até 599px, foto 1 na largura toda e 2 + 3 lado a lado. Fotos provisórias em `public/imagens/momentos/provisorio-*`; ao trocar, use nomes novos (regra 10) e apague as provisórias.
+- Cada registro é um `<article class="momento">` (hairline no topo): tipo, h2, descrição, `<dl class="momento-dados">` e `.momento-galeria` com 3 `<picture>` (WebP + JPG, 500w/1000w, 1000×750). Galeria: 2fr/1fr com a foto 1 nas 2 linhas; até 599px, foto 1 na largura toda e 2 + 3 lado a lado. O HTML ainda usa as provisórias `public/imagens/momentos/provisorio-*`; as fotos reais já estão em `public/imagens/momentos/<evento>/` (ver "Fotos dos momentos"). Ao trocar, ajuste o `width`/`height` de cada `<img>` à proporção real da foto e apague as provisórias.
 - O CSS da página fica em `secoes/momentos.css` (junto com a seção da home), **desktop primeiro**, com `max-width` 899 → 599 → 359.
 - h1 ("Cada evento," / "uma história.") e h2 do fechamento sempre em 2 linhas, com `nowrap` + `cqi`: divisores 10,1 ("UMA HISTÓRIA." = 9,787em) e 14,3 ("PODE SER O PRÓXIMO." = 13,872em), com 3% de folga pelo itálico sintético.
 - JS: `iniciarMomentos` (o mesmo da home) revela cada `.momento` com `revelar()` quando a seção é `.momentos-pagina`.
@@ -260,12 +260,19 @@ python3 ferramentas/derivados.py recorte    # public/imagens/marca/logo-sem-fund
 python3 ferramentas/derivados.py og         # public/imagens/compartilhamento/og-image.jpg (depende do recorte e do poster)
 python3 ferramentas/derivados.py favicons   # public/favicon-32.png e public/apple-touch-icon.png
 python3 ferramentas/derivados.py selo       # public/imagens/marca/simbolo-peixe-menu.webp (selo do menu mobile)
+python3 ferramentas/derivados.py momentos   # public/imagens/momentos/<evento>/ (fora do "tudo"; ver abaixo)
 ffmpeg -ss 20 -i public/videos/hero.mp4 -frames:v 1 -q:v 4 public/imagens/hero/hero-poster.jpg   # poster
 ```
 - **Logo mudou:** substitua `marca/logo-sem-fundo.webp` e rode `recorte` e `og`. Se o tamanho do recorte mudar (o script imprime), atualize o `width`/`height` dos dois `<img>`.
 - **Símbolo mudou:** substitua `marca/simbolo-peixe.webp` e rode `favicons` e `selo`. Se a proporção mudar, atualize o `width`/`height` dos 3 `<img class="menu-selo">`.
 - **Vídeo mudou:** regere o poster (ffmpeg) e depois rode `og`.
 - A og-image precisa da fonte em `node_modules/` (rode `npm install` antes). Depois do lançamento, siga a regra 10 (renomear arquivos alterados).
+
+### Fotos dos momentos
+- **Originais fora do repositório**, em `~/Desktop/dani-sushi-originais/`, com o nome `<evento>-<N>.webp` (ex.: `aniversario-adriana-1.webp`, `pre-wedding-guto-helo-2.webp`): só minúsculas, sem acento, `-` como separador.
+- `python3 ferramentas/derivados.py momentos` gera em `public/imagens/momentos/<evento>/` os arquivos `<N>-500.webp`, `<N>-500.jpg`, `<N>-1000.webp` e `<N>-1000.jpg`: proporção original, sem corte, WebP q78, JPG q80 progressivo, sem EXIF/GPS (a rotação do EXIF é aplicada antes).
+- Originais com menos de 1000px de largura são ampliados para 1000 (o script avisa). Prefira originais com 1000px ou mais.
+- Ao trocar uma foto já publicada, use um nome novo (regra 10).
 
 ### Vídeo do hero (`videos/hero.mp4`)
 - Padrão de exportação: 720×1280, 30fps constante, H.264 High, yuv420p, sem áudio, faststart.
