@@ -1,4 +1,4 @@
-/* === MOMENTOS === */
+/* === MOMENTOS (HOME) === */
 .momentos-link {
   justify-self: start;
   padding-bottom: 6px;
@@ -44,7 +44,7 @@
 
 .momentos-card h3 { margin-bottom: 8px; }
 
-/* === RESPONSIVIDADE === */
+/* === RESPONSIVIDADE (HOME) === */
 @media (min-width: 600px) {
   .momentos-card { flex-basis: 46%; }
 }
@@ -66,12 +66,207 @@
   .momentos-card:nth-child(3) .momentos-foto { aspect-ratio: 3 / 4; }
 }
 
+/* === PÁGINA /MOMENTOS (DESKTOP PRIMEIRO; AJUSTES EM 900 → 600 → 360 NO FIM) === */
+/* O CABEÇALHO É FIXO: O TOPO DESCONTA A ALTURA DELE */
+.momentos-pagina { padding-top: calc(var(--altura-cabecalho) + 96px); }
+
+/* ABERTURA */
+.momentos-abertura {
+  margin-bottom: 96px;
+  container-type: inline-size;
+}
+
+.momentos-voltar {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: 14px;
+  color: var(--color-texto-3);
+  transition: color 0.4s ease;
+}
+
+.momentos-sobretitulo {
+  margin-top: 40px;
+  font-family: var(--font-titulo);
+  font-size: 13px;
+  line-height: 1.4;
+  text-transform: uppercase;
+  letter-spacing: 0.32em;
+  color: var(--color-acento-claro);
+}
+
+/* H1 SEMPRE EM 2 LINHAS: O TAMANHO SEGUE A COLUNA.
+   DIVISOR = "UMA HISTÓRIA." COM 0.1EM (9.787EM, MEDIDO NO SHIPPORI) + 3% DE FOLGA PELO ITÁLICO SINTÉTICO */
+.momentos-titulo {
+  margin-top: 20px;
+  font-size: min(80px, 100cqi / 10.1);
+  white-space: nowrap;
+}
+
+.momentos-titulo em,
+.momentos-fechamento-titulo em {
+  font-style: italic;
+  color: var(--color-texto-2);
+}
+
+.momentos-intro {
+  max-width: 560px;
+  margin-top: 28px;
+}
+
+/* REGISTROS: TEXTO À ESQUERDA, GALERIA À DIREITA, SEPARADOS POR HAIRLINE */
+.momento {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  align-items: start;
+  gap: 64px;
+  padding-block: 64px;
+  border-top: 1px solid var(--color-linha);
+}
+
+.momento:last-child { padding-bottom: 0; }
+
+.momento-tipo {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--color-texto-3);
+}
+
+.momento-numero { color: var(--color-acento-claro); }
+
+.momento h2 {
+  margin-top: 14px;
+  font-size: clamp(20px, 2.2vw, 30px);
+}
+
+.momento-descricao {
+  max-width: 440px;
+  margin-top: 16px;
+}
+
+.momento-dados {
+  display: flex;
+  gap: 48px;
+  margin-top: 32px;
+}
+
+.momento-dados dt {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--color-texto-3);
+}
+
+.momento-dados dd {
+  margin-top: 8px;
+  font-family: var(--font-titulo);
+  font-size: clamp(32px, 3.6vw, 48px);
+  line-height: 1;
+  color: var(--color-acento-claro);
+}
+
+/* GALERIA: FOTO 1 NAS 2 LINHAS À ESQUERDA (2FR), FOTOS 2 E 3 EMPILHADAS À DIREITA (1FR).
+   AS PEQUENAS DEFINEM A ALTURA (4:3); A PRINCIPAL PREENCHE AS DUAS LINHAS SEM EMPURRAR O GRID */
+.momento-galeria {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: 12px;
+}
+
+.momento-imagem {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 4px;
+  background: var(--color-placeholder);
+}
+
+.momento-imagem-principal {
+  grid-row: span 2;
+  aspect-ratio: auto;
+}
+
+.momento-imagem img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* FECHAMENTO */
+/* H2 SEMPRE EM 2 LINHAS: "PODE SER O PRÓXIMO." COM 0.1EM = 13.872EM + 3% DE FOLGA → DIVISOR 14.3 */
+.momentos-fechamento-conteudo {
+  text-align: center;
+  container-type: inline-size;
+}
+
+.momentos-fechamento-titulo {
+  font-size: min(clamp(20px, 3vw, 44px), 100cqi / 14.3);
+  white-space: nowrap;
+}
+
+.momentos-fechamento-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 24px 36px;
+  margin-top: 40px;
+}
+
+/* === RESPONSIVIDADE (PÁGINA /MOMENTOS, DO MAIOR PARA O MENOR) === */
+@media (max-width: 899px) {
+  .momentos-pagina { padding-top: calc(var(--altura-cabecalho) + 48px); }
+  .momentos-abertura { margin-bottom: 64px; }
+  .momentos-sobretitulo { margin-top: 32px; }
+
+  .momento {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+    padding-block: 48px;
+  }
+
+  .momentos-fechamento-acoes { margin-top: 32px; }
+}
+
+/* FOTO 1 NA LARGURA TODA; FOTOS 2 E 3 LADO A LADO EMBAIXO */
+@media (max-width: 599px) {
+  .momentos-sobretitulo { letter-spacing: 0.24em; }
+  .momentos-titulo { line-height: 1.2; }
+  .momentos-intro { margin-top: 20px; }
+
+  .momento-galeria {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .momento-imagem-principal {
+    grid-column: 1 / -1;
+    grid-row: auto;
+    aspect-ratio: 4 / 3;
+  }
+
+  .momento-dados { gap: 40px; }
+}
+
+@media (max-width: 359px) {
+  .momento-dados { gap: 28px; }
+  .momento-dados dd { font-size: 28px; }
+}
+
 /* === HOVER (SÓ MOUSE: NO TOQUE O :HOVER GRUDA DEPOIS DO TAP) === */
 @media (hover: hover) and (pointer: fine) {
-  .momentos-link:hover { border-color: var(--color-texto); }
+  .momentos-link:hover   { border-color: var(--color-texto); }
+  .momentos-voltar:hover { color: var(--color-texto); }
 }
 
 /* === MOVIMENTO REDUZIDO === */
 @media (prefers-reduced-motion: reduce) {
-  .momentos-link { transition: none; }
+  .momentos-link,
+  .momentos-voltar { transition: none; }
 }

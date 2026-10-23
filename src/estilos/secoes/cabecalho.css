@@ -44,6 +44,15 @@ html { scroll-padding-top: var(--altura-cabecalho); }
   transition: color 0.4s ease;
 }
 
+/* PÁGINA ATUAL: SUBLINHADO NO VERMELHO DA MARCA */
+.cabecalho-nav a[aria-current="page"],
+.menu-mobile ul a[aria-current="page"] .menu-texto {
+  text-decoration-line: underline;
+  text-decoration-color: var(--color-acento);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 8px;
+}
+
 .cabecalho-botao {
   display: none;
   height: 44px;

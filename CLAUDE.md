@@ -65,7 +65,17 @@ src/
 - **Ao adicionar ou mover uma seção, refaça a alternância.**
 - **Divisórias:** a mudança de fundo já separa as seções, então não use bordas superior/inferior entre seções. As hairlines ficam só dentro dos blocos (listas de Números, Pilares e Formatos; o © do rodapé).
 
-Páginas futuras: /momentos, /depoimentos, /orcamento.
+## Página /momentos (`momentos/index.html`)
+- Vite multipágina: `build.rollupOptions.input` em `vite.config.js` (`principal` + `momentos`); o build gera `dist/momentos/index.html`, servido em `/momentos/`. Toda página nova entra nesse `input` e no `sitemap.xml`.
+- Cabeçalho, menu mobile e rodapé copiados da home, com links absolutos (`/momentos/`, `/#depoimentos`, `/#orcamento`). Link da página atual com `aria-current="page"` (sublinhado em `--color-acento`, em `cabecalho.css`).
+- Fundos: `.momentos-pagina` (abertura + registros, `.fundo-base`) → `.momentos-fechamento` (`.fundo-superficie`) → rodapé (`.fundo-base`).
+- Cada registro é um `<article class="momento">` (hairline no topo): tipo, h2, descrição, `<dl class="momento-dados">` e `.momento-galeria` com 3 `<picture>` (WebP + JPG, 500w/1000w, 1000×750). Galeria: 2fr/1fr com a foto 1 nas 2 linhas; até 599px, foto 1 na largura toda e 2 + 3 lado a lado. Fotos provisórias em `public/imagens/momentos/provisorio-*`; ao trocar, use nomes novos (regra 10) e apague as provisórias.
+- O CSS da página fica em `secoes/momentos.css` (junto com a seção da home), **desktop primeiro**, com `max-width` 899 → 599 → 359.
+- h1 ("Cada evento," / "uma história.") e h2 do fechamento sempre em 2 linhas, com `nowrap` + `cqi`: divisores 10,1 ("UMA HISTÓRIA." = 9,787em) e 14,3 ("PODE SER O PRÓXIMO." = 13,872em), com 3% de folga pelo itálico sintético.
+- JS: `iniciarMomentos` (o mesmo da home) revela cada `.momento` com `revelar()` quando a seção é `.momentos-pagina`.
+- O `ferramentas/kanji.js` só lê os `*.html` da raiz: se a página ganhar kanji, inclua as subpastas no script.
+
+Páginas futuras: /depoimentos, /orcamento.
 
 ## Tokens (`@theme static` em main.css)
 | Token | Valor | Uso |
