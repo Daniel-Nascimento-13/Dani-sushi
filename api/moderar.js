@@ -44,8 +44,7 @@ export default async function handler(req, res) {
       return responder(res, 200, { titulo: 'Pronto.', mensagem: 'O depoimento foi recusado e não vai para o site.', depoimento });
     }
 
-    const deploy = await fetch(process.env.VERCEL_DEPLOY_HOOK_URL, { method: 'POST' }).catch(() => null);
-    if (!deploy?.ok) {
+    if (!(await dispararDeploy())) {
       return responder(res, 200, {
         titulo: 'Aprovado, mas o site não foi atualizado.',
         mensagem: 'O deploy não foi disparado. Faça um Redeploy no painel da Vercel para o depoimento entrar no site.',
@@ -57,6 +56,39 @@ export default async function handler(req, res) {
   } catch (erro) {
     console.error(erro);
     return responder(res, 500, { titulo: 'Algo deu errado.', mensagem: 'Tente de novo em alguns minutos.' });
+  }
+}
+
+/* === DEPLOY HOOK DA VERCEL (RESPONDE 201 COM {"JOB": ...}) ===
+   TODA FALHA VAI PARA OS LOGS COM O MOTIVO (STATUS E CORPO), NUNCA COM A URL: ELA DÁ PODER DE DISPARAR DEPLOYS */
+async function dispararDeploy() {
+  const valor = process.env.VERCEL_DEPLOY_HOOK_URL;
+  const url = lerUrlDoHook(valor);
+  if (!url) {
+    console.error(valor
+      ? 'Deploy hook: VERCEL_DEPLOY_HOOK_URL não é uma URL https válida.'
+      : 'Deploy hook: VERCEL_DEPLOY_HOOK_URL ausente nesta implantação (variáveis novas só valem a partir do próximo deploy).');
+    return false;
+  }
+
+  try {
+    const resposta = await fetch(url, { method: 'POST' });
+    if (resposta.ok) return true;
+    console.error(`Deploy hook: HTTP ${resposta.status} ${(await resposta.text()).slice(0, 500)}`);
+  } catch (erro) {
+    console.error(`Deploy hook: falha de rede (${erro.cause?.code ?? erro.name}).`);
+  }
+  return false;
+}
+
+/* TOLERA ESPAÇOS E ASPAS COLADOS JUNTO COM A URL NO PAINEL DA VERCEL */
+function lerUrlDoHook(valor) {
+  const limpo = String(valor ?? '').trim().replace(/^(['"])(.*)\1$/, '$2').trim();
+  try {
+    const url = new URL(limpo);
+    return url.protocol === 'https:' ? url.href : null;
+  } catch {
+    return null;
   }
 }
 
