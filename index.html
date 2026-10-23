@@ -67,7 +67,7 @@
       <nav class="cabecalho-nav" aria-label="Principal">
         <ul>
           <li><a href="/momentos/">Momentos</a></li>
-          <li><a href="#depoimentos">Depoimentos</a></li>
+          <li><a href="/depoimentos/">Depoimentos</a></li>
           <li><a href="#orcamento">Orçamento</a></li>
         </ul>
       </nav>
@@ -87,7 +87,7 @@
     <nav aria-label="Menu">
       <ul>
         <li><a href="/momentos/"><img class="menu-selo" src="/imagens/simbolo-peixe-menu.webp" alt="" width="14" height="24" loading="lazy" decoding="async"><span class="menu-texto">Momentos</span></a></li>
-        <li><a href="#depoimentos"><img class="menu-selo" src="/imagens/simbolo-peixe-menu.webp" alt="" width="14" height="24" loading="lazy" decoding="async"><span class="menu-texto">Depoimentos</span></a></li>
+        <li><a href="/depoimentos/"><img class="menu-selo" src="/imagens/simbolo-peixe-menu.webp" alt="" width="14" height="24" loading="lazy" decoding="async"><span class="menu-texto">Depoimentos</span></a></li>
         <li><a href="#orcamento"><img class="menu-selo" src="/imagens/simbolo-peixe-menu.webp" alt="" width="14" height="24" loading="lazy" decoding="async"><span class="menu-texto">Orçamento</span></a></li>
       </ul>
     </nav>
@@ -259,21 +259,36 @@
       </div>
     </section>
 
-    <!-- DEPOIMENTOS -->
+    <!-- DEPOIMENTOS:INICIO -->
     <section class="depoimentos secao fundo-base" id="depoimentos" aria-labelledby="depoimentos-titulo">
-      <div class="envoltorio depoimentos-conteudo">
-        <div>
-          <p class="rotulo"><span class="rotulo-kanji" lang="ja">声</span> Koe · <em>Depoimentos</em></p>
-          <h2 id="depoimentos-titulo">O que fica depois<br>da última peça.</h2>
+      <div class="envoltorio">
+        <div class="secao-topo">
+          <div>
+            <p class="rotulo"><span class="rotulo-kanji" lang="ja">声</span> Koe · <em>Depoimentos</em></p>
+            <h2 id="depoimentos-titulo">O que fica depois<br>da última peça.</h2>
+          </div>
+          <a href="/depoimentos/" class="momentos-link">Ver todos os depoimentos →</a>
         </div>
 
-        <div class="depoimentos-cartao">
-          <h3>Esteve em um dos nossos eventos?</h3>
-          <p>Conte como foi. Seu relato passa a fazer parte da nossa história.</p>
-          <a href="#" class="botao botao-secundario">Deixar meu depoimento</a>
+        <div class="depoimentos-carrossel">
+          <ul class="depoimentos-trilho" tabindex="0" aria-label="Depoimentos recentes">
+            <!-- DEPOIMENTOS_HOME -->
+          </ul>
+          <div class="depoimentos-controles">
+            <p class="depoimentos-indicador" aria-hidden="true"><span data-atual>1</span> / <span data-total></span></p>
+            <div class="depoimentos-setas">
+              <button class="depoimentos-seta" type="button" aria-label="Depoimento anterior" data-direcao="-1">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+              </button>
+              <button class="depoimentos-seta" type="button" aria-label="Próximo depoimento" data-direcao="1">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </section>
+    <!-- DEPOIMENTOS:FIM -->
 
     <!-- ORÇAMENTO -->
     <section class="orcamento secao fundo-superficie" id="orcamento" aria-labelledby="orcamento-titulo">
@@ -341,7 +356,7 @@
       <nav class="rodape-nav" aria-label="Rodapé">
         <ul>
           <li><a href="/momentos/">Momentos</a></li>
-          <li><a href="#depoimentos">Depoimentos</a></li>
+          <li><a href="/depoimentos/">Depoimentos</a></li>
           <li><a href="#orcamento">Orçamento</a></li>
           <li><a href="https://www.instagram.com/danisushii/" target="_blank" rel="noopener noreferrer" aria-label="Instagram da Dani Sushi (abre em nova aba)">Instagram</a></li>
         </ul>

@@ -1,8 +1,8 @@
 /* === SUBCONJUNTO DE KANJI DO SHIPPORI MINCHO ===
-   LÊ OS TEXTOS COM LANG="JA" NOS HTML DA RAIZ, GERA FONTES WOFF2 SÓ COM ESSES
+   LÊ OS TEXTOS COM LANG="JA" NOS HTML DA RAIZ E NO INDEX.HTML DE CADA PÁGINA (MOMENTOS/, DEPOIMENTOS/...), GERA FONTES WOFF2 SÓ COM ESSES
    CARACTERES E ESCREVE O @FONT-FACE EM SRC/ESTILOS/FONTES-KANJI.CSS.
    RODA AUTOMATICAMENTE ANTES DE "NPM RUN DEV" E "NPM RUN BUILD". */
-import { readFileSync, writeFileSync, readdirSync, rmSync, mkdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, readdirSync, rmSync, mkdirSync, existsSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import subsetFont from 'subset-font';
 
@@ -12,7 +12,13 @@ const pastaSaida = 'src/assets/fontes';
 const arquivoCss = 'src/estilos/fontes-kanji.css';
 
 /* === CARACTERES USADOS NO HTML === */
-const html = readdirSync('.').filter((nome) => nome.endsWith('.html')).map((nome) => readFileSync(nome, 'utf8')).join('');
+const IGNORAR = new Set(['node_modules', 'dist', 'public', 'src']);
+const paginas = readdirSync('.', { withFileTypes: true }).flatMap((item) => {
+  if (item.isFile() && item.name.endsWith('.html')) return [item.name];
+  if (item.isDirectory() && !IGNORAR.has(item.name) && existsSync(`${item.name}/index.html`)) return [`${item.name}/index.html`];
+  return [];
+});
+const html = paginas.map((pagina) => readFileSync(pagina, 'utf8')).join('');
 const textos = [...html.matchAll(/lang="ja"[^>]*>([^<]+)</g)].map((trecho) => trecho[1]);
 const caracteres = [...new Set(textos.join('').replace(/\s/g, ''))].sort();
 

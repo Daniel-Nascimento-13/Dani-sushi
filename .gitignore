@@ -10,3 +10,11 @@ build/
 
 # Ignorar dependências (caso tenha)
 node_modules/
+
+# Variáveis de ambiente (segredos): só o exemplo vai para o Git
+.env
+.env.*
+!.env.example
+
+# Configuração local da Vercel CLI
+.vercel/

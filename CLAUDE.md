@@ -17,7 +17,13 @@ Vite + HTML/CSS/JS vanilla + Tailwind v4 (`@tailwindcss/vite`) + GSAP + ScrollTr
 
 ## Estrutura
 ```
-index.html                    → home; todo o conteúdo fica aqui; carrega só /src/main.js
+index.html                    → home; carrega só /src/main.js
+momentos/index.html           → página /momentos/
+depoimentos/index.html        → página /depoimentos/ (carrossel gerado no build + formulário de envio)
+api/                          → funções da Vercel (Node, sem dependências): depoimentos.js (POST do formulário),
+                                moderar.js (aprovar/recusar pelo e-mail), _comum.js (helpers; "_" = não vira rota)
+supabase/schema.sql           → tabela depoimentos (rodar no SQL Editor do Supabase)
+.env.example                  → variáveis do fluxo de depoimentos (o .env nunca vai para o Git)
 public/                       → servido na raiz, SEM hash (cache pela Vercel, ver vercel.json)
   imagens/                    → logos, hero-poster.jpg, og-image.jpg (compartilhamento, 1200x630) e demais imagens (<img src="/imagens/...">)
   videos/                     → hero.mp4 (<source src="/videos/...">)
@@ -25,7 +31,7 @@ public/                       → servido na raiz, SEM hash (cache pela Vercel, 
 vercel.json                   → Cache-Control: /imagens e /videos 1 dia + SWR 7 dias; /assets (hash) 1 ano, imutável
 marca/                        → ORIGINAIS da marca (logo, símbolo); só fonte dos derivados, fora do deploy
 ferramentas/
-  kanji.js                    → gera src/assets/fontes/*.woff2 e src/estilos/fontes-kanji.css
+  kanji.js                    → gera src/assets/fontes/*.woff2 e src/estilos/fontes-kanji.css (lê *.html da raiz e <pasta>/index.html)
   derivados.py                → gera o recorte do logo, a og-image e os favicons a partir de marca/
 src/
   main.js                     → ENTRADA ÚNICA: fontes, CSS, scroll, cabeçalho e hero; o resto sob demanda
@@ -55,7 +61,7 @@ src/
 | Pilares | `.pilares` | `pilares.js` | `.fundo-superficie` (3 colunas só a partir de 1200px: "PERSONALIZAÇÃO" não quebra e não cabe em 1/3 antes disso) |
 | Formatos | `.formatos` | `formatos.js` | `.fundo-base`. Cada linha é um link inteiro para `#orcamento`. **Sem seta.** Número (mono 12px) em `--color-acento-claro`; grid de `32px 1fr` no mobile (descrição embaixo, na coluna 2) e de `80px 1fr 1.1fr` a partir de 900px. O título fica vermelho no hover (só com mouse) e no `:focus-visible`. No mobile, "Jantares residenciais" e "Eventos corporativos" quebram em 2 linhas até 360px e cabem em 1 a partir de 390px (quebra natural, sem nowrap) |
 | Momentos | `.momentos` / `#momentos` | `momentos.js` | `.fundo-superficie` |
-| Depoimentos | `.depoimentos` / `#depoimentos` | `depoimentos.js` | `.fundo-base` |
+| Depoimentos | `.depoimentos` / `#depoimentos` | `depoimentos.js` | `.fundo-base`. Rótulo + h2 + "Ver todos os depoimentos →" (`/depoimentos/`) e o carrossel com os 6 aprovados mais recentes (gerados no build). **Sem aprovados, a seção inteira some** (ver "Depoimentos") |
 | Orçamento (comanda) | `.orcamento` / `#orcamento` | `orcamento.js` | `.fundo-superficie` (2 colunas só a partir de 1200px; abaixo disso, comanda embaixo com máx. 560px) |
 | Rodapé | `.rodape` | `rodape.js` (ano atual em `[data-ano-atual]`) | `.fundo-base`. **Tudo centralizado**, um embaixo do outro, em todas as larguras: logo (72px) → 24px → frase "Você faz a vibe e o Dani Sushi!" (Shippori uppercase, 0.12em, `clamp(16px, 2.2vw, 22px)`, "Dani Sushi!" em `.destaque`; no mobile, `<br class="so-mobile">` quebra em "VOCÊ FAZ A VIBE / E O DANI SUSHI!") → 40px → nav centralizada com 4 itens (Momentos, Depoimentos, Orçamento, Instagram; o WhatsApp fica na comanda e nos botões): cada link `inline-flex` com `min-height: 44px` (área de toque) e `nowrap`. **Até 599px:** 14px com gap de 18px; os 4 somam 326,7px (64,8 + 80,3 + 67,4 + 60,1 + 3 × 18), então ficam em **1 linha** com `@container (min-width: 334px)` (2% de folga), ou seja, a partir de 375px. Abaixo disso (320 e 360) viram um **grid 2 × 2 de colunas iguais** (`repeat(2, minmax(0, 1fr))`, `justify-items: center`): Momentos sobre Orçamento e Depoimentos sobre Instagram, alinhados. Nunca o 2 + 2 solto nem 3 + 1. **A partir de 600px:** 15px, gap de 28px, 1 linha. Se um link mudar, meça de novo → hairline → "© 2020–{ano} · Dani Sushi · Todos os direitos reservados." (mono 11px, texto-3; no mobile, 2 linhas sem o "·" pendurado, via `.so-desktop` e `<br class="so-mobile">`) |
 
@@ -73,9 +79,21 @@ src/
 - O CSS da página fica em `secoes/momentos.css` (junto com a seção da home), **desktop primeiro**, com `max-width` 899 → 599 → 359.
 - h1 ("Cada evento," / "uma história.") e h2 do fechamento sempre em 2 linhas, com `nowrap` + `cqi`: divisores 10,1 ("UMA HISTÓRIA." = 9,787em) e 14,3 ("PODE SER O PRÓXIMO." = 13,872em), com 3% de folga pelo itálico sintético.
 - JS: `iniciarMomentos` (o mesmo da home) revela cada `.momento` com `revelar()` quando a seção é `.momentos-pagina`.
-- O `ferramentas/kanji.js` só lê os `*.html` da raiz: se a página ganhar kanji, inclua as subpastas no script.
 
-Páginas futuras: /depoimentos, /orcamento.
+- Cabeçalho da abertura compartilhado com /depoimentos em `base.css` (`.pagina-topo`, `.pagina-abertura`, `.pagina-voltar`, `.pagina-sobretitulo`, `.pagina-titulo` + `--divisor-titulo` por página, `.pagina-intro`).
+
+## Depoimentos (página /depoimentos + envio + moderação por e-mail)
+- **Fluxo:** formulário (`#enviar`) → `POST /api/depoimentos` (honeypot `site`, validação com os limites do banco, sem HTML, rate limit de 3/h por `ip_hash` = sha256(IP + SEGREDO_MODERACAO)) → grava `pendente` no Supabase → e-mail (Resend) para `EMAIL_AVISO` com Aprovar/Recusar → `GET /api/moderar` só mostra a confirmação (antivírus de e-mail pré-abre links) → o `POST` do botão muda o status (só se ainda `pendente`) → ao aprovar, `POST` no `VERCEL_DEPLOY_HOOK_URL` → novo build.
+- **Token dos links:** HMAC-SHA256(id + ação, SEGREDO_MODERACAO), comparado com `timingSafeEqual`. Trocar o segredo invalida os links já enviados.
+- **Supabase:** RLS ativo e **nenhuma policy**; tudo passa pela service role key, só no servidor (funções e build). Nunca use essa chave no front.
+- **Build (`depoimentosAprovados` em `vite.config.js`):** `<!-- DEPOIMENTOS_HOME -->` (6 mais recentes) e `<!-- DEPOIMENTOS -->` (todos) viram `<li class="depoimentos-item"><figure class="depoimento">`, com escape de HTML. Sem aprovados, sai tudo entre `<!-- DEPOIMENTOS:INICIO -->` e `<!-- DEPOIMENTOS:FIM -->`; se o trecho removido tinha `fundo-*` (a seção da home), os fundos seguintes se invertem e a alternância continua.
+  - Sem `SUPABASE_URL`/`SUPABASE_SERVICE_ROLE_KEY`: 3 cards de exemplo (`[Nome]`, `[Cidade]`) em dev e no build local; **na Vercel, o build falha**.
+  - Com as variáveis, qualquer falha na busca derruba o build e a Vercel mantém o deploy anterior.
+- **Carrossel** (`.depoimentos-carrossel`, mesmo HTML na home e na página): scroll-snap nativo; mobile com swipe, próximo card aparecendo e indicador "1 / N"; 2 cards a partir de 600px; 3 + setas a partir de 900px. Os controles somem quando todos cabem (`.depoimentos-sem-rolagem`).
+- **Formulário:** `novalidate`; limites em `minlength`/`maxlength` no HTML; erros via `aria-invalid` + `data-erro` na dica (mesmo padrão da comanda); botão desabilitado durante o envio; sucesso esconde o form e mostra `.depoimentos-recebido` (já no HTML com `hidden`); erro mostra `.depoimentos-erro` (429 usa o `data-limite`) e o botão vira "Tentar de novo". Em `npm run dev` não existe `/api`, então o envio sempre cai no erro (teste com `vercel dev`).
+- h1 "Quem viveu," / "conta." → divisor 8,7 ("QUEM VIVEU," = 8,437em). h2 do envio "Esteve em um" / "dos nossos eventos?" → `100cqi / 14.9` ("DOS NOSSOS EVENTOS?" = 14,583em).
+
+Páginas futuras: /orcamento.
 
 ## Tokens (`@theme static` em main.css)
 | Token | Valor | Uso |

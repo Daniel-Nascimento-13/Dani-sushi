@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Depoimentos | Dani Sushi</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Depoimentos de quem recebeu o Dani Sushi em casa, no casamento ou na empresa. Sushi bar ao vivo no Vale do Taquari, Serra e Porto Alegre. Esteve em um evento? Conte como foi.">
+  <meta name="theme-color" content="#0B0908">
+  <link rel="canonical" href="https://danisushii.com.br/depoimentos/">
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <!-- OPEN GRAPH (WHATSAPP, INSTAGRAM, REDES SOCIAIS) -->
+  <meta property="og:title" content="Depoimentos | Dani Sushi">
+  <meta property="og:description" content="Palavras de quem recebeu o Dani Sushi em casa, no casamento ou na empresa. Sem edição.">
+  <meta property="og:image" content="https://danisushii.com.br/imagens/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:url" content="https://danisushii.com.br/depoimentos/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- FONTE DOS TÍTULOS -->
+  <link rel="preload" href="/node_modules/@fontsource/shippori-mincho/files/shippori-mincho-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+
+  <script type="module" src="/src/main.js"></script>
+</head>
+<body>
+
+  <!-- CABEÇALHO -->
+  <header class="cabecalho">
+    <div class="envoltorio cabecalho-conteudo">
+      <a href="/" class="cabecalho-logo" aria-label="Dani Sushi, início">
+        <img src="/imagens/logo-sem-fundo-recortado.webp" alt="Dani Sushi" width="332" height="252" fetchpriority="high">
+      </a>
+
+      <nav class="cabecalho-nav" aria-label="Principal">
+        <ul>
+          <li><a href="/momentos/">Momentos</a></li>
+          <li><a href="/depoimentos/" aria-current="page">Depoimentos</a></li>
+          <li><a href="/#orcamento">Orçamento</a></li>
+        </ul>
+      </nav>
+
+      <a href="/#orcamento" class="botao botao-primario cabecalho-botao">Solicitar orçamento</a>
+
+      <button class="cabecalho-menu" type="button" aria-expanded="false" aria-controls="menu-mobile" aria-label="Abrir menu" data-rotulo-abrir="Abrir menu" data-rotulo-fechar="Fechar menu">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- MENU MOBILE -->
+  <div class="menu-mobile" id="menu-mobile" hidden>
+    <nav aria-label="Menu">
+      <ul>
+        <li><a href="/momentos/"><img class="menu-selo" src="/imagens/simbolo-peixe-menu.webp" alt="" width="14" height="24" loading="lazy" decoding="async"><span class="menu-texto">Momentos</span></a></li>
+        <li><a href="/depoimentos/" aria-current="page"><img class="menu-selo" src="/imagens/simbolo-peixe-menu.webp" alt="" width="14" height="24" loading="lazy" decoding="async"><span class="menu-texto">Depoimentos</span></a></li>
+        <li><a href="/#orcamento"><img class="menu-selo" src="/imagens/simbolo-peixe-menu.webp" alt="" width="14" height="24" loading="lazy" decoding="async"><span class="menu-texto">Orçamento</span></a></li>
+      </ul>
+    </nav>
+    <a href="/#orcamento" class="botao botao-primario">Solicitar orçamento</a>
+  </div>
+
+  <main>
+
+    <!-- ABERTURA + CARROSSEL -->
+    <section class="depoimentos-pagina secao pagina-topo fundo-base" aria-labelledby="depoimentos-titulo">
+      <div class="envoltorio">
+        <div class="pagina-abertura">
+          <a href="/" class="pagina-voltar">← Voltar ao início</a>
+          <p class="pagina-sobretitulo">Depoimentos</p>
+          <h1 class="pagina-titulo depoimentos-titulo" id="depoimentos-titulo">Quem viveu,<br><em>conta.</em></h1>
+          <p class="pagina-intro texto-intro">Palavras de quem recebeu o Dani Sushi em casa, no casamento ou na empresa. Sem edição.</p>
+        </div>
+
+        <!-- DEPOIMENTOS:INICIO -->
+        <div class="depoimentos-carrossel">
+          <ul class="depoimentos-trilho" tabindex="0" aria-label="Depoimentos">
+            <!-- DEPOIMENTOS -->
+          </ul>
+          <div class="depoimentos-controles">
+            <p class="depoimentos-indicador" aria-hidden="true"><span data-atual>1</span> / <span data-total></span></p>
+            <div class="depoimentos-setas">
+              <button class="depoimentos-seta" type="button" aria-label="Depoimento anterior" data-direcao="-1">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+              </button>
+              <button class="depoimentos-seta" type="button" aria-label="Próximo depoimento" data-direcao="1">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- DEPOIMENTOS:FIM -->
+      </div>
+    </section>
+
+    <!-- ENVIO -->
+    <section class="depoimentos-envio secao fundo-superficie" id="enviar" aria-labelledby="enviar-titulo">
+      <div class="envoltorio depoimentos-envio-conteudo">
+        <div class="depoimentos-envio-intro">
+          <p class="rotulo"><span class="rotulo-kanji" lang="ja">声</span> Koe · <em>Seu depoimento</em></p>
+          <h2 class="depoimentos-envio-titulo" id="enviar-titulo">Esteve em um<br>dos nossos eventos?</h2>
+          <p class="depoimentos-envio-texto texto-intro">Conte como foi. Seu relato passa a fazer parte da nossa história.</p>
+        </div>
+
+        <div>
+          <form class="depoimentos-form" action="/api/depoimentos" method="post" novalidate>
+            <div class="depoimentos-campos">
+              <div class="depoimentos-campo depoimentos-campo-nome">
+                <label for="depoimento-nome">Nome</label>
+                <input id="depoimento-nome" name="nome" type="text" autocomplete="name" required minlength="2" maxlength="60" aria-describedby="depoimento-nome-ajuda">
+                <p id="depoimento-nome-ajuda" class="depoimentos-ajuda" aria-live="polite" data-erro="Escreva seu nome (de 2 a 60 caracteres)."></p>
+              </div>
+
+              <div class="depoimentos-campo depoimentos-campo-cidade">
+                <label for="depoimento-cidade">Cidade</label>
+                <input id="depoimento-cidade" name="cidade" type="text" autocomplete="address-level2" required minlength="2" maxlength="60" aria-describedby="depoimento-cidade-ajuda">
+                <p id="depoimento-cidade-ajuda" class="depoimentos-ajuda" aria-live="polite" data-erro="Escreva sua cidade (de 2 a 60 caracteres)."></p>
+              </div>
+
+              <div class="depoimentos-campo depoimentos-campo-tipo">
+                <label for="depoimento-tipo">Tipo de evento</label>
+                <select id="depoimento-tipo" name="tipo_evento" required aria-describedby="depoimento-tipo-ajuda">
+                  <option value="" disabled selected>Selecione</option>
+                  <option>Jantar residencial</option>
+                  <option>Casamento</option>
+                  <option>Aniversário</option>
+                  <option>Corporativo</option>
+                  <option>Outro</option>
+                </select>
+                <p id="depoimento-tipo-ajuda" class="depoimentos-ajuda" aria-live="polite" data-erro="Escolha o tipo de evento."></p>
+              </div>
+
+              <div class="depoimentos-campo depoimentos-campo-texto">
+                <label for="depoimento-texto">Depoimento</label>
+                <textarea id="depoimento-texto" name="texto" rows="5" required minlength="10" maxlength="400" aria-describedby="depoimento-texto-ajuda"></textarea>
+                <div class="depoimentos-texto-rodape">
+                  <p id="depoimento-texto-ajuda" class="depoimentos-ajuda" aria-live="polite" data-erro="Conte um pouco mais (mínimo de 10 caracteres).">Mínimo de 10 caracteres.</p>
+                  <p class="depoimentos-contador" aria-hidden="true"><span data-contador>0</span>/400</p>
+                </div>
+              </div>
+
+              <div class="depoimentos-campo depoimentos-campo-autorizacao">
+                <label class="depoimentos-autorizacao" for="depoimento-autorizado">
+                  <input id="depoimento-autorizado" name="autorizado" type="checkbox" required aria-describedby="depoimento-autorizado-ajuda">
+                  <span>Autorizo a publicação deste depoimento no site da Dani Sushi, com meu nome e minha cidade.</span>
+                </label>
+                <p id="depoimento-autorizado-ajuda" class="depoimentos-ajuda" aria-live="polite" data-erro="Marque a autorização para enviar."></p>
+              </div>
+            </div>
+
+            <!-- HONEYPOT: INVISÍVEL PARA PESSOAS; ROBÔS PREENCHEM E O ENVIO É DESCARTADO -->
+            <div class="depoimentos-isca" aria-hidden="true">
+              <label for="depoimento-site">Site</label>
+              <input id="depoimento-site" name="site" type="text" tabindex="-1" autocomplete="off">
+            </div>
+
+            <p class="depoimentos-erro" role="alert" hidden data-limite="Você já enviou alguns depoimentos agora há pouco. Tente de novo mais tarde.">Não foi possível enviar agora. Confira sua conexão e tente de novo.</p>
+
+            <button type="submit" class="botao botao-primario depoimentos-botao" data-enviando="Enviando…" data-tentar="Tentar de novo">Enviar depoimento</button>
+          </form>
+
+          <div class="depoimentos-recebido" tabindex="-1" hidden>
+            <h3>Obrigado por dividir isso.</h3>
+            <p>Recebemos seu depoimento. Ele passa por uma revisão rápida e aparece aqui assim que for aprovado.</p>
+            <a href="/momentos/" class="momentos-link">Ver momentos →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- RODAPÉ -->
+  <footer class="rodape fundo-base">
+    <div class="envoltorio rodape-conteudo">
+      <a href="/" class="rodape-logo" aria-label="Dani Sushi, início">
+        <img src="/imagens/logo-sem-fundo-recortado.webp" alt="" width="332" height="252" loading="lazy" decoding="async">
+      </a>
+      <p class="rodape-frase">Você faz a vibe<br class="so-mobile"> e o <span class="destaque">Dani Sushi!</span></p>
+
+      <nav class="rodape-nav" aria-label="Rodapé">
+        <ul>
+          <li><a href="/momentos/">Momentos</a></li>
+          <li><a href="/depoimentos/">Depoimentos</a></li>
+          <li><a href="/#orcamento">Orçamento</a></li>
+          <li><a href="https://www.instagram.com/danisushii/" target="_blank" rel="noopener noreferrer" aria-label="Instagram da Dani Sushi (abre em nova aba)">Instagram</a></li>
+        </ul>
+      </nav>
+
+      <p class="rodape-copia">© 2020–<span data-ano-atual>2026</span> · Dani Sushi<span class="so-desktop"> ·</span><br class="so-mobile"> Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
