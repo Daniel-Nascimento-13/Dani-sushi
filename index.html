@@ -41,25 +41,101 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "FoodEstablishment",
-    "name": "Dani Sushi",
-    "url": "https://danisushii.com.br/",
-    "image": "https://danisushii.com.br/imagens/compartilhamento/og-image.jpg",
-    "telephone": "+55 51 99892-2465",
-    "servesCuisine": "Japonesa",
-    "foundingDate": "2020",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Lajeado",
-      "addressRegion": "RS",
-      "addressCountry": "BR"
-    },
-    "areaServed": [
-      { "@type": "Place", "name": "Vale do Taquari" },
-      { "@type": "Place", "name": "Serra Gaúcha" },
-      { "@type": "Place", "name": "Porto Alegre" }
-    ],
-    "sameAs": ["https://www.instagram.com/danisushii/"]
+    "@graph": [
+      {
+        "@type": "FoodEstablishment",
+        "@id": "https://danisushii.com.br/#empresa",
+        "name": "Dani Sushi",
+        "url": "https://danisushii.com.br/",
+        "description": "Sushi bar ao vivo e jantares personalizados em Lajeado, no Vale do Taquari, na Serra e em Porto Alegre.",
+        "image": "https://danisushii.com.br/imagens/compartilhamento/og-image.jpg",
+        "logo": "https://danisushii.com.br/imagens/marca/logo-sem-fundo-recortado.webp",
+        "telephone": "+55 51 99892-2465",
+        "servesCuisine": "Japonesa",
+        "foundingDate": "2020",
+        "founder": {
+          "@type": "Person",
+          "name": "Dani"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Lajeado",
+          "addressRegion": "RS",
+          "addressCountry": "BR"
+        },
+        "areaServed": [
+          {
+            "@type": "City",
+            "name": "Lajeado",
+            "containedInPlace": {
+              "@type": "State",
+              "name": "Rio Grande do Sul"
+            }
+          },
+          {
+            "@type": "City",
+            "name": "Encantado",
+            "containedInPlace": {
+              "@type": "State",
+              "name": "Rio Grande do Sul"
+            }
+          },
+          {
+            "@type": "City",
+            "name": "Cruzeiro do Sul",
+            "containedInPlace": {
+              "@type": "State",
+              "name": "Rio Grande do Sul"
+            }
+          },
+          {
+            "@type": "City",
+            "name": "Porto Alegre",
+            "containedInPlace": {
+              "@type": "State",
+              "name": "Rio Grande do Sul"
+            }
+          },
+          {
+            "@type": "City",
+            "name": "Xangri-lá",
+            "containedInPlace": {
+              "@type": "State",
+              "name": "Rio Grande do Sul"
+            }
+          },
+          {
+            "@type": "Place",
+            "name": "Vale do Taquari"
+          },
+          {
+            "@type": "Place",
+            "name": "Serra Gaúcha"
+          }
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "customer service",
+          "telephone": "+55 51 99892-2465",
+          "url": "https://wa.me/5551998922465",
+          "availableLanguage": "Portuguese",
+          "areaServed": "BR"
+        },
+        "sameAs": [
+          "https://www.instagram.com/danisushii/"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://danisushii.com.br/#site",
+        "url": "https://danisushii.com.br/",
+        "name": "Dani Sushi",
+        "inLanguage": "pt-BR",
+        "publisher": {
+          "@id": "https://danisushii.com.br/#empresa"
+        }
+      }
+    ]
   }
   </script>
 
