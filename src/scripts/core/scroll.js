@@ -11,9 +11,19 @@ export function iniciarScroll() {
   /* RECALCULA OS GATILHOS QUANDO AS FONTES TROCAM (SWAP) */
   document.fonts.ready.then(() => ScrollTrigger.refresh());
 
+  /* LINK PARA O TOPO DA PÁGINA ATUAL ([DATA-TOPO], EX.: "INÍCIO" NA HOME): SOBE SEM RECARREGAR.
+     COM MOVIMENTO REDUZIDO NÃO HÁ LENIS: SOBE DIRETO */
+  let lenis = null;
+  document.addEventListener('click', (evento) => {
+    if (!evento.target.closest('a[data-topo]')) return;
+    evento.preventDefault();
+    if (lenis) lenis.scrollTo(0, { duration: 1.4 });
+    else window.scrollTo(0, 0);
+  });
+
   if (reduzirMovimento) return null;
 
-  const lenis = new Lenis();
+  lenis = new Lenis();
   lenis.on('scroll', ScrollTrigger.update);
   gsap.ticker.add((tempo) => lenis.raf(tempo * 1000));
   gsap.ticker.lagSmoothing(0);
