@@ -75,7 +75,7 @@ function ipDe(req) {
 
 /* === E-MAIL (RESEND) === */
 async function avisarPorEmail({ id, nome, cidade, tipo_evento: tipo, texto }) {
-  const link = (acao) => `${process.env.SITE_URL}/api/moderar?id=${id}&acao=${acao}&token=${tokenModeracao(id, acao)}`;
+  const link = (acao) => `${process.env.SITE_URL}/api/moderar/?id=${id}&acao=${acao}&token=${tokenModeracao(id, acao)}`;
   const botao = (acao, rotulo, cor) =>
     `<a href="${link(acao)}" style="display:inline-block;padding:14px 28px;margin:0 8px 8px 0;border-radius:999px;background:${cor};color:#ffffff;font-weight:600;text-decoration:none">${rotulo}</a>`;
 

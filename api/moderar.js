@@ -117,7 +117,7 @@ function responder(res, codigo, { titulo, mensagem, depoimento, formulario }) {
     : '';
 
   const confirmar = formulario
-    ? `<form method="post" action="/api/moderar">
+    ? `<form method="post" action="/api/moderar/">
       <input type="hidden" name="id" value="${escaparHtml(formulario.id)}">
       <input type="hidden" name="acao" value="${escaparHtml(formulario.acao)}">
       <input type="hidden" name="token" value="${escaparHtml(formulario.token)}">

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Página não encontrada · Dani Sushi</title>
+
+  <!-- =======================
+       HEAD
+       ======================= -->
+
+  <!-- === SEO (FORA DO ÍNDICE: PÁGINA DE ERRO) === -->
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#0B0908">
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <!-- === PRELOAD: FONTE DOS TÍTULOS === -->
+  <link rel="preload" href="/node_modules/@fontsource/shippori-mincho/files/shippori-mincho-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+
+  <script type="module" src="/src/main.js"></script>
+</head>
+
+<body>
+
+  <!-- =======================
+       NAVEGAÇÃO
+       ======================= -->
+
+  <!-- === CABEÇALHO === -->
+  <header class="cabecalho">
+    <div class="envoltorio cabecalho-conteudo">
+      <a href="/" class="cabecalho-logo" aria-label="Dani Sushi, início">
+        <img src="/imagens/marca/logo-sem-fundo-recortado.webp" alt="Dani Sushi" width="332" height="252" fetchpriority="high">
+      </a>
+
+      <nav class="cabecalho-nav" aria-label="Principal">
+        <ul>
+          <li><a href="/">Início</a></li>
+          <li><a href="/momentos/">Momentos</a></li>
+          <li><a href="/depoimentos/">Depoimentos</a></li>
+          <li><a href="/#experiencia">Experiência</a></li>
+        </ul>
+      </nav>
+
+      <a href="/#experiencia" class="botao botao-primario cabecalho-botao">Vamos conversar</a>
+
+      <button class="cabecalho-menu" type="button" aria-expanded="false" aria-controls="menu-mobile" aria-label="Abrir menu" data-rotulo-abrir="Abrir menu" data-rotulo-fechar="Fechar menu">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- === MENU MOBILE === -->
+  <div class="menu-mobile" id="menu-mobile" hidden>
+    <nav aria-label="Menu">
+      <ul>
+        <li><a href="/"><img class="menu-selo" src="/imagens/marca/simbolo-peixe-menu.webp" alt="" width="14" height="24" loading="lazy" decoding="async"><span class="menu-texto">Início</span></a></li>
+        <li><a href="/momentos/"><img class="menu-selo" src="/imagens/marca/simbolo-peixe-menu.webp" alt="" width="14" height="24" loading="lazy" decoding="async"><span class="menu-texto">Momentos</span></a></li>
+        <li><a href="/depoimentos/"><img class="menu-selo" src="/imagens/marca/simbolo-peixe-menu.webp" alt="" width="14" height="24" loading="lazy" decoding="async"><span class="menu-texto">Depoimentos</span></a></li>
+        <li><a href="/#experiencia"><img class="menu-selo" src="/imagens/marca/simbolo-peixe-menu.webp" alt="" width="14" height="24" loading="lazy" decoding="async"><span class="menu-texto">Experiência</span></a></li>
+      </ul>
+    </nav>
+    <a href="/#experiencia" class="botao botao-primario">Vamos conversar</a>
+  </div>
+
+  <main>
+
+    <!-- =======================
+         CONTEÚDO
+         ======================= -->
+
+    <!-- === ERRO 404 === -->
+    <section class="erro-pagina secao pagina-topo fundo-base" aria-labelledby="erro-titulo">
+      <div class="envoltorio">
+        <div class="pagina-abertura">
+          <p class="pagina-sobretitulo">Erro 404</p>
+          <h1 class="pagina-titulo erro-titulo" id="erro-titulo">Página não<br><em>encontrada.</em></h1>
+          <p class="pagina-intro texto-intro">O endereço que você abriu não existe ou mudou de lugar. Volte ao início ou veja os momentos que já servimos.</p>
+          <div class="erro-acoes">
+            <a href="/" class="botao botao-primario">Voltar ao início</a>
+            <a href="/momentos/" class="botao botao-secundario">Ver momentos</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =======================
+       RODAPÉ
+       ======================= -->
+  <footer class="rodape fundo-superficie">
+    <div class="envoltorio rodape-conteudo">
+      <a href="/" class="rodape-logo" aria-label="Dani Sushi, início">
+        <img src="/imagens/marca/logo-sem-fundo-recortado.webp" alt="" width="332" height="252" loading="lazy" decoding="async">
+      </a>
+      <p class="rodape-frase">Você faz a vibe<br class="so-mobile"> e o <span class="destaque">Dani Sushi!</span></p>
+
+      <nav class="rodape-nav" aria-label="Rodapé">
+        <ul>
+          <li><a href="/momentos/">Momentos</a></li>
+          <li><a href="/depoimentos/">Depoimentos</a></li>
+          <li><a href="/#experiencia">Experiência</a></li>
+          <li><a href="https://www.instagram.com/danisushii/" target="_blank" rel="noopener noreferrer" aria-label="Instagram do Dani Sushi (abre em nova aba)">Instagram</a></li>
+        </ul>
+      </nav>
+
+      <p class="rodape-copia">© 2020–<span data-ano-atual>2026</span> · Dani Sushi<span class="so-desktop"> ·</span><br class="so-mobile"> Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

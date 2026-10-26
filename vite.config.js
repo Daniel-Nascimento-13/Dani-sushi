@@ -9,7 +9,7 @@ export default defineConfig(({ mode }) => ({
   plugins: [depoimentosAprovados(loadEnv(mode, process.cwd(), ''))],
   build: {
     rollupOptions: {
-      input: { principal: 'index.html', momentos: 'momentos/index.html', depoimentos: 'depoimentos/index.html' },
+      input: { principal: 'index.html', momentos: 'momentos/index.html', depoimentos: 'depoimentos/index.html', erro: '404.html' },
     },
   },
 }));

@@ -24,6 +24,7 @@
 @import "./secoes/depoimentos-envio.css" layer(components);
 @import "./secoes/experiencia.css" layer(components);
 @import "./secoes/rodape.css" layer(components);
+@import "./secoes/erro.css" layer(components);
 
 /* === TOKENS === */
 @layer theme {

@@ -1,0 +1,15 @@
+/* =======================
+   PÁGINA 404
+   ======================= */
+
+/* === ABERTURA === */
+/* H1: DIVISOR 9.3 (VER CLAUDE.MD) */
+.erro-titulo { --divisor-titulo: 9.3; }
+
+/* === AÇÕES === */
+.erro-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 32px;
+}
