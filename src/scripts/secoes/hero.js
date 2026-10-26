@@ -49,9 +49,8 @@ function animarMidia(hero, passo) {
   const rolagem = { trigger: hero, start: 'top top', end: 'bottom top', scrub: true };
   const telas = gsap.matchMedia();
 
-  /* MOBILE: SURGE EM OPACIDADE + PARALLAX LEVE NO VÍDEO (A MÁSCARA DO CONTAINER FICA PARADA) */
+  /* MOBILE: SEM ENTRADA (O POSTER É O LCP E APARECE NA HORA) + PARALLAX LEVE NO VÍDEO (A MÁSCARA DO CONTAINER FICA PARADA) */
   telas.add('(max-width: 899px)', () => {
-    gsap.from(midia, { autoAlpha: 0, ...ENTRADA });
     gsap.to(video, { yPercent: 8, scale: 1.06, ease: 'none', scrollTrigger: rolagem });
   });
 
