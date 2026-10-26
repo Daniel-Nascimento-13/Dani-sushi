@@ -84,7 +84,6 @@ h3 { font-size: 17px; font-weight: 500; letter-spacing: 0.14em; }
 .texto-intro { font-size: 17px; }
 
 .destaque { color: var(--color-acento-claro); }
-.apagado  { color: var(--color-texto-3); }
 
 /* === RÓTULO === */
 /* MOBILE: TAMANHO PELA COLUNA; DIVISOR 27.7 PELO RÓTULO MAIS LONGO (VER CLAUDE.MD) */
