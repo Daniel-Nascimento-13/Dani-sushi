@@ -12,6 +12,9 @@
   text-wrap: balance;
 }
 
+/* === DESTAQUE === */
+.destaque-branco { color: var(--color-branco); }
+
 /* === RESPONSIVIDADE === */
 @media (min-width: 900px) {
   .manifesto-texto { font-size: 56px; line-height: 1.25; }

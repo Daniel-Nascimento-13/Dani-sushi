@@ -109,6 +109,7 @@ Páginas futuras: /orcamento.
 | `--color-fundo` | #0B0908 | fundo base |
 | `--color-superficie` | #17120F | seções alternadas (contraste de 1,07:1 com o fundo: perceptível sem acinzentar; não passe de #1A1511) |
 | `--color-placeholder` | #221B18 | placeholders de foto/vídeo (visível também sobre a superfície) |
+| `--color-branco` | #fff | segunda frase do manifesto (`.destaque-branco`, em `manifesto.css`) |
 | `--color-texto` | #F2EEEA | títulos e links |
 | `--color-texto-2` | #BDB5AE | parágrafos |
 | `--color-texto-3` | #8E8680 | rótulos, metadados |
