@@ -12,8 +12,9 @@
   text-wrap: balance;
 }
 
-/* === DESTAQUE === */
-.destaque-branco { color: var(--color-branco); }
+/* === FRASE DE ABERTURA === */
+.frase-abertura-inicio { color: var(--color-texto-3); }
+.frase-abertura-fim    { color: var(--color-branco); }
 
 /* === RESPONSIVIDADE === */
 @media (min-width: 900px) {
