@@ -187,7 +187,7 @@ GSAP + ScrollTrigger; duração 1.2–1.4s; ease `power3.out`. **Tudo desligado 
 - Hero e cabeçalho iniciam no `main.js`; as demais seções entram em `secoesSobDemanda` com `carregarAoAproximar`.
 
 ## Cartão "Sua experiência" (formulário do evento)
-- **Cabeçalho do cartão:** linha 1 = h3 "Sua experiência" + "Nº ----" (`.comanda-numero`, estático, `nowrap`); divisor tracejado; linha 2 = `.comanda-subtitulo` "Detalhes do evento". No mobile o h3 segue a largura do cartão: `min(20px, (100cqi - 71px) / 12.3)` ("SUA EXPERIÊNCIA" = 12,023em + 2%; 71px = Nº 54,6 + gap 16; `container-type` no `.comanda-topo`).
+- **Cabeçalho do cartão:** linha 1 = h3 "Sua experiência" (`nowrap`); divisor tracejado; linha 2 = `.comanda-subtitulo` "Detalhes do evento". No mobile o h3 segue a largura do cartão: `min(20px, 100cqi / 12.3)` ("SUA EXPERIÊNCIA" = 12,023em + 2%; `container-type` no `.comanda-topo`).
 - **Dados no HTML:** no `<form>` ficam o número do WhatsApp (`data-whatsapp`) e a frase da mensagem (`data-mensagem`) com marcadores `{tipo}`, `{data}`, `{convidados}` e `{cidade}`. Cada campo tem `data-mensagem` com o seu marcador; cada `<option>` do tipo tem `data-frase` com o artigo ("um jantar residencial", "uma celebração"). Os valores saem **como a pessoa digitou** (nada é arredondado nem alterado), exceto a data e o tipo.
 - **Mensagem (`montarMensagem` em `orcamento.js`), sem emojis, em 1 parágrafo:**
   ```
