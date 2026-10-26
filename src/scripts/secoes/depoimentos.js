@@ -29,7 +29,6 @@ function iniciarCarrossel(carrossel) {
     const maximo = trilho.scrollWidth - trilho.clientWidth;
     const noFim = trilho.scrollLeft >= maximo - 1;
 
-    carrossel.classList.toggle('depoimentos-sem-rolagem', maximo <= 1);
     setas[0].disabled = trilho.scrollLeft <= 1;
     setas[1].disabled = noFim;
     /* O ÚLTIMO CARD NUNCA ENCOSTA NO INÍCIO (FALTA ESPAÇO DEPOIS DELE): NO FIM DO SCROLL, É O ÚLTIMO */

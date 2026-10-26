@@ -70,7 +70,8 @@
   color: var(--color-texto-3);
 }
 
-/* CONTROLES: INDICADOR NO MOBILE, SETAS NO DESKTOP; SOMEM QUANDO TODOS OS CARDS CABEM (CLASSE DO JS) */
+/* CONTROLES: INDICADOR NO MOBILE, SETAS NO DESKTOP. SOMEM PELA QUANTIDADE DE CARDS (CABEM 1 → 2 → 3), JÁ NO
+   PRIMEIRO PAINT: SE O JS ESCONDESSE DEPOIS DE CARREGAR, A PÁGINA ENCOLHERIA NO MEIO DA ROLAGEM DE UMA ÂNCORA */
 .depoimentos-controles {
   display: flex;
   align-items: center;
@@ -78,7 +79,7 @@
   margin-top: 24px;
 }
 
-.depoimentos-sem-rolagem .depoimentos-controles { display: none; }
+.depoimentos-carrossel:not(:has(.depoimentos-item:nth-child(2))) .depoimentos-controles { display: none; }
 
 .depoimentos-indicador {
   font-family: var(--font-mono);
@@ -307,6 +308,8 @@ html.usando-teclado .depoimentos-campo textarea:focus-visible {
 @media (min-width: 600px) {
   .depoimentos-item { flex-basis: calc((100% - 16px) / 2); }
 
+  .depoimentos-carrossel:not(:has(.depoimentos-item:nth-child(3))) .depoimentos-controles { display: none; }
+
   .depoimento { padding: 32px 28px; }
 
   .depoimentos-campos {
@@ -335,6 +338,8 @@ html.usando-teclado .depoimentos-campo textarea:focus-visible {
   }
 
   .depoimentos-item { flex-basis: calc((100% - 48px) / 3); }
+
+  .depoimentos-carrossel:not(:has(.depoimentos-item:nth-child(4))) .depoimentos-controles { display: none; }
 
   .depoimento-texto { font-size: 19px; }
 
