@@ -15,7 +15,7 @@ export default defineConfig(({ mode }) => ({
    <!-- DEPOIMENTOS_HOME --> (HOME, 6 MAIS RECENTES) E <!-- DEPOIMENTOS --> (/DEPOIMENTOS, TODOS) VIRAM CARDS.
    SEM APROVADOS, SAI TUDO ENTRE <!-- DEPOIMENTOS:INICIO --> E <!-- DEPOIMENTOS:FIM -->; SE O TRECHO REMOVIDO
    TINHA FUNDO PRÓPRIO (A SEÇÃO DA HOME), OS FUNDOS SEGUINTES SE INVERTEM PARA A ALTERNÂNCIA CONTINUAR.
-   SEM AS VARIÁVEIS DO SUPABASE: EXEMPLOS FORA DA VERCEL (DEV E BUILD LOCAL) E ERRO NA VERCEL.
+   SEM AS VARIÁVEIS DO SUPABASE: SEM DEPOIMENTOS FORA DA VERCEL (DEV E BUILD LOCAL) E ERRO NA VERCEL.
    COM AS VARIÁVEIS, QUALQUER FALHA NA BUSCA DERRUBA O BUILD (A VERCEL MANTÉM O DEPLOY ANTERIOR NO AR) */
 const MARCADORES = [
   { marcador: '<!-- DEPOIMENTOS_HOME -->', limite: 6 },
@@ -23,13 +23,6 @@ const MARCADORES = [
 ];
 const INICIO = '<!-- DEPOIMENTOS:INICIO -->';
 const FIM = '<!-- DEPOIMENTOS:FIM -->';
-
-/* SÓ PARA DESENVOLVIMENTO (NUNCA VÃO PARA A VERCEL) */
-const EXEMPLOS = [
-  { nome: '[Nome]', cidade: '[Cidade]', tipo_evento: 'Casamento', texto: '[Exemplo] A estação ao vivo virou o centro da festa. Os convidados não saíam do balcão e até hoje comentam das peças.' },
-  { nome: '[Nome]', cidade: '[Cidade]', tipo_evento: 'Jantar residencial', texto: '[Exemplo] Jantar impecável do começo ao fim. Cada detalhe foi pensado para a nossa noite.' },
-  { nome: '[Nome]', cidade: '[Cidade]', tipo_evento: 'Corporativo', texto: '[Exemplo] Atendimento atencioso, montagem rápida e uma experiência que a equipe inteira elogiou.' },
-];
 
 function depoimentosAprovados(env) {
   let busca;
@@ -57,10 +50,14 @@ function depoimentosAprovados(env) {
 async function buscarAprovados(env) {
   if (!env.SUPABASE_URL || !env.SUPABASE_SERVICE_ROLE_KEY) {
     if (env.VERCEL) throw new Error('Depoimentos: defina SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY nas variáveis da Vercel.');
-    return EXEMPLOS;
+    return [];
   }
 
-  return consultarSupabase(env, 'depoimentos?select=nome,cidade,tipo_evento,texto&status=eq.aprovado&order=criado_em.desc');
+  try {
+    return await consultarSupabase(env, 'depoimentos?select=nome,cidade,tipo_evento,texto&status=eq.aprovado&order=criado_em.desc');
+  } catch (erro) {
+    throw new Error(`Depoimentos: falha ao buscar os aprovados no Supabase; build interrompido para manter o deploy anterior no ar (${erro.message})`);
+  }
 }
 
 function removerBloco(html) {
