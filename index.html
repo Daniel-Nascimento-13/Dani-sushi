@@ -68,11 +68,11 @@
         <ul>
           <li><a href="/momentos/">Momentos</a></li>
           <li><a href="/depoimentos/">Depoimentos</a></li>
-          <li><a href="#orcamento">Orçamento</a></li>
+          <li><a href="#orcamento">Experiência</a></li>
         </ul>
       </nav>
 
-      <a href="#orcamento" class="botao botao-primario cabecalho-botao">Solicitar orçamento</a>
+      <a href="#orcamento" class="botao botao-primario cabecalho-botao">Vamos conversar</a>
 
       <button class="cabecalho-menu" type="button" aria-expanded="false" aria-controls="menu-mobile" aria-label="Abrir menu" data-rotulo-abrir="Abrir menu" data-rotulo-fechar="Fechar menu">
         <span aria-hidden="true"></span>
@@ -88,10 +88,10 @@
       <ul>
         <li><a href="/momentos/"><img class="menu-selo" src="/imagens/marca/simbolo-peixe-menu.webp" alt="" width="14" height="24" loading="lazy" decoding="async"><span class="menu-texto">Momentos</span></a></li>
         <li><a href="/depoimentos/"><img class="menu-selo" src="/imagens/marca/simbolo-peixe-menu.webp" alt="" width="14" height="24" loading="lazy" decoding="async"><span class="menu-texto">Depoimentos</span></a></li>
-        <li><a href="#orcamento"><img class="menu-selo" src="/imagens/marca/simbolo-peixe-menu.webp" alt="" width="14" height="24" loading="lazy" decoding="async"><span class="menu-texto">Orçamento</span></a></li>
+        <li><a href="#orcamento"><img class="menu-selo" src="/imagens/marca/simbolo-peixe-menu.webp" alt="" width="14" height="24" loading="lazy" decoding="async"><span class="menu-texto">Experiência</span></a></li>
       </ul>
     </nav>
-    <a href="#orcamento" class="botao botao-primario">Solicitar orçamento</a>
+    <a href="#orcamento" class="botao botao-primario">Vamos conversar</a>
   </div>
 
   <main>
@@ -111,7 +111,7 @@
             De Lajeado para todo o Vale do Taquari, Serra e Porto Alegre.
           </p>
           <div class="hero-botoes">
-            <a href="#orcamento" class="botao botao-primario">Solicitar orçamento</a>
+            <a href="#orcamento" class="botao botao-primario">Vamos conversar</a>
             <a href="#momentos" class="botao botao-secundario">Ver momentos</a>
           </div>
         </div>
@@ -303,33 +303,34 @@
     <section class="orcamento secao fundo-superficie" id="orcamento" aria-labelledby="orcamento-titulo">
       <div class="envoltorio orcamento-conteudo">
         <div>
-          <p class="rotulo"><span class="rotulo-kanji" lang="ja">提案</span> Teian · <em>Orçamento</em></p>
-          <h2 id="orcamento-titulo">Seu evento começa<br>com uma conversa.</h2>
-          <p class="orcamento-texto texto-intro">Preencha a comanda e continue direto com a Dani pelo WhatsApp. Atendimento humano, menu sob medida.</p>
+          <p class="rotulo"><span class="rotulo-kanji" lang="ja">体験</span> Taiken · <em>Experiência</em></p>
+          <h2 id="orcamento-titulo">Vamos criar uma experiência <br class="so-desktop">para você?</h2>
+          <p class="orcamento-texto texto-intro">Compartilhe alguns detalhes do seu evento. A partir deles, o Dani entra em contato pelo WhatsApp para entender o que você imaginou e criar uma experiência sob medida para você e seus convidados.</p>
         </div>
 
-        <form class="comanda" novalidate data-whatsapp="5551998922465" data-mensagem="Olá, Dani! Tudo bem?&#10;&#10;Vi o site e gostaria de um orçamento para o meu evento:" data-despedida="Fico no aguardo para conversarmos!" aria-labelledby="comanda-titulo">
+        <form class="comanda" novalidate data-whatsapp="5551998922465" data-mensagem="Olá, Dani! Estou planejando {tipo} para {data}, com cerca de {convidados} convidados em {cidade}. Gostaria de conversar sobre a experiência." aria-labelledby="comanda-titulo">
           <div class="comanda-topo">
-            <h3 class="comanda-titulo" id="comanda-titulo"><span class="comanda-kanji" lang="ja">注文</span> Comanda</h3>
-            <p class="comanda-numero">Nº ____</p>
+            <h3 class="comanda-titulo" id="comanda-titulo">Sua experiência</h3>
+            <p class="comanda-numero">Nº ----</p>
           </div>
+          <p class="comanda-subtitulo">Detalhes do evento</p>
 
           <div class="comanda-campos">
             <div class="comanda-campo comanda-campo-tipo">
               <label for="comanda-tipo">Tipo de evento</label>
-              <select id="comanda-tipo" name="tipo" required data-mensagem="Tipo">
+              <select id="comanda-tipo" name="tipo" required data-mensagem="{tipo}">
                 <option value="" disabled selected>Selecione</option>
-                <option>Jantar residencial</option>
-                <option>Evento social</option>
-                <option>Evento corporativo</option>
-                <option>Celebração</option>
+                <option data-frase="um jantar residencial">Jantar residencial</option>
+                <option data-frase="um evento social">Evento social</option>
+                <option data-frase="um evento corporativo">Evento corporativo</option>
+                <option data-frase="uma celebração">Celebração</option>
               </select>
             </div>
 
             <div class="comanda-campo comanda-campo-data">
               <label for="comanda-data">Data</label>
               <div class="comanda-data">
-                <input id="comanda-data" name="data" type="date" required aria-describedby="comanda-data-ajuda" data-mensagem="Data">
+                <input id="comanda-data" name="data" type="date" required aria-describedby="comanda-data-ajuda" data-mensagem="{data}">
                 <span class="comanda-data-vazia" aria-hidden="true">Escolha a data</span>
               </div>
               <p id="comanda-data-ajuda" class="comanda-ajuda" aria-live="polite" data-erro="Escolha uma data a partir de hoje."></p>
@@ -337,13 +338,13 @@
 
             <div class="comanda-campo comanda-campo-convidados">
               <label for="comanda-convidados">Convidados</label>
-              <input id="comanda-convidados" name="convidados" type="number" min="10" step="1" inputmode="numeric" placeholder="10+" required aria-describedby="comanda-convidados-ajuda" data-mensagem="Convidados">
+              <input id="comanda-convidados" name="convidados" type="number" min="10" step="1" inputmode="numeric" placeholder="10+" required aria-describedby="comanda-convidados-ajuda" data-mensagem="{convidados}">
               <p id="comanda-convidados-ajuda" class="comanda-ajuda" aria-live="polite" data-erro="O atendimento é a partir de 10 convidados.">A partir de 10 convidados.</p>
             </div>
 
             <div class="comanda-campo comanda-campo-cidade">
               <label for="comanda-cidade">Cidade</label>
-              <input id="comanda-cidade" name="cidade" type="text" autocomplete="address-level2" required data-mensagem="Cidade">
+              <input id="comanda-cidade" name="cidade" type="text" autocomplete="address-level2" placeholder="Sua cidade" required data-mensagem="{cidade}">
             </div>
           </div>
 
@@ -366,7 +367,7 @@
         <ul>
           <li><a href="/momentos/">Momentos</a></li>
           <li><a href="/depoimentos/">Depoimentos</a></li>
-          <li><a href="#orcamento">Orçamento</a></li>
+          <li><a href="#orcamento">Experiência</a></li>
           <li><a href="https://www.instagram.com/danisushii/" target="_blank" rel="noopener noreferrer" aria-label="Instagram da Dani Sushi (abre em nova aba)">Instagram</a></li>
         </ul>
       </nav>

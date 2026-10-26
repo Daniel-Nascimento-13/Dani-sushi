@@ -347,7 +347,7 @@ html.usando-teclado .depoimentos-campo textarea:focus-visible {
   .depoimentos-setas     { display: flex; }
 }
 
-/* 2 COLUNAS SÓ A PARTIR DE 1200PX (COMO NO ORÇAMENTO) */
+/* 2 COLUNAS SÓ A PARTIR DE 1200PX */
 @media (min-width: 1200px) {
   .depoimentos-envio-conteudo {
     grid-template-columns: minmax(0, 1fr) minmax(0, 560px);

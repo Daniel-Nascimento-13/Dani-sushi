@@ -1,7 +1,7 @@
 import { reduzirMovimento } from '../utils/movimento.js';
 import { revelar } from '../utils/revelar.js';
 
-/* === ORÇAMENTO: COMANDA → MENSAGEM NO WHATSAPP === */
+/* === EXPERIÊNCIA: DETALHES DO EVENTO → MENSAGEM NO WHATSAPP === */
 export function iniciarOrcamento(secao) {
   const comanda = secao.querySelector('.comanda');
   if (comanda) iniciarComanda(comanda);
@@ -94,25 +94,19 @@ function hojeIso() {
   return [hoje.getFullYear(), hoje.getMonth() + 1, hoje.getDate()].map((n) => String(n).padStart(2, '0')).join('-');
 }
 
-/* === MENSAGEM: SAUDAÇÃO + LINHA EM BRANCO + "* RÓTULO: VALOR" + LINHA EM BRANCO + DESPEDIDA ===
-   TEXTOS NO HTML (DATA-MENSAGEM / DATA-DESPEDIDA DO FORM, DATA-MENSAGEM DE CADA CAMPO).
-   "* " NO INÍCIO DA LINHA VIRA LISTA COM MARCADORES NO WHATSAPP */
+/* === MENSAGEM: FRASE DO HTML (DATA-MENSAGEM DO FORM) COM {MARCADORES} ===
+   CADA CAMPO TROCA O MARCADOR DO SEU DATA-MENSAGEM PELO VALOR */
 function montarMensagem(comanda, campos) {
-  const itens = campos.map((campo) => `* ${campo.dataset.mensagem}: ${formatar(campo)}`);
-  return [comanda.dataset.mensagem, '', ...itens, '', comanda.dataset.despedida]
-    .join('\n')
-    .split('\n')
-    .map((linha) => linha.trimEnd())
-    .join('\n')
-    .replace(/\n{3,}/g, '\n\n')
-    .trim();
+  return campos.reduce((mensagem, campo) => mensagem.replace(campo.dataset.mensagem, formatar(campo)), comanda.dataset.mensagem);
 }
 
-/* DATA AAAA-MM-DD → "QUINTA-FEIRA, 29/10/2026" (FUSO LOCAL); DEMAIS CAMPOS COMO DIGITADOS */
+/* TIPO → DATA-FRASE DA OPÇÃO ("UM JANTAR RESIDENCIAL"); DATA AAAA-MM-DD → "QUINTA-FEIRA, 29/10/2026" (FUSO LOCAL);
+   DEMAIS CAMPOS COMO DIGITADOS */
 const DIA_DA_SEMANA = new Intl.DateTimeFormat('pt-BR', { weekday: 'long' });
 
 function formatar(campo) {
   const valor = campo.value.trim();
+  if (campo.tagName === 'SELECT') return campo.selectedOptions[0].dataset.frase ?? valor;
   if (campo.type !== 'date') return valor;
 
   const [ano, mes, dia] = valor.split('-').map(Number);
