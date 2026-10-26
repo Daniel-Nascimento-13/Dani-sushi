@@ -1,0 +1,175 @@
+/* =======================
+   MOMENTOS — PÁGINA
+   ======================= */
+
+/* === ABERTURA === */
+/* H1: DIVISOR 10.1 (VER CLAUDE.MD) */
+.momentos-titulo { --divisor-titulo: 10.1; }
+
+/* === REGISTRO === */
+.momento {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  align-items: start;
+  gap: 64px;
+  padding-block: 64px;
+  border-top: 1px solid var(--color-linha);
+}
+
+.momento:last-child { padding-bottom: 0; }
+
+.momento-tipo {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--color-texto-3);
+}
+
+.momento-numero { color: var(--color-acento-claro); }
+
+.momento h2 {
+  margin-top: 14px;
+  font-size: clamp(20px, 2.2vw, 30px);
+}
+
+.momento-descricao {
+  max-width: 440px;
+  margin-top: 16px;
+}
+
+/* === DADOS === */
+/* 3 COLUNAS SEMPRE; PROPORÇÕES PELO PIOR CASO (VER CLAUDE.MD) */
+.momento-dados {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1fr);
+  align-items: start;
+  column-gap: clamp(12px, 2vw - 6px, 24px);
+  max-width: 440px;
+  margin-top: 32px;
+}
+
+.momento-dados dt {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  white-space: nowrap;
+  color: var(--color-texto-3);
+}
+
+.momento-dados dd {
+  margin-top: 8px;
+  font-family: var(--font-titulo);
+  font-size: clamp(32px, 3.6vw, 48px);
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--color-acento-claro);
+}
+
+/* CIDADE: MENOR; PODE QUEBRAR EM 2 LINHAS NA COLUNA */
+.momento-dados .momento-dados-texto {
+  font-size: clamp(20px, 2vw, 26px);
+  line-height: 1.3;
+  white-space: normal;
+  color: var(--color-texto);
+}
+
+/* COMPLEMENTO DAS PEÇAS, EMBAIXO DO NÚMERO */
+.momento-dados-extra {
+  display: block;
+  white-space: normal;
+  margin-top: 8px;
+  font-family: var(--font-texto);
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--color-texto-2);
+}
+
+/* === GALERIA === */
+/* AS FOTOS PEQUENAS (4:3) DEFINEM A ALTURA; A PRINCIPAL OCUPA AS 2 LINHAS */
+.momento-galeria {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: 12px;
+}
+
+.momento-imagem {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 4px;
+  background: var(--color-placeholder);
+}
+
+.momento-imagem-principal {
+  grid-row: span 2;
+  aspect-ratio: auto;
+}
+
+.momento-imagem img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--foco, 50% 50%);
+}
+
+/* === FECHAMENTO === */
+/* H2 EM 2 LINHAS: DIVISOR 14.3 (VER CLAUDE.MD) */
+.momentos-fechamento-conteudo {
+  text-align: center;
+  container-type: inline-size;
+}
+
+.momentos-fechamento-titulo em {
+  font-style: italic;
+  color: var(--color-texto-2);
+}
+
+.momentos-fechamento-titulo {
+  font-size: min(clamp(20px, 3vw, 44px), 100cqi / 14.3);
+  white-space: nowrap;
+}
+
+.momentos-fechamento-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 24px 36px;
+  margin-top: 40px;
+}
+
+/* === RESPONSIVIDADE (DESKTOP PRIMEIRO: 899 → 599 → 359) === */
+@media (max-width: 899px) {
+  .momento {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+    padding-block: 48px;
+  }
+
+  .momentos-fechamento-acoes { margin-top: 32px; }
+}
+
+/* FOTO 1 NA LARGURA TODA; 2 E 3 LADO A LADO */
+@media (max-width: 599px) {
+  .momento-galeria {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .momento-imagem-principal {
+    grid-column: 1 / -1;
+    grid-row: auto;
+    aspect-ratio: 4 / 3;
+  }
+}
+
+/* 320PX: "CONVIDADOS" COM 0.06EM PARA CABER (VER CLAUDE.MD) */
+@media (max-width: 359px) {
+  .momento-dados dt { letter-spacing: 0.06em; }
+  .momento-dados dd { font-size: 28px; }
+}

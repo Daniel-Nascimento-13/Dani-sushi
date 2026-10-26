@@ -121,206 +121,6 @@
   transition-duration: 0s;
 }
 
-/* =======================
-   DEPOIMENTOS — ENVIO
-   ======================= */
-
-/* === INTRO === */
-.depoimentos-envio-conteudo {
-  display: grid;
-  gap: 56px;
-}
-
-/* H2 EM 2 LINHAS: DIVISOR 14.9 (VER CLAUDE.MD) */
-.depoimentos-envio-intro { container-type: inline-size; }
-
-.depoimentos-envio-titulo {
-  font-size: min(clamp(20px, 3vw, 44px), 100cqi / 14.9);
-  white-space: nowrap;
-}
-
-.depoimentos-envio-texto {
-  max-width: 460px;
-  margin-top: 24px;
-}
-
-/* === CAMPOS === */
-.depoimentos-form {
-  max-width: 560px;
-  color-scheme: dark;
-}
-
-.depoimentos-campos {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  align-items: start;
-  gap: 28px 20px;
-}
-
-.depoimentos-campo {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  min-width: 0;
-}
-
-.depoimentos-campo > label:not(.depoimentos-autorizacao) {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--color-texto-3);
-}
-
-.depoimentos-campo input:not([type="checkbox"]),
-.depoimentos-campo select,
-.depoimentos-campo textarea {
-  width: 100%;
-  min-height: 44px;
-  padding: 8px 0;
-  border: 0;
-  border-bottom: 1px solid rgba(242,238,234,0.28);
-  border-radius: 0;
-  background: transparent;
-  font-family: var(--font-texto);
-  font-size: 16px;
-  color: var(--color-texto);
-  appearance: none;
-  transition: border-color 0.4s ease, box-shadow 0.4s ease;
-}
-
-.depoimentos-campo select {
-  padding-right: 24px;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1.5l5 5 5-5' stroke='%23F2EEEA' stroke-width='1.2'/%3E%3C/svg%3E") no-repeat right 4px center;
-}
-
-.depoimentos-campo option {
-  background: var(--color-superficie);
-  color: var(--color-texto);
-}
-
-.depoimentos-campo textarea {
-  min-height: 132px;
-  line-height: 1.6;
-  resize: vertical;
-}
-
-/* === FOCO === */
-/* CONTORNO SÓ NO TECLADO (VER UTILS/TECLADO.JS) */
-.depoimentos-campo input:not([type="checkbox"]):focus,
-.depoimentos-campo select:focus,
-.depoimentos-campo textarea:focus {
-  outline: none;
-  border-bottom-color: var(--color-acento-claro);
-  box-shadow: 0 1px 0 0 var(--color-acento-claro);
-}
-
-html.usando-teclado .depoimentos-campo input:not([type="checkbox"]):focus-visible,
-html.usando-teclado .depoimentos-campo select:focus-visible,
-html.usando-teclado .depoimentos-campo textarea:focus-visible {
-  outline: 2px solid var(--color-acento-claro);
-  outline-offset: 4px;
-}
-
-.depoimentos-campo [aria-invalid="true"] { border-bottom-color: var(--color-acento-claro); }
-
-/* === DICA E ERRO === */
-.depoimentos-ajuda {
-  margin-top: 4px;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  line-height: 1.4;
-  color: var(--color-texto-3);
-}
-
-.depoimentos-ajuda:empty { display: none; }
-
-.depoimentos-ajuda-erro { color: var(--color-acento-claro); }
-
-.depoimentos-texto-rodape {
-  display: flex;
-  align-items: baseline;
-  gap: 16px;
-}
-
-.depoimentos-contador {
-  margin-top: 4px;
-  margin-left: auto;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--color-texto-3);
-}
-
-/* === AUTORIZAÇÃO === */
-.depoimentos-autorizacao {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  font-size: 14px;
-  line-height: 1.5;
-  cursor: pointer;
-}
-
-.depoimentos-autorizacao input {
-  flex-shrink: 0;
-  width: 20px;
-  height: 20px;
-  margin-top: 1px;
-  accent-color: var(--color-acento);
-  cursor: pointer;
-}
-
-.depoimentos-autorizacao input[aria-invalid="true"] {
-  outline: 1px solid var(--color-acento-claro);
-  outline-offset: 2px;
-}
-
-/* === HONEYPOT === */
-/* FORA DA TELA: COM DISPLAY NONE, ALGUNS ROBÔS IGNORAM O CAMPO */
-.depoimentos-isca {
-  position: absolute;
-  left: -10000px;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-}
-
-/* === ERRO E BOTÃO === */
-.depoimentos-erro {
-  margin-top: 28px;
-  font-size: 14px;
-  color: var(--color-acento-claro);
-}
-
-.depoimentos-botao {
-  width: 100%;
-  margin-top: 32px;
-}
-
-.depoimentos-botao:disabled {
-  opacity: 0.6;
-  cursor: progress;
-}
-
-/* === RECEBIDO === */
-.depoimentos-recebido {
-  max-width: 560px;
-  padding-top: 8px;
-}
-
-.depoimentos-recebido:focus { outline: none; }
-
-.depoimentos-recebido p { margin-top: 16px; }
-
-.depoimentos-recebido .link-secao {
-  display: inline-block;
-  margin-top: 28px;
-}
-
-/* =======================
-   RESPONSIVIDADE E ESTADOS
-   ======================= */
-
 /* === RESPONSIVIDADE === */
 @media (min-width: 600px) {
   .depoimentos-item { flex-basis: calc((100% - 16px) / 2); }
@@ -328,21 +128,6 @@ html.usando-teclado .depoimentos-campo textarea:focus-visible {
   .depoimentos-carrossel:not(:has(.depoimentos-item:nth-child(3))) .depoimentos-controles { display: none; }
 
   .depoimento { padding: 32px 28px; }
-
-  .depoimentos-campos {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    grid-template-areas:
-      "nome cidade"
-      "tipo tipo"
-      "texto texto"
-      "autorizacao autorizacao";
-  }
-
-  .depoimentos-campo-nome        { grid-area: nome; }
-  .depoimentos-campo-cidade      { grid-area: cidade; }
-  .depoimentos-campo-tipo        { grid-area: tipo; }
-  .depoimentos-campo-texto       { grid-area: texto; }
-  .depoimentos-campo-autorizacao { grid-area: autorizacao; }
 }
 
 @media (min-width: 900px) {
@@ -368,15 +153,6 @@ html.usando-teclado .depoimentos-campo textarea:focus-visible {
   .depoimentos-setas     { display: flex; }
 }
 
-/* ENVIO EM 2 COLUNAS SÓ A PARTIR DE 1200PX */
-@media (min-width: 1200px) {
-  .depoimentos-envio-conteudo {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 560px);
-    align-items: start;
-    gap: 64px;
-  }
-}
-
 /* === HOVER (SÓ MOUSE) === */
 @media (hover: hover) and (pointer: fine) {
   .depoimentos-seta:hover:not(:disabled) { border-color: var(--color-texto); }
@@ -384,8 +160,5 @@ html.usando-teclado .depoimentos-campo textarea:focus-visible {
 
 /* === MOVIMENTO REDUZIDO === */
 @media (prefers-reduced-motion: reduce) {
-  .depoimentos-seta,
-  .depoimentos-campo input,
-  .depoimentos-campo select,
-  .depoimentos-campo textarea { transition: none; }
+  .depoimentos-seta { transition: none; }
 }

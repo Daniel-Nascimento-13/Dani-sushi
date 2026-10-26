@@ -121,109 +121,6 @@ h3 { font-size: 17px; font-weight: 500; letter-spacing: 0.14em; }
 }
 
 /* =======================
-   COMPONENTES
-   ======================= */
-
-/* === BOTÕES === */
-.botao {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: 52px;
-  padding-inline: 28px;
-  border-radius: 999px;
-  font-family: var(--font-texto);
-  font-size: 15px;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  white-space: nowrap;
-  transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease;
-}
-
-.botao-primario {
-  background: var(--color-acento);
-  color: #ffffff;
-}
-
-.botao-secundario {
-  border: 1px solid rgba(242,238,234,0.28);
-  color: var(--color-texto);
-}
-
-/* TOQUE: FEEDBACK IMEDIATO NO :ACTIVE */
-.botao:active { transition-duration: 0s; }
-.botao-primario:active   { background: color-mix(in srgb, var(--color-acento) 82%, #000000); }
-.botao-secundario:active { border-color: var(--color-texto); }
-
-/* === TOPO DE SEÇÃO === */
-.secao-topo {
-  display: grid;
-  gap: 24px;
-  margin-bottom: 56px;
-}
-
-.secao-topo-texto { max-width: 460px; }
-
-/* === LINK DE SEÇÃO ("VER TODOS OS ... →") === */
-.link-secao {
-  justify-self: start;
-  padding-bottom: 6px;
-  border-bottom: 1px solid rgba(242,238,234,0.28);
-  font-size: 15px;
-  color: var(--color-texto);
-  transition: border-color 0.4s ease;
-}
-
-/* === ABERTURA DAS PÁGINAS INTERNAS === */
-/* O CABEÇALHO É FIXO: O TOPO DESCONTA A ALTURA DELE */
-.pagina-topo { padding-top: calc(var(--altura-cabecalho) + 48px); }
-
-.pagina-abertura {
-  margin-bottom: 64px;
-  container-type: inline-size;
-}
-
-.pagina-abertura:last-child { margin-bottom: 0; }
-
-.pagina-voltar {
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-  font-size: 14px;
-  color: var(--color-texto-3);
-  transition: color 0.4s ease;
-}
-
-.pagina-sobretitulo {
-  margin-top: 32px;
-  font-family: var(--font-titulo);
-  font-size: 13px;
-  line-height: 1.4;
-  text-transform: uppercase;
-  letter-spacing: 0.24em;
-  color: var(--color-acento-claro);
-}
-
-/* H1 EM 2 LINHAS: CADA PÁGINA DEFINE --DIVISOR-TITULO (VER CLAUDE.MD) */
-.pagina-titulo {
-  --divisor-titulo: 14;
-  margin-top: 20px;
-  font-size: min(80px, 100cqi / var(--divisor-titulo));
-  line-height: 1.2;
-  white-space: nowrap;
-}
-
-.pagina-titulo em {
-  font-style: italic;
-  color: var(--color-texto-2);
-}
-
-.pagina-intro {
-  max-width: 560px;
-  margin-top: 20px;
-}
-
-/* =======================
    RESPONSIVIDADE E ESTADOS
    ======================= */
 
@@ -246,50 +143,18 @@ h3 { font-size: 17px; font-weight: 500; letter-spacing: 0.14em; }
 
   .so-mobile  { display: none; }
   .so-desktop { display: inline; }
-
-  .pagina-sobretitulo { letter-spacing: 0.32em; }
-  .pagina-titulo      { line-height: 1.15; }
-  .pagina-intro       { margin-top: 28px; }
 }
 
 @media (min-width: 900px) {
   body        { font-size: 17px; }
   .envoltorio  { --respiro: 48px; }
   .secao      { padding-block: 140px; }
-  .pagina-topo { padding-top: calc(var(--altura-cabecalho) + 96px); }
-  .pagina-abertura   { margin-bottom: 96px; }
-  .pagina-sobretitulo { margin-top: 40px; }
   h3          { font-size: 24px; letter-spacing: 0.12em; }
   .texto-intro { font-size: 19px; }
 
   .rotulo + h2 { margin-top: 18px; }
-
-  .secao-topo {
-    grid-template-columns: 1fr 1fr;
-    align-items: end;
-    gap: 48px;
-    margin-bottom: 64px;
-  }
-
-  .secao-topo-texto { justify-self: end; }
-  .link-secao       { justify-self: end; }
 }
 
 @media (min-width: 1200px) {
   h3 { font-size: 26px; }
-}
-
-/* === HOVER (SÓ MOUSE) === */
-@media (hover: hover) and (pointer: fine) {
-  .botao-primario:hover   { background: color-mix(in srgb, var(--color-acento) 82%, #000000); }
-  .botao-secundario:hover { border-color: var(--color-texto); }
-  .pagina-voltar:hover    { color: var(--color-texto); }
-  .link-secao:hover       { border-color: var(--color-texto); }
-}
-
-/* === MOVIMENTO REDUZIDO === */
-@media (prefers-reduced-motion: reduce) {
-  .botao,
-  .pagina-voltar,
-  .link-secao { transition: none; }
 }

@@ -13,6 +13,7 @@
 /* === BASE E SEÇÕES === */
 @import "./fontes-kanji.css";
 @import "./base.css" layer(base);
+@import "./componentes.css" layer(base);
 @import "./secoes/cabecalho.css" layer(components);
 @import "./secoes/hero.css" layer(components);
 @import "./secoes/numeros.css" layer(components);
@@ -20,7 +21,9 @@
 @import "./secoes/pilares.css" layer(components);
 @import "./secoes/formatos.css" layer(components);
 @import "./secoes/momentos.css" layer(components);
+@import "./secoes/momentos-pagina.css" layer(components);
 @import "./secoes/depoimentos.css" layer(components);
+@import "./secoes/depoimentos-envio.css" layer(components);
 @import "./secoes/orcamento.css" layer(components);
 @import "./secoes/rodape.css" layer(components);
 
