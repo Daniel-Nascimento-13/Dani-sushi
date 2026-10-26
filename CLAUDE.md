@@ -415,7 +415,9 @@ src/
 ### URLs e rastreamento
 - **Sempre com barra final:** `"trailingSlash": true` no `vercel.json` redireciona (308) `/momentos` → `/momentos/` (igual ao canonical). Vale para todo caminho sem extensão, `/api/*` incluso.
   - Por isso o cron chama `/api/manter/` e os endereços internos das funções já têm a barra (`action="/api/depoimentos/"`, links `/api/moderar/?id=...` e o form da moderação): o cron da Vercel não segue redirect.
-- **404 própria:** `404.html` na raiz (input `erro` no `vite.config.js`), com cabeçalho, menu e rodapé das páginas internas, `noindex` e CSS em `secoes/erro.css` (h1 "Página não" / "encontrada." → divisor 9,3: "ENCONTRADA." = 9,013em + 3%). A Vercel serve com status 404 (`/qualquer-coisa` → 308 → `/qualquer-coisa/` → 404).
+- **404 própria:** `404.html` na raiz (input `erro` no `vite.config.js`), com cabeçalho, menu e rodapé das páginas internas, `noindex` e CSS em `secoes/erro.css`.
+  - h1 "Página não" / "encontrada." → divisor 9,3 ("ENCONTRADA." = 9,013em + 3%). A Vercel serve com status 404 (`/qualquer-coisa` → 308 → `/qualquer-coisa/` → 404).
+  - No Lighthouse ela tira SEO 58 de propósito (`noindex` e sem description).
 - **sitemap.xml:** as 3 páginas com barra final e `<lastmod>` = data do último commit de cada uma (`git log -1 --format=%cs -- <arquivo>`). Atualize o `<lastmod>` ao mudar o conteúdo de uma página; a 404 fica fora. Página nova entra aqui.
 - **robots.txt:** `Allow: /`, `Disallow: /api/` e `Sitemap: https://danisushii.com.br/sitemap.xml`.
 
