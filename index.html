@@ -315,24 +315,24 @@
     <!-- DEPOIMENTOS:FIM -->
 
     <!-- === EXPERIÊNCIA === -->
-    <section class="orcamento secao fundo-superficie" id="experiencia" aria-labelledby="orcamento-titulo">
-      <div class="envoltorio orcamento-conteudo">
+    <section class="experiencia secao fundo-superficie" id="experiencia" aria-labelledby="experiencia-titulo">
+      <div class="envoltorio experiencia-conteudo">
         <div>
           <p class="rotulo"><span class="rotulo-kanji" lang="ja">体験</span> Taiken · <em>Experiência</em></p>
-          <h2 id="orcamento-titulo">Vamos criar uma experiência <br class="so-desktop">para você?</h2>
-          <p class="orcamento-texto texto-intro">Compartilhe alguns detalhes do seu evento. A partir deles, o Dani entra em contato pelo WhatsApp para entender o que você imaginou e criar uma experiência sob medida para você e seus convidados.</p>
+          <h2 id="experiencia-titulo">Vamos criar uma experiência <br class="so-desktop">para você?</h2>
+          <p class="experiencia-texto texto-intro">Compartilhe alguns detalhes do seu evento. A partir deles, o Dani entra em contato pelo WhatsApp para entender o que você imaginou e criar uma experiência sob medida para você e seus convidados.</p>
         </div>
 
-        <form class="comanda" novalidate data-whatsapp="5551998922465" data-mensagem="Olá, Dani! Estou planejando {tipo} para {data}, com cerca de {convidados} convidados em {cidade}. Gostaria de conversar sobre a experiência." aria-labelledby="comanda-titulo">
-          <div class="comanda-topo">
-            <h3 class="comanda-titulo" id="comanda-titulo">Sua experiência</h3>
+        <form class="experiencia-form" novalidate data-whatsapp="5551998922465" data-mensagem="Olá, Dani! Estou planejando {tipo} para {data}, com cerca de {convidados} convidados em {cidade}. Gostaria de conversar sobre a experiência." aria-labelledby="experiencia-form-titulo">
+          <div class="experiencia-form-topo">
+            <h3 class="experiencia-form-titulo" id="experiencia-form-titulo">Sua experiência</h3>
           </div>
-          <p class="comanda-subtitulo">Detalhes do evento</p>
+          <p class="experiencia-form-subtitulo">Detalhes do evento</p>
 
-          <div class="comanda-campos">
-            <div class="comanda-campo comanda-campo-tipo">
-              <label for="comanda-tipo">Tipo de evento</label>
-              <select id="comanda-tipo" name="tipo" required data-mensagem="{tipo}">
+          <div class="experiencia-campos">
+            <div class="experiencia-campo experiencia-campo-tipo">
+              <label for="experiencia-tipo">Tipo de evento</label>
+              <select id="experiencia-tipo" name="tipo" required data-mensagem="{tipo}">
                 <option value="" disabled selected>Selecione</option>
                 <option data-frase="um jantar residencial">Jantar residencial</option>
                 <option data-frase="um evento social">Evento social</option>
@@ -341,28 +341,28 @@
               </select>
             </div>
 
-            <div class="comanda-campo comanda-campo-data">
-              <label for="comanda-data">Data</label>
-              <div class="comanda-data">
-                <input id="comanda-data" name="data" type="date" required aria-describedby="comanda-data-ajuda" data-mensagem="{data}">
-                <span class="comanda-data-vazia" aria-hidden="true">Escolha a data</span>
+            <div class="experiencia-campo experiencia-campo-data">
+              <label for="experiencia-data">Data</label>
+              <div class="experiencia-data">
+                <input id="experiencia-data" name="data" type="date" required aria-describedby="experiencia-data-ajuda" data-mensagem="{data}">
+                <span class="experiencia-data-vazia" aria-hidden="true">Escolha a data</span>
               </div>
-              <p id="comanda-data-ajuda" class="comanda-ajuda" aria-live="polite" data-erro="Escolha uma data a partir de hoje."></p>
+              <p id="experiencia-data-ajuda" class="experiencia-ajuda" aria-live="polite" data-erro="Escolha uma data a partir de hoje."></p>
             </div>
 
-            <div class="comanda-campo comanda-campo-convidados">
-              <label for="comanda-convidados">Convidados</label>
-              <input id="comanda-convidados" name="convidados" type="number" min="10" step="1" inputmode="numeric" placeholder="10+" required aria-describedby="comanda-convidados-ajuda" data-mensagem="{convidados}">
-              <p id="comanda-convidados-ajuda" class="comanda-ajuda" aria-live="polite" data-erro="O atendimento é a partir de 10 convidados.">A partir de 10 convidados.</p>
+            <div class="experiencia-campo experiencia-campo-convidados">
+              <label for="experiencia-convidados">Convidados</label>
+              <input id="experiencia-convidados" name="convidados" type="number" min="10" step="1" inputmode="numeric" placeholder="10+" required aria-describedby="experiencia-convidados-ajuda" data-mensagem="{convidados}">
+              <p id="experiencia-convidados-ajuda" class="experiencia-ajuda" aria-live="polite" data-erro="O atendimento é a partir de 10 convidados.">A partir de 10 convidados.</p>
             </div>
 
-            <div class="comanda-campo comanda-campo-cidade">
-              <label for="comanda-cidade">Cidade</label>
-              <input id="comanda-cidade" name="cidade" type="text" autocomplete="address-level2" placeholder="Sua cidade" required data-mensagem="{cidade}">
+            <div class="experiencia-campo experiencia-campo-cidade">
+              <label for="experiencia-cidade">Cidade</label>
+              <input id="experiencia-cidade" name="cidade" type="text" autocomplete="address-level2" placeholder="Sua cidade" required data-mensagem="{cidade}">
             </div>
           </div>
 
-          <button type="submit" class="botao botao-primario comanda-botao">Continuar no WhatsApp</button>
+          <button type="submit" class="botao botao-primario experiencia-botao">Continuar no WhatsApp</button>
         </form>
       </div>
     </section>

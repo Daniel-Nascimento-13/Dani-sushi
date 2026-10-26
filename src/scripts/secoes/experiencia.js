@@ -6,19 +6,19 @@ import { reduzirMovimento } from '../utils/movimento.js';
 import { revelar } from '../utils/revelar.js';
 
 /* DETALHES DO EVENTO → MENSAGEM NO WHATSAPP */
-export function iniciarOrcamento(secao) {
-  const comanda = secao.querySelector('.comanda');
-  if (comanda) iniciarComanda(comanda);
+export function iniciarExperiencia(secao) {
+  const formulario = secao.querySelector('.experiencia-form');
+  if (formulario) iniciarFormulario(formulario);
 
   if (reduzirMovimento) return;
-  revelar(secao.querySelectorAll('.rotulo, h2, .orcamento-texto, .comanda'));
+  revelar(secao.querySelectorAll('.rotulo, h2, .experiencia-texto, .experiencia-form'));
 }
 
-/* === CARTÃO === */
-function iniciarComanda(comanda) {
-  const campos = [...comanda.querySelectorAll('[data-mensagem]')];
+/* === FORMULÁRIO === */
+function iniciarFormulario(formulario) {
+  const campos = [...formulario.querySelectorAll('[data-mensagem]')];
 
-  const data = comanda.querySelector('input[type="date"]');
+  const data = formulario.querySelector('input[type="date"]');
   if (data) {
     data.min = hojeIso();
     marcarPreenchida(data);
@@ -42,7 +42,7 @@ function iniciarComanda(comanda) {
     });
   });
 
-  comanda.addEventListener('submit', (evento) => {
+  formulario.addEventListener('submit', (evento) => {
     evento.preventDefault();
 
     const invalidos = campos.filter((campo) => !validar(campo));
@@ -51,8 +51,8 @@ function iniciarComanda(comanda) {
       return;
     }
 
-    const mensagem = montarMensagem(comanda, campos);
-    window.open(`https://wa.me/${comanda.dataset.whatsapp}?text=${encodeURIComponent(mensagem)}`, '_blank', 'noopener');
+    const mensagem = montarMensagem(formulario, campos);
+    window.open(`https://wa.me/${formulario.dataset.whatsapp}?text=${encodeURIComponent(mensagem)}`, '_blank', 'noopener');
   });
 }
 
@@ -80,7 +80,7 @@ function marcar(campo, ok) {
   const ajuda = ajudaDe(campo);
   if (!ajuda) return;
   ajuda.textContent = ok ? ajuda.dataset.normal : ajuda.dataset.erro;
-  ajuda.classList.toggle('comanda-ajuda-erro', !ok);
+  ajuda.classList.toggle('experiencia-ajuda-erro', !ok);
 }
 
 function ajudaDe(campo) {
@@ -91,7 +91,7 @@ function ajudaDe(campo) {
 /* === DATA === */
 /* DATA PELA METADE NÃO TEM VALUE, MAS TEM BADINPUT */
 function marcarPreenchida(data) {
-  data.parentElement.classList.toggle('comanda-data-preenchida', data.value !== '' || data.validity.badInput);
+  data.parentElement.classList.toggle('experiencia-data-preenchida', data.value !== '' || data.validity.badInput);
 }
 
 /* FUSO LOCAL: O TOISOSTRING USA UTC */
@@ -102,8 +102,8 @@ function hojeIso() {
 
 /* === MENSAGEM === */
 /* CADA CAMPO TROCA O SEU {MARCADOR} NA FRASE DO DATA-MENSAGEM */
-function montarMensagem(comanda, campos) {
-  return campos.reduce((mensagem, campo) => mensagem.replace(campo.dataset.mensagem, formatar(campo)), comanda.dataset.mensagem);
+function montarMensagem(formulario, campos) {
+  return campos.reduce((mensagem, campo) => mensagem.replace(campo.dataset.mensagem, formatar(campo)), formulario.dataset.mensagem);
 }
 
 /* DATA → "QUINTA-FEIRA, 29/10/2026" (FUSO LOCAL); TIPO → DATA-FRASE DA OPÇÃO */

@@ -40,7 +40,7 @@ const secoesSobDemanda = [
   { seletor: '.depoimentos', carregar: () => import('./scripts/secoes/depoimentos.js').then((m) => m.iniciarDepoimentos) },
   { seletor: '.depoimentos-pagina', carregar: () => import('./scripts/secoes/depoimentos.js').then((m) => m.iniciarDepoimentos) },
   { seletor: '.depoimentos-envio', carregar: () => import('./scripts/secoes/depoimentos.js').then((m) => m.iniciarDepoimentos) },
-  { seletor: '.orcamento', carregar: () => import('./scripts/secoes/orcamento.js').then((m) => m.iniciarOrcamento) },
+  { seletor: '.experiencia', carregar: () => import('./scripts/secoes/experiencia.js').then((m) => m.iniciarExperiencia) },
   { seletor: '.rodape', carregar: () => import('./scripts/secoes/rodape.js').then((m) => m.iniciarRodape) },
 ];
 
