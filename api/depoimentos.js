@@ -88,7 +88,7 @@ async function avisarPorEmail({ id, nome, cidade, tipo_evento: tipo, texto }) {
     method: 'POST',
     headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      from: 'Dani Sushi <onboarding@resend.dev>',
+      from: 'Dani Sushi <avisos@danisushii.com.br>',
       to: [process.env.EMAIL_AVISO],
       subject: `Novo depoimento — ${nome} (${tipo})`,
       html,
