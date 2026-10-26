@@ -1,7 +1,8 @@
-/* === SUBCONJUNTO DE KANJI DO SHIPPORI MINCHO ===
-   LÊ OS TEXTOS COM LANG="JA" NOS HTML DA RAIZ E NO INDEX.HTML DE CADA PÁGINA (MOMENTOS/, DEPOIMENTOS/...), GERA FONTES WOFF2 SÓ COM ESSES
-   CARACTERES E ESCREVE O @FONT-FACE EM SRC/ESTILOS/FONTES-KANJI.CSS.
-   RODA AUTOMATICAMENTE ANTES DE "NPM RUN DEV" E "NPM RUN BUILD". */
+/* =======================
+   SUBCONJUNTO DE KANJI (SHIPPORI MINCHO)
+   ======================= */
+
+/* LÊ OS TEXTOS LANG="JA" DOS HTML E GERA AS FONTES + FONTES-KANJI.CSS; RODA ANTES DE DEV E BUILD */
 import { readFileSync, writeFileSync, readdirSync, rmSync, mkdirSync, existsSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import subsetFont from 'subset-font';
@@ -61,5 +62,5 @@ for (const [bloco, letras] of grupos) {
 }`);
 }
 
-writeFileSync(arquivoCss, `/* === KANJI DO SHIPPORI MINCHO (GERADO POR FERRAMENTAS/KANJI.JS — NÃO EDITAR) === */\n${regras.join('\n\n')}\n`);
+writeFileSync(arquivoCss, `/* =======================\n   KANJI DO SHIPPORI MINCHO\n   ======================= */\n\n/* GERADO POR FERRAMENTAS/KANJI.JS: NÃO EDITAR */\n${regras.join('\n\n')}\n`);
 process.stdout.write(`kanji: ${caracteres.join('')} → ${grupos.size} arquivo(s)\n`);

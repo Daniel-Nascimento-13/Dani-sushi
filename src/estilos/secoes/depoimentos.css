@@ -1,9 +1,13 @@
-/* === DEPOIMENTOS (HOME E PÁGINA /DEPOIMENTOS) === */
-/* /DEPOIMENTOS, H1: "QUEM VIVEU," = 8.437EM → DIVISOR 8.7 (ABERTURA COMPARTILHADA EM BASE.CSS) */
+/* =======================
+   DEPOIMENTOS — CARROSSEL
+   ======================= */
+
+/* === ABERTURA DA PÁGINA === */
+/* H1: DIVISOR 8.7 (VER CLAUDE.MD) */
 .depoimentos-titulo { --divisor-titulo: 8.7; }
 
-/* === CARROSSEL (SCROLL-SNAP NATIVO; CARDS GERADOS NO BUILD, VER VITE.CONFIG.JS) === */
-/* MOBILE: SWIPE NA LARGURA TODA DA TELA, COM O PRÓXIMO CARD APARECENDO + INDICADOR "1 / N" */
+/* === TRILHO (SCROLL-SNAP; CARDS GERADOS NO BUILD) === */
+/* MOBILE: O PRÓXIMO CARD APARECE NA BORDA */
 .depoimentos-trilho {
   display: flex;
   gap: 16px;
@@ -17,6 +21,7 @@
 
 .depoimentos-trilho::-webkit-scrollbar { display: none; }
 
+/* === CARD === */
 .depoimentos-item {
   display: flex;
   flex: 0 0 85%;
@@ -70,8 +75,8 @@
   color: var(--color-texto-3);
 }
 
-/* CONTROLES: INDICADOR NO MOBILE, SETAS NO DESKTOP. SOMEM PELA QUANTIDADE DE CARDS (CABEM 1 → 2 → 3), JÁ NO
-   PRIMEIRO PAINT: SE O JS ESCONDESSE DEPOIS DE CARREGAR, A PÁGINA ENCOLHERIA NO MEIO DA ROLAGEM DE UMA ÂNCORA */
+/* === CONTROLES === */
+/* SOMEM PELO Nº DE CARDS, JÁ NO PRIMEIRO PAINT (SEM SALTO NO SCROLL) */
 .depoimentos-controles {
   display: flex;
   align-items: center;
@@ -116,13 +121,17 @@
   transition-duration: 0s;
 }
 
-/* === ENVIO (/DEPOIMENTOS#ENVIAR) === */
+/* =======================
+   DEPOIMENTOS — ENVIO
+   ======================= */
+
+/* === INTRO === */
 .depoimentos-envio-conteudo {
   display: grid;
   gap: 56px;
 }
 
-/* H2 COM <BR> SEMPRE EM 2 LINHAS: "DOS NOSSOS EVENTOS?" = 14.583EM → DIVISOR 14.9 (2% DE FOLGA) */
+/* H2 EM 2 LINHAS: DIVISOR 14.9 (VER CLAUDE.MD) */
 .depoimentos-envio-intro { container-type: inline-size; }
 
 .depoimentos-envio-titulo {
@@ -135,6 +144,7 @@
   margin-top: 24px;
 }
 
+/* === CAMPOS === */
 .depoimentos-form {
   max-width: 560px;
   color-scheme: dark;
@@ -195,7 +205,8 @@
   resize: vertical;
 }
 
-/* FOCO: LINHA INFERIOR DE 2PX EM ACENTO-CLARO + CONTORNO SÓ NO TECLADO (COMO NA COMANDA, VER UTILS/TECLADO.JS) */
+/* === FOCO === */
+/* CONTORNO SÓ NO TECLADO (VER UTILS/TECLADO.JS) */
 .depoimentos-campo input:not([type="checkbox"]):focus,
 .depoimentos-campo select:focus,
 .depoimentos-campo textarea:focus {
@@ -213,7 +224,7 @@ html.usando-teclado .depoimentos-campo textarea:focus-visible {
 
 .depoimentos-campo [aria-invalid="true"] { border-bottom-color: var(--color-acento-claro); }
 
-/* DICA / ERRO ABAIXO DO CAMPO (TEXTOS NO HTML; O JS SÓ TROCA PELO DATA-ERRO) */
+/* === DICA E ERRO === */
 .depoimentos-ajuda {
   margin-top: 4px;
   font-family: var(--font-mono);
@@ -240,7 +251,7 @@ html.usando-teclado .depoimentos-campo textarea:focus-visible {
   color: var(--color-texto-3);
 }
 
-/* AUTORIZAÇÃO: CHECKBOX NATIVO NA COR DA MARCA, TEXTO CLICÁVEL */
+/* === AUTORIZAÇÃO === */
 .depoimentos-autorizacao {
   display: flex;
   align-items: flex-start;
@@ -264,7 +275,8 @@ html.usando-teclado .depoimentos-campo textarea:focus-visible {
   outline-offset: 2px;
 }
 
-/* HONEYPOT FORA DA TELA (DISPLAY: NONE FARIA ALGUNS ROBÔS IGNORAREM O CAMPO) */
+/* === HONEYPOT === */
+/* FORA DA TELA: COM DISPLAY NONE, ALGUNS ROBÔS IGNORAM O CAMPO */
 .depoimentos-isca {
   position: absolute;
   left: -10000px;
@@ -273,6 +285,7 @@ html.usando-teclado .depoimentos-campo textarea:focus-visible {
   overflow: hidden;
 }
 
+/* === ERRO E BOTÃO === */
 .depoimentos-erro {
   margin-top: 28px;
   font-size: 14px;
@@ -289,7 +302,7 @@ html.usando-teclado .depoimentos-campo textarea:focus-visible {
   cursor: progress;
 }
 
-/* RECEBIDO (SUBSTITUI O FORMULÁRIO DEPOIS DO ENVIO) */
+/* === RECEBIDO === */
 .depoimentos-recebido {
   max-width: 560px;
   padding-top: 8px;
@@ -303,6 +316,10 @@ html.usando-teclado .depoimentos-campo textarea:focus-visible {
   display: inline-block;
   margin-top: 28px;
 }
+
+/* =======================
+   RESPONSIVIDADE E ESTADOS
+   ======================= */
 
 /* === RESPONSIVIDADE === */
 @media (min-width: 600px) {
@@ -328,7 +345,6 @@ html.usando-teclado .depoimentos-campo textarea:focus-visible {
   .depoimentos-campo-autorizacao { grid-area: autorizacao; }
 }
 
-/* DESKTOP: 3 CARDS VISÍVEIS + SETAS */
 @media (min-width: 900px) {
   .depoimentos-trilho {
     gap: 24px;
@@ -352,7 +368,7 @@ html.usando-teclado .depoimentos-campo textarea:focus-visible {
   .depoimentos-setas     { display: flex; }
 }
 
-/* 2 COLUNAS SÓ A PARTIR DE 1200PX */
+/* ENVIO EM 2 COLUNAS SÓ A PARTIR DE 1200PX */
 @media (min-width: 1200px) {
   .depoimentos-envio-conteudo {
     grid-template-columns: minmax(0, 1fr) minmax(0, 560px);
@@ -361,7 +377,7 @@ html.usando-teclado .depoimentos-campo textarea:focus-visible {
   }
 }
 
-/* === HOVER (SÓ MOUSE: NO TOQUE O :HOVER GRUDA DEPOIS DO TAP) === */
+/* === HOVER (SÓ MOUSE) === */
 @media (hover: hover) and (pointer: fine) {
   .depoimentos-seta:hover:not(:disabled) { border-color: var(--color-texto); }
 }

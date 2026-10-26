@@ -1,19 +1,22 @@
+/* =======================
+   MOMENTOS (HOME E PÁGINA)
+   ======================= */
+
 import { gsap } from '../core/scroll.js';
 import { reduzirMovimento } from '../utils/movimento.js';
 import { revelar } from '../utils/revelar.js';
 
-/* === MOMENTOS (HOME E PÁGINA /MOMENTOS) === */
 export function iniciarMomentos(secao) {
   if (reduzirMovimento) return;
 
-  /* PÁGINA /MOMENTOS: CADA REGISTRO ENTRA INTEIRO (Y 30 → 0 + OPACIDADE) AO CHEGAR NA TELA */
+  /* PÁGINA: CADA REGISTRO ENTRA INTEIRO */
   const registros = secao.querySelectorAll('.momento');
   if (registros.length) {
     revelar(registros);
     return;
   }
 
-  /* HOME: TOPO REVELADO + FOTOS COM MÁSCARA DE BAIXO PARA CIMA */
+  /* HOME: TOPO REVELADO + FOTOS ABRINDO DE BAIXO PARA CIMA */
   revelar(secao.querySelectorAll('.rotulo, h2, .momentos-link'));
 
   secao.querySelectorAll('.momentos-card').forEach((card, indice) => {

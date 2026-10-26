@@ -1,18 +1,21 @@
+/* =======================
+   ROLAGEM
+   ======================= */
+
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
 import { reduzirMovimento } from '../utils/movimento.js';
 
-/* === REGISTRO DE PLUGINS (ÚNICO LUGAR DO PROJETO) === */
+/* === PLUGINS (ÚNICO REGISTRO DO PROJETO) === */
 gsap.registerPlugin(ScrollTrigger);
 
-/* === ROLAGEM SUAVE (LENIS + SCROLLTRIGGER SINCRONIZADOS) === */
+/* === LENIS + SCROLLTRIGGER === */
 export function iniciarScroll() {
-  /* RECALCULA OS GATILHOS QUANDO AS FONTES TROCAM (SWAP) */
+  /* RECALCULA OS GATILHOS DEPOIS DO SWAP DAS FONTES */
   document.fonts.ready.then(() => ScrollTrigger.refresh());
 
-  /* LINK PARA O TOPO DA PÁGINA ATUAL ([DATA-TOPO], EX.: "INÍCIO" NA HOME): SOBE SEM RECARREGAR.
-     COM MOVIMENTO REDUZIDO NÃO HÁ LENIS: SOBE DIRETO */
+  /* [DATA-TOPO]: SOBE SEM RECARREGAR; SEM LENIS (MOVIMENTO REDUZIDO), DIRETO */
   let lenis = null;
   document.addEventListener('click', (evento) => {
     if (!evento.target.closest('a[data-topo]')) return;
@@ -28,8 +31,7 @@ export function iniciarScroll() {
   gsap.ticker.add((tempo) => lenis.raf(tempo * 1000));
   gsap.ticker.lagSmoothing(0);
 
-  /* ÂNCORAS INTERNAS COM ROLAGEM SUAVE. O DESCONTO DO CABEÇALHO FIXO VEM DO SCROLL-PADDING-TOP DO HTML,
-     QUE O LENIS JÁ APLICA: NÃO PASSE OFFSET AQUI (SERIA DESCONTADO DUAS VEZES) */
+  /* ÂNCORAS: SEM OFFSET, O LENIS JÁ DESCONTA O SCROLL-PADDING-TOP */
   document.addEventListener('click', (evento) => {
     const link = evento.target.closest('a[href^="#"]');
     const destino = link && link.hash && document.querySelector(link.hash);

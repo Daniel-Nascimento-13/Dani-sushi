@@ -1,3 +1,7 @@
+/* =======================
+   BASE
+   ======================= */
+
 /* === RESET === */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -27,7 +31,7 @@ button { background: none; border: 0; cursor: pointer; }
   outline-offset: 4px;
 }
 
-/* === ACESSIBILIDADE — VISUALMENTE OCULTO === */
+/* === VISUALMENTE OCULTO === */
 .visualmente-oculto {
   position: absolute;
   width: 1px;
@@ -37,7 +41,7 @@ button { background: none; border: 0; cursor: pointer; }
   white-space: nowrap;
 }
 
-/* === SÓ MOBILE / SÓ DESKTOP (ATÉ 599PX / A PARTIR DE 600PX), PARA QUEBRAS E SEPARADORES === */
+/* === SÓ MOBILE / SÓ DESKTOP (QUEBRA EM 600PX) === */
 .so-desktop { display: none; }
 
 /* === LAYOUT === */
@@ -47,17 +51,21 @@ button { background: none; border: 0; cursor: pointer; }
   max-width: calc(1344px + var(--respiro) * 2);
   margin-inline: auto;
   padding-inline: var(--respiro);
-  /* NO MOBILE, REFERÊNCIA DO TAMANHO DOS RÓTULOS (100CQI = LARGURA DA COLUNA) */
+  /* NO MOBILE, REFERÊNCIA DOS RÓTULOS (100CQI = COLUNA) */
   container-type: inline-size;
 }
 
 .secao { padding-block: 96px; }
 
-/* === FUNDOS ALTERNADOS (APLICADOS NO HTML, NA ORDEM DAS SEÇÕES; HERO SEMPRE .FUNDO-BASE) === */
+/* === FUNDOS ALTERNADOS (NO HTML, PELA ORDEM DAS SEÇÕES) === */
 .fundo-base       { background: var(--color-fundo); }
 .fundo-superficie { background: var(--color-superficie); }
 
-/* === TIPOGRAFIA === */
+/* =======================
+   TIPOGRAFIA
+   ======================= */
+
+/* === TÍTULOS === */
 h1, h2, h3 {
   font-family: var(--font-titulo);
   font-weight: 400;
@@ -78,9 +86,8 @@ h3 { font-size: 17px; font-weight: 500; letter-spacing: 0.14em; }
 .destaque { color: var(--color-acento-claro); }
 .apagado  { color: var(--color-texto-3); }
 
-/* RÓTULO: KANJI + NOME + TRADUÇÃO */
-/* MOBILE: TAMANHO PELA COLUNA, MEDIDO NO MAIS LONGO ("おもてなし OMOTENASHI · A ARTE DE SERVIR BEM"):
-   27.14EM (0.14EM / KANJI 0.06EM / TRADUÇÃO 0.08EM) → DIVISOR 27.7 (2% DE FOLGA); PISO DE 10PX */
+/* === RÓTULO === */
+/* MOBILE: TAMANHO PELA COLUNA; DIVISOR 27.7 PELO RÓTULO MAIS LONGO (VER CLAUDE.MD) */
 .rotulo {
   font-family: var(--font-titulo);
   font-size: max(10px, min(13px, 100cqi / 27.7));
@@ -101,18 +108,22 @@ h3 { font-size: 17px; font-weight: 500; letter-spacing: 0.14em; }
   letter-spacing: 0.08em;
 }
 
-/* UMA LINHA SÓ QUANDO CABE: 10PX × 27.7 = 277PX DE COLUNA */
+/* 1 LINHA SÓ QUANDO CABE (10PX × 27.7) */
 @container (min-width: 277px) {
   .rotulo { white-space: nowrap; }
 }
 
-/* METADADOS EM MONO */
+/* === METADADOS === */
 .metadado {
   font-family: var(--font-mono);
   font-size: 12px;
   letter-spacing: 0.04em;
   color: var(--color-texto-3);
 }
+
+/* =======================
+   COMPONENTES
+   ======================= */
 
 /* === BOTÕES === */
 .botao {
@@ -140,12 +151,12 @@ h3 { font-size: 17px; font-weight: 500; letter-spacing: 0.14em; }
   color: var(--color-texto);
 }
 
-/* TOQUE: FEEDBACK IMEDIATO NO :ACTIVE (VOLTA COM A TRANSIÇÃO NORMAL AO SOLTAR) */
+/* TOQUE: FEEDBACK IMEDIATO NO :ACTIVE */
 .botao:active { transition-duration: 0s; }
 .botao-primario:active   { background: color-mix(in srgb, var(--color-acento) 82%, #000000); }
 .botao-secundario:active { border-color: var(--color-texto); }
 
-/* === TOPO DE SEÇÃO (RÓTULO + H2 + TEXTO AO LADO) === */
+/* === TOPO DE SEÇÃO === */
 .secao-topo {
   display: grid;
   gap: 24px;
@@ -154,7 +165,7 @@ h3 { font-size: 17px; font-weight: 500; letter-spacing: 0.14em; }
 
 .secao-topo-texto { max-width: 460px; }
 
-/* === ABERTURA DAS PÁGINAS INTERNAS (/MOMENTOS, /DEPOIMENTOS) === */
+/* === ABERTURA DAS PÁGINAS INTERNAS === */
 /* O CABEÇALHO É FIXO: O TOPO DESCONTA A ALTURA DELE */
 .pagina-topo { padding-top: calc(var(--altura-cabecalho) + 48px); }
 
@@ -184,8 +195,7 @@ h3 { font-size: 17px; font-weight: 500; letter-spacing: 0.14em; }
   color: var(--color-acento-claro);
 }
 
-/* H1 SEMPRE EM 2 LINHAS: O TAMANHO SEGUE A COLUNA. CADA PÁGINA DEFINE --DIVISOR-TITULO =
-   LARGURA DA LINHA MAIS LONGA EM EM (0.1EM DE LETTER-SPACING, MEDIDA NO SHIPPORI) + 3% DE FOLGA PELO ITÁLICO */
+/* H1 EM 2 LINHAS: CADA PÁGINA DEFINE --DIVISOR-TITULO (VER CLAUDE.MD) */
 .pagina-titulo {
   --divisor-titulo: 14;
   margin-top: 20px;
@@ -204,6 +214,10 @@ h3 { font-size: 17px; font-weight: 500; letter-spacing: 0.14em; }
   margin-top: 20px;
 }
 
+/* =======================
+   RESPONSIVIDADE E ESTADOS
+   ======================= */
+
 /* === RESPONSIVIDADE === */
 @media (min-width: 600px) {
   .envoltorio {
@@ -211,7 +225,7 @@ h3 { font-size: 17px; font-weight: 500; letter-spacing: 0.14em; }
     container-type: normal;
   }
 
-  /* RÓTULO FIXO A PARTIR DE 600PX: 13PX, 4PX, KANJI SEM AJUSTE, TRADUÇÃO 1PX */
+  /* RÓTULO FIXO A PARTIR DE 600PX */
   .rotulo {
     font-size: 13px;
     letter-spacing: 4px;
@@ -255,7 +269,7 @@ h3 { font-size: 17px; font-weight: 500; letter-spacing: 0.14em; }
   h3 { font-size: 26px; }
 }
 
-/* === HOVER (SÓ MOUSE: NO TOQUE O :HOVER GRUDA DEPOIS DO TAP) === */
+/* === HOVER (SÓ MOUSE) === */
 @media (hover: hover) and (pointer: fine) {
   .botao-primario:hover   { background: color-mix(in srgb, var(--color-acento) 82%, #000000); }
   .botao-secundario:hover { border-color: var(--color-texto); }

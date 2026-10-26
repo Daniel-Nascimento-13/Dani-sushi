@@ -1,9 +1,13 @@
+/* =======================
+   CABEÇALHO
+   ======================= */
+
 import { gsap } from '../core/scroll.js';
 import { reduzirMovimento } from '../utils/movimento.js';
 
 const LIMITE_ROLADO = 80;
 
-/* === CABEÇALHO: SEMPRE FIXO (CSS) + FUNDO MAIS SÓLIDO NO SCROLL + MENU MOBILE === */
+/* === FUNDO NO SCROLL (O CABEÇALHO É FIXO PELO CSS) === */
 export function iniciarCabecalho(cabecalho, lenis) {
   const atualizar = () => cabecalho.classList.toggle('cabecalho-rolado', window.scrollY > LIMITE_ROLADO);
   window.addEventListener('scroll', atualizar, { passive: true });
@@ -14,7 +18,7 @@ export function iniciarCabecalho(cabecalho, lenis) {
   if (menu) iniciarMenu(cabecalho, botao, menu, lenis);
 }
 
-/* === MENU MOBILE (TELA CHEIA) === */
+/* === MENU MOBILE === */
 function iniciarMenu(cabecalho, botao, menu, lenis) {
   const alternar = (abrir) => {
     botao.setAttribute('aria-expanded', String(abrir));
@@ -22,7 +26,7 @@ function iniciarMenu(cabecalho, botao, menu, lenis) {
     menu.hidden = !abrir;
     document.documentElement.classList.toggle('menu-aberto', abrir);
 
-    /* O RESTO DA PÁGINA FICA INERTE ENQUANTO O MENU ESTÁ ABERTO */
+    /* O RESTO DA PÁGINA FICA INERTE COM O MENU ABERTO */
     [...document.body.children].forEach((elemento) => {
       if (elemento !== cabecalho && elemento !== menu) elemento.inert = abrir;
     });
@@ -56,7 +60,7 @@ function iniciarMenu(cabecalho, botao, menu, lenis) {
   });
 }
 
-/* === ITENS DO MENU ENTRAM EM SEQUÊNCIA (SELO + TEXTO JUNTOS) === */
+/* === ENTRADA DOS ITENS === */
 function animarItens(menu) {
   if (reduzirMovimento) return;
 

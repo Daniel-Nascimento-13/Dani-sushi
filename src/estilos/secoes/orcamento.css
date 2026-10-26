@@ -1,5 +1,9 @@
-/* === EXPERIÊNCIA (#ORCAMENTO) === */
-/* SEMPRE EMPILHADO: "VAMOS CRIAR UMA EXPERIÊNCIA" (20,87EM, ~918PX A 44PX) NÃO CABE AO LADO DO CARTÃO SEM QUEBRAR O H2 */
+/* =======================
+   EXPERIÊNCIA
+   ======================= */
+
+/* === LAYOUT === */
+/* SEMPRE EMPILHADO: O H2 NÃO CABE AO LADO DO CARTÃO (VER CLAUDE.MD) */
 .orcamento-conteudo {
   display: grid;
   gap: 56px;
@@ -10,7 +14,11 @@
   margin-top: 24px;
 }
 
-/* === COMANDA === */
+/* =======================
+   CARTÃO (COMANDA)
+   ======================= */
+
+/* === TOPO === */
 .comanda {
   max-width: 560px;
   padding: 28px 22px 32px;
@@ -23,7 +31,7 @@
 
 .comanda .botao:focus-visible { outline-color: var(--color-carimbo); }
 
-/* MOBILE: O TÍTULO SEGUE A LARGURA DO CARTÃO ("SUA EXPERIÊNCIA" = 12,023EM, +2% → 12,3) */
+/* MOBILE: O TÍTULO SEGUE O CARTÃO (DIVISOR 12.3) */
 .comanda-topo {
   container-type: inline-size;
   margin-bottom: 16px;
@@ -50,9 +58,8 @@
   color: rgba(26,21,19,0.72);
 }
 
-/* MOBILE: TIPO / DATA (LINHAS INTEIRAS: O DATE NÃO CABE EM MEIA COLUNA NO IPHONE) / CONVIDADOS + CIDADE.
-   A PARTIR DE 600PX: TIPO / DATA + CONVIDADOS / CIDADE. A ORDEM DO HTML (E DA MENSAGEM) NÃO MUDA.
-   ALINHADOS NO TOPO: A DICA DE 2 LINHAS DE CONVIDADOS NÃO EMPURRA A CIDADE AO LADO */
+/* === CAMPOS === */
+/* ORDEM VISUAL POR GRID-TEMPLATE-AREAS; A DO HTML (E DA MENSAGEM) NÃO MUDA */
 .comanda-campos {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -107,12 +114,12 @@
 
 .comanda-campo input::placeholder { color: rgba(26,21,19,0.5); }
 
-/* DATE NO SAFARI/IOS: SEM APARÊNCIA NATIVA, ALINHADO À ESQUERDA, MESMA ALTURA DOS OUTROS MESMO VAZIO.
-   O CALENDÁRIO NATIVO CONTINUA ABRINDO NO TOQUE */
+/* === DATA (SAFARI/IOS) === */
+/* SEM APARÊNCIA NATIVA; O CALENDÁRIO CONTINUA ABRINDO NO TOQUE */
 .comanda-campo input[type="date"] {
   -webkit-appearance: none;
   display: block;
-  /* ALTURA FIXA: O CONTEÚDO NATIVO DO DATE DEIXAVA O CAMPO COM 45PX (CHROME) / 47PX (WEBKIT) */
+  /* ALTURA FIXA: O CONTEÚDO NATIVO DEIXAVA O CAMPO COM 45/47PX */
   height: 44px;
   min-width: 0;
   text-align: left;
@@ -124,8 +131,8 @@
   text-align: left;
 }
 
-/* "ESCOLHA A DATA" ENQUANTO VAZIO E SEM FOCO (O SAFARI NÃO TEM PLACEHOLDER EM DATE). O JS APLICA
-   .COMANDA-DATA-PREENCHIDA; NO FOCO VOLTA O TEXTO NATIVO (DD/MM/AAAA NO DESKTOP, PARA DIGITAR) */
+/* === "ESCOLHA A DATA" === */
+/* O SAFARI NÃO TEM PLACEHOLDER EM DATE; O JS MARCA .COMANDA-DATA-PREENCHIDA */
 .comanda-data { position: relative; }
 
 .comanda-data-vazia {
@@ -144,9 +151,8 @@
 .comanda-data-preenchida .comanda-data-vazia,
 .comanda-data:focus-within .comanda-data-vazia { display: none; }
 
-/* FOCO PADRONIZADO EM TODOS OS CAMPOS: LINHA INFERIOR DE 2PX EM ACENTO EM QUALQUER FOCO (BOX-SHADOW,
-   SEM MUDAR A ALTURA) + CONTORNO SÓ NA NAVEGAÇÃO POR TECLADO (HTML.USANDO-TECLADO, VER UTILS/TECLADO.JS).
-   NO CHROME OS CAMPOS CASAM :FOCUS-VISIBLE ATÉ NO CLIQUE, POR ISSO A CLASSE */
+/* === FOCO === */
+/* CONTORNO SÓ NO TECLADO: NO CHROME OS CAMPOS CASAM :FOCUS-VISIBLE ATÉ NO CLIQUE */
 .comanda-campo input:focus,
 .comanda-campo select:focus {
   outline: none;
@@ -162,7 +168,7 @@ html.usando-teclado .comanda-campo select:focus-visible {
 
 .comanda-campo [aria-invalid="true"] { border-bottom-color: var(--color-acento); }
 
-/* DICA / ERRO ABAIXO DO CAMPO (TEXTOS NO HTML; O JS SÓ TROCA PELO DATA-ERRO) */
+/* === DICA E ERRO === */
 .comanda-ajuda {
   margin-top: 4px;
   font-family: var(--font-mono);
@@ -175,10 +181,15 @@ html.usando-teclado .comanda-campo select:focus-visible {
 
 .comanda-ajuda-erro { color: var(--color-acento); }
 
+/* === BOTÃO === */
 .comanda-botao {
   width: 100%;
   margin-top: 36px;
 }
+
+/* =======================
+   RESPONSIVIDADE E ESTADOS
+   ======================= */
 
 /* === RESPONSIVIDADE === */
 @media (min-width: 600px) {

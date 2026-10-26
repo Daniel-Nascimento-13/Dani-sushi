@@ -1,9 +1,13 @@
+/* =======================
+   HERO
+   ======================= */
+
 import { gsap } from '../core/scroll.js';
 import { reduzirMovimento } from '../utils/movimento.js';
 
 const ENTRADA = { duration: 1.4, ease: 'power3.out' };
 
-/* === HERO: ENTRADA NO CARREGAMENTO + VÍDEO REAGINDO AO SCROLL === */
+/* ENTRADA NO CARREGAMENTO + VÍDEO NO SCROLL */
 export function iniciarHero(hero) {
   /* ECONOMIA DE DADOS CONTA COMO MOVIMENTO REDUZIDO: VÍDEO PARADO NO POSTER */
   const parado = reduzirMovimento || navigator.connection?.saveData === true;
@@ -20,7 +24,6 @@ export function iniciarHero(hero) {
   const botoes = hero.querySelector('.hero-botoes');
   const linhas = titulo ? dividirLinhas(titulo) : [];
 
-  /* TEXTO EM SEQUÊNCIA (STAGGER 0.12S) */
   const passo = 0.12;
   const entrada = gsap.timeline({ defaults: { duration: 1.3, ease: 'power3.out' } });
   entrada
@@ -31,7 +34,7 @@ export function iniciarHero(hero) {
   animarMidia(hero, passo);
 }
 
-/* === VÍDEO: TOCA SÓ ENQUANTO O HERO ESTÁ NA TELA === */
+/* === VÍDEO SÓ NA TELA === */
 function tocarSoNaTela(hero, video) {
   new IntersectionObserver(([entrada]) => {
     if (entrada.isIntersecting) video.play().catch(() => {});
@@ -39,7 +42,7 @@ function tocarSoNaTela(hero, video) {
   }).observe(hero);
 }
 
-/* === MÍDIA: ENTRADA E SCROLL DIFERENTES NO MOBILE E NO DESKTOP === */
+/* === MÍDIA (MOBILE × DESKTOP) === */
 function animarMidia(hero, passo) {
   const midia = hero.querySelector('.hero-midia');
   const quadro = hero.querySelector('.hero-quadro');
@@ -49,19 +52,19 @@ function animarMidia(hero, passo) {
   const rolagem = { trigger: hero, start: 'top top', end: 'bottom top', scrub: true };
   const telas = gsap.matchMedia();
 
-  /* MOBILE: SEM ENTRADA (O POSTER É O LCP E APARECE NA HORA) + PARALLAX LEVE NO VÍDEO (A MÁSCARA DO CONTAINER FICA PARADA) */
+  /* MOBILE: SEM ENTRADA (O POSTER É O LCP); PARALLAX SÓ NO VÍDEO, A MÁSCARA FICA PARADA */
   telas.add('(max-width: 899px)', () => {
     gsap.to(video, { yPercent: 8, scale: 1.06, ease: 'none', scrollTrigger: rolagem });
   });
 
-  /* DESKTOP: QUADRO ABRE DE BAIXO PARA CIMA + SOBE NO SCROLL */
+  /* DESKTOP: QUADRO ABRE DE BAIXO PARA CIMA E SOBE NO SCROLL */
   telas.add('(min-width: 900px)', () => {
     gsap.fromTo(midia, { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', delay: passo, ...ENTRADA });
     gsap.to(quadro, { y: -60, ease: 'none', scrollTrigger: { ...rolagem } });
   });
 }
 
-/* === DIVIDE O H1 NAS QUEBRAS <BR> E ENVOLVE CADA LINHA NUMA MÁSCARA === */
+/* === LINHAS DO H1 (MÁSCARA A PARTIR DOS <BR>) === */
 function dividirLinhas(titulo) {
   const grupos = [[]];
   [...titulo.childNodes].forEach((no) => {

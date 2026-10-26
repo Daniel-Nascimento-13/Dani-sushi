@@ -1,6 +1,8 @@
-/* === GET /API/MANTER: KEEP-ALIVE DO SUPABASE ===
-   O PLANO FREE PAUSA O PROJETO APÓS ~7 DIAS SEM USO (DERRUBARIA OS BUILDS E O FORMULÁRIO DE DEPOIMENTOS).
-   O CRON DA VERCEL (VERCEL.JSON) CHAMA ESTA ROTA 1 VEZ POR DIA COM AUTHORIZATION: BEARER ${CRON_SECRET} */
+/* =======================
+   GET /API/MANTER (KEEP-ALIVE DO SUPABASE)
+   ======================= */
+
+/* O PLANO FREE PAUSA APÓS ~7 DIAS SEM USO; O CRON DA VERCEL CHAMA 1 VEZ POR DIA */
 import { timingSafeEqual } from 'node:crypto';
 import { consultarSupabase } from './_comum.js';
 

@@ -1,3 +1,7 @@
+/* =======================
+   ENTRADA
+   ======================= */
+
 /* === FONTES (SELF-HOSTED) === */
 import '@fontsource/shippori-mincho/latin-400.css';
 import '@fontsource/shippori-mincho/latin-500.css';
@@ -15,7 +19,7 @@ import { iniciarHero } from './scripts/secoes/hero.js';
 /* === ROLAGEM SUAVE === */
 const lenis = iniciarScroll();
 
-/* === TECLADO × PONTEIRO (CONTORNO DE FOCO DA COMANDA SÓ NO TECLADO) === */
+/* === TECLADO × PONTEIRO === */
 detectarTeclado();
 
 /* === ACIMA DA DOBRA === */

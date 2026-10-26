@@ -1,12 +1,16 @@
-/* === HERO (MOBILE: VÍDEO NO TOPO, DISSOLVENDO NO FUNDO) === */
+/* =======================
+   HERO
+   ======================= */
+
+/* MOBILE: VÍDEO NO TOPO, DISSOLVENDO NO FUNDO */
 .hero {
   position: relative;
   padding-top: min(100vw * 1.05, 420px);
   overflow: hidden;
 }
 
-/* MÍDIA (VÍDEO EM LOOP) */
-/* A MÁSCARA FICA PARADA NO CONTAINER: A BASE DO VÍDEO SOME DE VERDADE, SEM LINHA NO SCROLL */
+/* === MÍDIA === */
+/* MÁSCARA PARADA NO CONTAINER: A BASE DO VÍDEO SOME SEM LINHA NO SCROLL */
 .hero-midia {
   position: absolute;
   top: 0;
@@ -20,7 +24,7 @@
   mask-repeat: no-repeat;
 }
 
-/* DEGRADÊ: TOPO ESCURO PARA O CABEÇALHO + TRANSIÇÃO SUAVE NO MEIO (A BASE É DA MÁSCARA) */
+/* DEGRADÊ: TOPO ESCURO PARA O CABEÇALHO (A BASE É DA MÁSCARA) */
 .hero-midia::after {
   content: "";
   position: absolute;
@@ -36,7 +40,7 @@
   background: var(--color-placeholder);
 }
 
-/* CONTEÚDO (SOBRE FUNDO SÓLIDO, ABAIXO DO VÍDEO) */
+/* === CONTEÚDO === */
 .hero-conteudo {
   position: relative;
   z-index: 1;
@@ -44,9 +48,8 @@
   container-type: inline-size;
 }
 
-/* H1 SEMPRE EM 2 LINHAS: O TAMANHO SEGUE A LARGURA DA COLUNA.
-   DIVISOR = LARGURA DE "PARA QUEM TEM FOME" EM EM (MEDIDA NO SHIPPORI) + ~2% DE FOLGA:
-   0.04EM → 13.445EM → 13.7 · 0.1EM → 14.525EM → 14.8 */
+/* === TÍTULO === */
+/* H1 EM 2 LINHAS: DIVISOR 13.7 / 14.8 PELA LINHA 1 (VER CLAUDE.MD) */
 .hero-titulo {
   margin-bottom: 20px;
   font-size: calc(100cqi / 13.7);
@@ -56,8 +59,7 @@
 }
 
 /* MÁSCARA DAS LINHAS DO H1 (CRIADA PELO JS) */
-/* CLIP-PATH COM INSET NEGATIVO (ACENTOS E CAUDA DO Q NÃO SÃO CORTADOS) SEM MEXER NO LAYOUT:
-   PADDING/MARGIN NEGATIVA VAZARIA PARA FORA DO H1 E ENCURTARIA O ESPAÇO ATÉ A FRASE */
+/* CLIP-PATH COM INSET NEGATIVO: PADDING/MARGIN NEGATIVA ENCURTARIA O ESPAÇO ATÉ A FRASE */
 .hero-linha {
   display: block;
   white-space: nowrap;
@@ -66,8 +68,8 @@
 
 .hero-linha-interna { display: block; }
 
-/* FRASE DO HERO: VERSÃO CURTA ("...PERSONALIZADOS.") ATÉ 699PX DE COLUNA, COMPLETA A PARTIR DE 700PX.
-   CURTA = 18.605EM → DIVISOR 18.98 (2% DE FOLGA); NO MOBILE A FONTE SEGUE A COLUNA, COM PISO DE 15PX */
+/* === FRASE === */
+/* CURTA ATÉ 699PX DE COLUNA, COMPLETA A PARTIR DE 700PX; DIVISOR 18.98 (VER CLAUDE.MD) */
 .hero-texto {
   max-width: 520px;
   font-size: max(15px, min(17px, 100cqi / 18.98));
@@ -75,19 +77,19 @@
 
 .hero-texto-extra { display: none; }
 
-/* UMA LINHA SÓ QUANDO CABE: 15PX × 18.98 = 285PX DE COLUNA (ABAIXO DISSO A FRASE CURTA PODE QUEBRAR) */
+/* 1 LINHA SÓ QUANDO CABE (15PX × 18.98) */
 @container (min-width: 285px) {
   .hero-texto { white-space: nowrap; }
 }
 
-/* COLUNA ≥ 700PX: FRASE COMPLETA EM UMA LINHA (~680PX A 19PX) */
+/* COLUNA ≥ 700PX: FRASE COMPLETA */
 @container (min-width: 700px) {
   .hero-texto { max-width: none; }
   .hero-texto-extra { display: inline; }
 }
 
-/* LOCALIZAÇÃO (PIN + TEXTO): NO MOBILE A FONTE SEGUE A COLUNA, COM PISO DE 12PX.
-   TEXTO = 23.93EM → DIVISOR 24.4 (2% DE FOLGA); PIN 16PX + GAP 10PX = 26PX FORA DA DIVISÃO */
+/* === LOCALIZAÇÃO === */
+/* DIVISOR 24.4; PIN + GAP (26PX) FICAM FORA DA DIVISÃO */
 .hero-local {
   display: flex;
   align-items: flex-start;
@@ -106,7 +108,7 @@
   color: var(--color-acento-claro);
 }
 
-/* UMA LINHA SÓ QUANDO CABE: 26PX + 12PX × 24.4 = 319PX DE COLUNA; PIN NO CENTRO DA LINHA */
+/* 1 LINHA SÓ QUANDO CABE (26PX + 12PX × 24.4); PIN NO CENTRO DA LINHA */
 @container (min-width: 319px) {
   .hero-local {
     align-items: center;
@@ -116,8 +118,8 @@
   .hero-local svg { margin-top: 0; }
 }
 
-/* BOTÕES LADO A LADO NO MOBILE: 169 + 10 + 138 = 317PX A 15PX (CABE NA COLUNA DE 320PX DO 360);
-   ABAIXO DISSO O WRAP EMPILHA E CADA UM OCUPA A LINHA INTEIRA */
+/* === BOTÕES === */
+/* LADO A LADO A PARTIR DE 360PX (155 + 10 + 138 = 303PX); ABAIXO, EMPILHADOS */
 .hero-botoes {
   display: flex;
   flex-wrap: wrap;
@@ -131,12 +133,12 @@
   padding-inline: 18px;
 }
 
-/* LEGENDA DO QUADRO (SÓ NO DESKTOP) */
+/* === LEGENDA (SÓ NO DESKTOP) === */
 .hero-legenda { display: none; }
 
 /* === RESPONSIVIDADE === */
 @media (min-width: 600px) {
-  /* VOLTA AO TAMANHO DO .TEXTO-INTRO (17 → 19PX) */
+  /* VOLTA AO .TEXTO-INTRO (17 → 19PX) */
   .hero-texto { font-size: revert-layer; }
 
   .hero-titulo {
@@ -144,7 +146,7 @@
     letter-spacing: 0.1em;
   }
 
-  /* LOCALIZAÇÃO E BOTÕES VOLTAM AO PADRÃO (14PX; BOTÕES DE 52PX, SEM ESTICAR) */
+  /* LOCALIZAÇÃO E BOTÕES VOLTAM AO PADRÃO */
   .hero-local {
     align-items: flex-start;
     font-size: 0.875rem;
@@ -163,7 +165,7 @@
   }
 }
 
-/* DESKTOP: TEXTO À ESQUERDA, VÍDEO EM QUADRO VERTICAL À DIREITA */
+/* DESKTOP: TEXTO À ESQUERDA, QUADRO VERTICAL À DIREITA */
 @media (min-width: 900px) {
   .hero {
     padding-block: 152px 96px;
@@ -181,7 +183,7 @@
     padding-bottom: 0;
   }
 
-  /* LARGURA LIMITADA TAMBÉM PELA ALTURA DA TELA, PARA O QUADRO E A LEGENDA CABEREM (152 + 96 + LEGENDA) */
+  /* LIMITADA TAMBÉM PELA ALTURA DA TELA: QUADRO E LEGENDA CABEM */
   .hero-quadro {
     flex-shrink: 0;
     width: min(clamp(300px, 28vw, 400px), (100svh - 290px) * 9 / 16);
@@ -205,7 +207,7 @@
 
   .hero-titulo { margin-bottom: 28px; }
 
-  /* RITMO IGUAL: H1 → FRASE → LOCALIZAÇÃO → BOTÕES = 20PX NO MOBILE / 28PX NO DESKTOP */
+  /* RITMO IGUAL ENTRE H1, FRASE, LOCALIZAÇÃO E BOTÕES */
   .hero-local {
     align-items: center;
     margin-block: 28px;

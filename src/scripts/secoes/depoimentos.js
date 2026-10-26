@@ -1,7 +1,11 @@
+/* =======================
+   DEPOIMENTOS
+   ======================= */
+
 import { reduzirMovimento } from '../utils/movimento.js';
 import { revelar, revelarEmSequencia } from '../utils/revelar.js';
 
-/* === DEPOIMENTOS: CARROSSEL (HOME E /DEPOIMENTOS) + FORMULÁRIO DE ENVIO (/DEPOIMENTOS#ENVIAR) === */
+/* CARROSSEL NA HOME E EM /DEPOIMENTOS; FORMULÁRIO SÓ EM /DEPOIMENTOS */
 export function iniciarDepoimentos(secao) {
   const carrossel = secao.querySelector('.depoimentos-carrossel');
   if (carrossel) iniciarCarrossel(carrossel);
@@ -14,7 +18,8 @@ export function iniciarDepoimentos(secao) {
   if (carrossel) revelarEmSequencia(carrossel.querySelectorAll('.depoimentos-item'), carrossel);
 }
 
-/* === CARROSSEL: SETAS (DESKTOP) E INDICADOR "1 / N" (MOBILE) SEGUEM O SCROLL NATIVO === */
+/* === CARROSSEL === */
+/* SETAS E INDICADOR SEGUEM O SCROLL NATIVO */
 function iniciarCarrossel(carrossel) {
   const trilho = carrossel.querySelector('.depoimentos-trilho');
   const cards = [...trilho.children];
@@ -46,7 +51,8 @@ function iniciarCarrossel(carrossel) {
   atualizar();
 }
 
-/* === FORMULÁRIO: VALIDAÇÃO PRÓPRIA (LIMITES NO HTML) → POST /API/DEPOIMENTOS === */
+/* === FORMULÁRIO === */
+/* VALIDAÇÃO PRÓPRIA; LIMITES NO HTML */
 function iniciarFormulario(formulario, recebido) {
   const campos = [...formulario.querySelectorAll('[required]')];
   const botao = formulario.querySelector('[type="submit"]');
@@ -54,25 +60,23 @@ function iniciarFormulario(formulario, recebido) {
   const texto = formulario.elements.texto;
   const contador = formulario.querySelector('[data-contador]');
 
-  /* GUARDA OS TEXTOS NORMAIS PARA VOLTAR A ELES */
   campos.forEach((campo) => {
     const ajuda = ajudaDe(campo);
     if (ajuda) ajuda.dataset.normal = ajuda.textContent;
   });
   erro.dataset.padrao = erro.textContent;
 
-  /* CONTADOR 0/400 */
   const contar = () => { contador.textContent = texto.value.length; };
   texto.addEventListener('input', contar);
   contar();
 
   campos.forEach((campo) => {
-    /* AO SAIR DO CAMPO: VALIDA SE ALGO FOI PREENCHIDO (O CHECKBOX VALIDA AO MARCAR/DESMARCAR) */
+    /* SÓ VALIDA NO BLUR SE ALGO FOI PREENCHIDO (O CHECKBOX VALIDA AO MARCAR) */
     campo.addEventListener('blur', () => {
       if (campo.type !== 'checkbox' && campo.value) validar(campo);
     });
 
-    /* AO CORRIGIR: SAI DO ESTADO DE ERRO ASSIM QUE FICA VÁLIDO */
+    /* SAI DO ERRO ASSIM QUE FICA VÁLIDO */
     ['input', 'change'].forEach((evento) => campo.addEventListener(evento, () => {
       if (campo.type === 'checkbox') validar(campo);
       else if (campo.getAttribute('aria-invalid') === 'true' && valido(campo)) marcar(campo, true);
@@ -113,7 +117,8 @@ function iniciarFormulario(formulario, recebido) {
   });
 }
 
-/* === REGRAS: CHECKBOX MARCADO; DEMAIS PREENCHIDOS DENTRO DE MINLENGTH/MAXLENGTH (SEM ESPAÇOS NAS PONTAS) === */
+/* === REGRAS === */
+/* SEM ESPAÇOS NAS PONTAS, DENTRO DE MINLENGTH/MAXLENGTH */
 function valido(campo) {
   if (campo.type === 'checkbox') return campo.checked;
 
@@ -129,7 +134,8 @@ function validar(campo) {
   return ok;
 }
 
-/* ESTADO VISUAL E ACESSÍVEL: ARIA-INVALID + DICA NORMAL OU MENSAGEM DE ERRO (DATA-ERRO) */
+/* === ESTADO DE ERRO === */
+/* ARIA-INVALID + DICA TROCADA PELO DATA-ERRO */
 function marcar(campo, ok) {
   if (ok) campo.removeAttribute('aria-invalid');
   else campo.setAttribute('aria-invalid', 'true');

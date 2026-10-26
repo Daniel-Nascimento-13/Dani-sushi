@@ -1,4 +1,8 @@
-/* === MODALIDADE DE ENTRADA: HTML.USANDO-TECLADO ENQUANTO A NAVEGAÇÃO FOR POR TECLADO === */
+/* =======================
+   TECLADO
+   ======================= */
+
+/* HTML.USANDO-TECLADO ENQUANTO A NAVEGAÇÃO FOR POR TECLADO */
 const TECLAS_DE_NAVEGACAO = new Set(['Tab', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']);
 
 export function detectarTeclado() {

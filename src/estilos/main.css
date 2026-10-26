@@ -1,4 +1,8 @@
-/* === TAILWIND (SEM PREFLIGHT — O RESET FICA EM BASE.CSS) === */
+/* =======================
+   ENTRADA DOS ESTILOS
+   ======================= */
+
+/* === TAILWIND (SEM PREFLIGHT: O RESET FICA EM BASE.CSS) === */
 @layer theme, base, components, utilities;
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/utilities.css" layer(utilities);

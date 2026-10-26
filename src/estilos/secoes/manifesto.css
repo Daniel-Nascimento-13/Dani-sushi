@@ -1,4 +1,6 @@
-/* === MANIFESTO === */
+/* =======================
+   MANIFESTO
+   ======================= */
 .manifesto { text-align: center; }
 
 .manifesto-texto {
@@ -8,7 +10,7 @@
   font-size: 32px;
   line-height: 1.3;
   color: var(--color-texto);
-  /* EQUILIBRA AS LINHAS DE CADA FRASE (SEM PALAVRA ÓRFÃ); SEM SUPORTE, QUEBRA NATURAL */
+  /* EQUILIBRA AS LINHAS (SEM PALAVRA ÓRFÃ) */
   text-wrap: balance;
 }
 

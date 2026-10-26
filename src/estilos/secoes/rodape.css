@@ -1,4 +1,8 @@
-/* === RODAPÉ (TUDO CENTRALIZADO, UM EMBAIXO DO OUTRO, EM TODAS AS LARGURAS) === */
+/* =======================
+   RODAPÉ
+   ======================= */
+
+/* TUDO CENTRALIZADO, UM EMBAIXO DO OUTRO */
 .rodape { padding-block: 72px 40px; }
 
 .rodape-conteudo {
@@ -8,6 +12,7 @@
   text-align: center;
 }
 
+/* === LOGO === */
 .rodape-logo {
   display: block;
   margin-inline: auto;
@@ -15,7 +20,7 @@
 
 .rodape-logo img { width: auto; height: 72px; }
 
-/* FRASE DA MARCA: "DANI SUSHI!" EM .DESTAQUE (ACENTO-CLARO) */
+/* === FRASE === */
 .rodape-frase {
   margin-top: 24px;
   font-family: var(--font-titulo);
@@ -28,8 +33,8 @@
   text-wrap: balance;
 }
 
-/* NAV COM 4 ITENS EM 1 LINHA QUANDO CABE: 64.8 + 80.3 + 69.3 + 60.1 + 3 × 18 = 328.5PX A 14PX (334PX = +1,7%).
-   ABAIXO DISSO, GRID 2 × 2 DE COLUNAS IGUAIS (MOMENTOS SOBRE EXPERIÊNCIA, DEPOIMENTOS SOBRE INSTAGRAM) */
+/* === NAV === */
+/* 1 LINHA A PARTIR DE 334PX DE COLUNA; ABAIXO, GRID 2 × 2 (VER CLAUDE.MD) */
 .rodape-nav {
   width: 100%;
   margin-top: 40px;
@@ -50,7 +55,7 @@
   }
 }
 
-/* ÁREA DE TOQUE DE 44PX MESMO COM A FONTE DE 14PX */
+/* ÁREA DE TOQUE DE 44PX */
 .rodape-nav a {
   display: inline-flex;
   align-items: center;
@@ -61,7 +66,7 @@
   transition: color 0.4s ease;
 }
 
-/* COPYRIGHT: HAIRLINE ACIMA, MONO 11PX */
+/* === COPYRIGHT === */
 .rodape-copia {
   width: 100%;
   margin-top: 48px;
@@ -75,7 +80,7 @@
 }
 
 /* === RESPONSIVIDADE === */
-/* A PARTIR DE 600PX: COMO ANTES (15PX, GAP DE 28PX) */
+/* A PARTIR DE 600PX: 15PX, GAP DE 28PX */
 @media (min-width: 600px) {
   .rodape-nav ul { gap: 28px; }
   .rodape-nav a  { font-size: 15px; }
@@ -87,7 +92,7 @@
   .rodape-copia { margin-top: 64px; }
 }
 
-/* === HOVER (SÓ MOUSE: NO TOQUE O :HOVER GRUDA DEPOIS DO TAP) === */
+/* === HOVER (SÓ MOUSE) === */
 @media (hover: hover) and (pointer: fine) {
   .rodape-nav a:hover { color: var(--color-acento-claro); }
 }

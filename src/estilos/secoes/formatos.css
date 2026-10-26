@@ -1,7 +1,9 @@
-/* === FORMATOS === */
+/* =======================
+   FORMATOS
+   ======================= */
 .formatos-lista { border-top: 1px solid var(--color-linha); }
 
-/* LINHA INTEIRA É O LINK (#ORCAMENTO): NÚMERO + TÍTULO, DESCRIÇÃO EMBAIXO NO MOBILE */
+/* A LINHA INTEIRA É O LINK (#EXPERIENCIA) */
 .formatos-linha {
   display: grid;
   grid-template-columns: 32px minmax(0, 1fr);
@@ -36,7 +38,7 @@
   .formatos-descricao { grid-column: 3; }
 }
 
-/* === HOVER (SÓ MOUSE: NO TOQUE O :HOVER GRUDA DEPOIS DO TAP) === */
+/* === HOVER (SÓ MOUSE) === */
 @media (hover: hover) and (pointer: fine) {
   .formatos-linha:hover .formatos-titulo { color: var(--color-acento-claro); }
 }

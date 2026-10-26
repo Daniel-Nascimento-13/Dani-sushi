@@ -1,4 +1,6 @@
-/* === CARREGAMENTO SOB DEMANDA (IMPORT DINÂMICO AO SE APROXIMAR DA SEÇÃO) === */
+/* =======================
+   CARREGAMENTO SOB DEMANDA (IMPORT DINÂMICO)
+   ======================= */
 export function carregarAoAproximar(seletor, carregar) {
   const elemento = document.querySelector(seletor);
   if (!elemento) return;

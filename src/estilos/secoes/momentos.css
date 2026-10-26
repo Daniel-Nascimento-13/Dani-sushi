@@ -1,4 +1,8 @@
-/* === MOMENTOS (HOME) === */
+/* =======================
+   MOMENTOS — HOME
+   ======================= */
+
+/* === LINK DA SEÇÃO === */
 .momentos-link {
   justify-self: start;
   padding-bottom: 6px;
@@ -8,7 +12,7 @@
   transition: border-color 0.4s ease;
 }
 
-/* CARROSSEL HORIZONTAL NO MOBILE */
+/* === CARROSSEL (MOBILE) === */
 .momentos-lista {
   display: flex;
   gap: 16px;
@@ -22,6 +26,7 @@
 
 .momentos-lista::-webkit-scrollbar { display: none; }
 
+/* === CARD === */
 .momentos-card {
   flex: 0 0 80%;
   scroll-snap-align: start;
@@ -36,7 +41,7 @@
   background: var(--color-placeholder);
 }
 
-/* MOLDURA FIXA: A FOTO PREENCHE COM COVER; ENQUADRAMENTO POR FOTO COM style="--foco: X% Y%" NO HTML */
+/* MOLDURA FIXA + COVER; ENQUADRAMENTO POR FOTO COM --FOCO NO HTML */
 .momentos-foto img {
   position: absolute;
   inset: 0;
@@ -48,7 +53,7 @@
 
 .momentos-card h3 { margin-bottom: 8px; }
 
-/* === RESPONSIVIDADE (HOME) === */
+/* === RESPONSIVIDADE === */
 @media (min-width: 600px) {
   .momentos-card { flex-basis: 46%; }
 }
@@ -70,11 +75,15 @@
   .momentos-card:nth-child(3) .momentos-foto { aspect-ratio: 3 / 4; }
 }
 
-/* === PÁGINA /MOMENTOS (DESKTOP PRIMEIRO; AJUSTES EM 900 → 600 → 360 NO FIM) === */
-/* H1: "UMA HISTÓRIA." = 9.787EM → DIVISOR 10.1 (ABERTURA COMPARTILHADA EM BASE.CSS) */
+/* =======================
+   MOMENTOS — PÁGINA
+   ======================= */
+
+/* === ABERTURA === */
+/* H1: DIVISOR 10.1 (VER CLAUDE.MD) */
 .momentos-titulo { --divisor-titulo: 10.1; }
 
-/* REGISTROS: TEXTO À ESQUERDA, GALERIA À DIREITA, SEPARADOS POR HAIRLINE */
+/* === REGISTRO === */
 .momento {
   display: grid;
   grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
@@ -106,9 +115,8 @@
   margin-top: 16px;
 }
 
-/* DADOS SEMPRE EM 3 COLUNAS NA MESMA LINHA (A CIDADE QUEBRA DENTRO DA PRÓPRIA COLUNA). MEDIDAS NO PIOR CASO:
-   "ENCANTADO" (MAIOR PALAVRA DA CIDADE) = 5.075EM, "CONVIDADOS" = 81.4PX (11PX, 0.14EM), "3.000" = 2.333EM.
-   1.4FR GARANTE A CIDADE EM 320PX (105PX ≥ 101.5); O MAX-WIDTH E O GAP FLUIDO MANTÊM "3.000" DE 48PX EM 1440 */
+/* === DADOS === */
+/* 3 COLUNAS SEMPRE; PROPORÇÕES PELO PIOR CASO (VER CLAUDE.MD) */
 .momento-dados {
   display: grid;
   grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1fr);
@@ -136,7 +144,7 @@
   color: var(--color-acento-claro);
 }
 
-/* CIDADE: TEXTO EM VEZ DE NÚMERO, MENOR; PODE QUEBRAR EM 2 LINHAS NA COLUNA ("CRUZEIRO / DO SUL") */
+/* CIDADE: MENOR; PODE QUEBRAR EM 2 LINHAS NA COLUNA */
 .momento-dados .momento-dados-texto {
   font-size: clamp(20px, 2vw, 26px);
   line-height: 1.3;
@@ -144,7 +152,7 @@
   color: var(--color-texto);
 }
 
-/* COMPLEMENTO DAS PEÇAS (EX.: "+ YAKISOBA E POKE"), EMBAIXO DO NÚMERO, QUEBRANDO NA COLUNA */
+/* COMPLEMENTO DAS PEÇAS, EMBAIXO DO NÚMERO */
 .momento-dados-extra {
   display: block;
   white-space: normal;
@@ -155,8 +163,8 @@
   color: var(--color-texto-2);
 }
 
-/* GALERIA: FOTO 1 NAS 2 LINHAS À ESQUERDA (2FR), FOTOS 2 E 3 EMPILHADAS À DIREITA (1FR).
-   AS PEQUENAS DEFINEM A ALTURA (4:3); A PRINCIPAL PREENCHE AS DUAS LINHAS SEM EMPURRAR O GRID */
+/* === GALERIA === */
+/* AS FOTOS PEQUENAS (4:3) DEFINEM A ALTURA; A PRINCIPAL OCUPA AS 2 LINHAS */
 .momento-galeria {
   display: grid;
   grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
@@ -186,8 +194,8 @@
   object-position: var(--foco, 50% 50%);
 }
 
-/* FECHAMENTO */
-/* H2 SEMPRE EM 2 LINHAS: "PODE SER O PRÓXIMO." COM 0.1EM = 13.872EM + 3% DE FOLGA → DIVISOR 14.3 */
+/* === FECHAMENTO === */
+/* H2 EM 2 LINHAS: DIVISOR 14.3 (VER CLAUDE.MD) */
 .momentos-fechamento-conteudo {
   text-align: center;
   container-type: inline-size;
@@ -212,7 +220,7 @@
   margin-top: 40px;
 }
 
-/* === RESPONSIVIDADE (PÁGINA /MOMENTOS, DO MAIOR PARA O MENOR) === */
+/* === RESPONSIVIDADE (DESKTOP PRIMEIRO: 899 → 599 → 359) === */
 @media (max-width: 899px) {
   .momento {
     grid-template-columns: minmax(0, 1fr);
@@ -223,7 +231,7 @@
   .momentos-fechamento-acoes { margin-top: 32px; }
 }
 
-/* FOTO 1 NA LARGURA TODA; FOTOS 2 E 3 LADO A LADO EMBAIXO */
+/* FOTO 1 NA LARGURA TODA; 2 E 3 LADO A LADO */
 @media (max-width: 599px) {
   .momento-galeria {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -237,13 +245,17 @@
   }
 }
 
-/* 320PX: COLUNA DE 75PX; "CONVIDADOS" COM 0.06EM = 72.6PX (+2% = 74.1PX) */
+/* 320PX: "CONVIDADOS" COM 0.06EM PARA CABER (VER CLAUDE.MD) */
 @media (max-width: 359px) {
   .momento-dados dt { letter-spacing: 0.06em; }
   .momento-dados dd { font-size: 28px; }
 }
 
-/* === HOVER (SÓ MOUSE: NO TOQUE O :HOVER GRUDA DEPOIS DO TAP) === */
+/* =======================
+   ESTADOS (HOME E PÁGINA)
+   ======================= */
+
+/* === HOVER (SÓ MOUSE) === */
 @media (hover: hover) and (pointer: fine) {
   .momentos-link:hover { border-color: var(--color-texto); }
 }

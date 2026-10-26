@@ -1,7 +1,11 @@
+/* =======================
+   EXPERIÊNCIA
+   ======================= */
+
 import { reduzirMovimento } from '../utils/movimento.js';
 import { revelar } from '../utils/revelar.js';
 
-/* === EXPERIÊNCIA: DETALHES DO EVENTO → MENSAGEM NO WHATSAPP === */
+/* DETALHES DO EVENTO → MENSAGEM NO WHATSAPP */
 export function iniciarOrcamento(secao) {
   const comanda = secao.querySelector('.comanda');
   if (comanda) iniciarComanda(comanda);
@@ -10,10 +14,10 @@ export function iniciarOrcamento(secao) {
   revelar(secao.querySelectorAll('.rotulo, h2, .orcamento-texto, .comanda'));
 }
 
+/* === CARTÃO === */
 function iniciarComanda(comanda) {
   const campos = [...comanda.querySelectorAll('[data-mensagem]')];
 
-  /* DATA: SÓ A PARTIR DE HOJE */
   const data = comanda.querySelector('input[type="date"]');
   if (data) {
     data.min = hojeIso();
@@ -21,19 +25,18 @@ function iniciarComanda(comanda) {
     ['input', 'change'].forEach((evento) => data.addEventListener(evento, () => marcarPreenchida(data)));
   }
 
-  /* GUARDA O TEXTO NORMAL DE CADA DICA PARA VOLTAR A ELE */
   campos.forEach((campo) => {
     const ajuda = ajudaDe(campo);
     if (ajuda) ajuda.dataset.normal = ajuda.textContent;
   });
 
   campos.forEach((campo) => {
-    /* AO SAIR DO CAMPO: VALIDA SE ALGO FOI PREENCHIDO */
+    /* SÓ VALIDA NO BLUR SE ALGO FOI PREENCHIDO */
     campo.addEventListener('blur', () => {
       if (campo.value || campo.validity.badInput) validar(campo);
     });
 
-    /* AO CORRIGIR: SAI DO ESTADO DE ERRO ASSIM QUE FICA VÁLIDO */
+    /* SAI DO ERRO ASSIM QUE FICA VÁLIDO */
     campo.addEventListener('input', () => {
       if (campo.getAttribute('aria-invalid') === 'true' && valido(campo)) marcar(campo, true);
     });
@@ -53,7 +56,8 @@ function iniciarComanda(comanda) {
   });
 }
 
-/* === REGRAS: CONVIDADOS INTEIRO ≥ MIN; DATA ≥ HOJE; DEMAIS, PREENCHIDOS === */
+/* === REGRAS === */
+/* CONVIDADOS: INTEIRO ≥ MIN; DATA ≥ HOJE */
 function valido(campo) {
   const valor = campo.value.trim();
   if (campo.type === 'number') return !campo.validity.badInput && /^\d+$/.test(valor) && Number(valor) >= Number(campo.min);
@@ -67,7 +71,8 @@ function validar(campo) {
   return ok;
 }
 
-/* ESTADO VISUAL E ACESSÍVEL: ARIA-INVALID + DICA NORMAL OU MENSAGEM DE ERRO (DATA-ERRO) */
+/* === ESTADO DE ERRO === */
+/* ARIA-INVALID + DICA TROCADA PELO DATA-ERRO */
 function marcar(campo, ok) {
   if (ok) campo.removeAttribute('aria-invalid');
   else campo.setAttribute('aria-invalid', 'true');
@@ -83,25 +88,25 @@ function ajudaDe(campo) {
   return id ? document.getElementById(id) : null;
 }
 
-/* "ESCOLHA A DATA" SOME QUANDO HÁ VALOR (OU DATA DIGITADA PELA METADE, QUE NÃO TEM VALUE AINDA) */
+/* === DATA === */
+/* DATA PELA METADE NÃO TEM VALUE, MAS TEM BADINPUT */
 function marcarPreenchida(data) {
   data.parentElement.classList.toggle('comanda-data-preenchida', data.value !== '' || data.validity.badInput);
 }
 
-/* HOJE NO FUSO LOCAL (AAAA-MM-DD), SEM O DESVIO DE UTC DO TOISOSTRING */
+/* FUSO LOCAL: O TOISOSTRING USA UTC */
 function hojeIso() {
   const hoje = new Date();
   return [hoje.getFullYear(), hoje.getMonth() + 1, hoje.getDate()].map((n) => String(n).padStart(2, '0')).join('-');
 }
 
-/* === MENSAGEM: FRASE DO HTML (DATA-MENSAGEM DO FORM) COM {MARCADORES} ===
-   CADA CAMPO TROCA O MARCADOR DO SEU DATA-MENSAGEM PELO VALOR */
+/* === MENSAGEM === */
+/* CADA CAMPO TROCA O SEU {MARCADOR} NA FRASE DO DATA-MENSAGEM */
 function montarMensagem(comanda, campos) {
   return campos.reduce((mensagem, campo) => mensagem.replace(campo.dataset.mensagem, formatar(campo)), comanda.dataset.mensagem);
 }
 
-/* TIPO → DATA-FRASE DA OPÇÃO ("UM JANTAR RESIDENCIAL"); DATA AAAA-MM-DD → "QUINTA-FEIRA, 29/10/2026" (FUSO LOCAL);
-   DEMAIS CAMPOS COMO DIGITADOS */
+/* DATA → "QUINTA-FEIRA, 29/10/2026" (FUSO LOCAL); TIPO → DATA-FRASE DA OPÇÃO */
 const DIA_DA_SEMANA = new Intl.DateTimeFormat('pt-BR', { weekday: 'long' });
 
 function formatar(campo) {

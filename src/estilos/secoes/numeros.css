@@ -1,4 +1,8 @@
-/* === NÚMEROS (MOBILE: 3 COLUNAS COMPACTAS, NÚMERO EM CIMA E RÓTULO EMBAIXO) === */
+/* =======================
+   NÚMEROS
+   ======================= */
+
+/* MOBILE: 3 COLUNAS, NÚMERO EM CIMA E RÓTULO EMBAIXO */
 .numeros { padding-block: 56px; }
 
 .numeros-lista {
@@ -18,7 +22,7 @@
 
 .numeros-item:first-child { border-left: 0; }
 
-/* O MAIS LARGO É "2020" (2.062EM NO SHIPPORI; "+50" = 1.627EM, "+10" = 1.612EM) → DIVISOR 2.14 (4% DE FOLGA) */
+/* DIVISOR 2.14 PELO MAIS LARGO, "2020" (VER CLAUDE.MD) */
 .numeros-valor {
   order: -1;
   font-family: var(--font-titulo);
@@ -37,9 +41,8 @@
 
 /* === RESPONSIVIDADE === */
 
-/* DESKTOP: RÓTULO EM CIMA, NÚMERO GRANDE E LEGENDA */
 @media (min-width: 900px) {
-  /* VOLTA AO PADDING DA .SECAO (140PX) */
+  /* VOLTA AO PADDING DA .SECAO */
   .numeros { padding-block: revert-layer; }
 
   .numeros-item {
@@ -55,7 +58,7 @@
     font-size: 104px;
   }
 
-  /* RÓTULO VOLTA AO PADRÃO DO .ROTULO (13PX, 4PX) */
+  /* RÓTULO VOLTA AO PADRÃO DO .ROTULO */
   .numeros .rotulo {
     margin-top: 0;
     font-size: revert-layer;

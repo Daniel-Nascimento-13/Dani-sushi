@@ -1,13 +1,13 @@
-/* === CABEÇALHO === */
-/* === CABEÇALHO SEMPRE FIXO (DESDE O CARREGAMENTO, SEM TROCA DE POSIÇÃO) === */
+/* =======================
+   CABEÇALHO
+   ======================= */
+/* === FIXO DESDE O CARREGAMENTO === */
 
-/* ALTURA REAL (CONTEÚDO + HAIRLINE): ÂNCORAS PARAM LOGO ABAIXO DELA.
-   O LENIS TAMBÉM LÊ O SCROLL-PADDING-TOP DO HTML, ENTÃO NÃO PASSE OFFSET NO SCROLLTO */
+/* ALTURA REAL (CONTEÚDO + HAIRLINE): AS ÂNCORAS PARAM LOGO ABAIXO */
 :root { --altura-cabecalho: 77px; }
 html { scroll-padding-top: var(--altura-cabecalho); }
 
-/* FUNDO SUTIL SEMPRE (LOGO E MENU NÃO FICAM SOLTOS SOBRE O VÍDEO).
-   TRANSLATEZ(0) + WILL-CHANGE EVITAM O PISCAR DO BACKDROP-FILTER EM ELEMENTO FIXO NO SAFARI/IOS */
+/* TRANSLATEZ(0) + WILL-CHANGE: SEM PISCAR O BACKDROP-FILTER NO SAFARI/IOS */
 .cabecalho {
   position: fixed;
   inset: 0 0 auto;
@@ -21,6 +21,7 @@ html { scroll-padding-top: var(--altura-cabecalho); }
   transition: background-color 0.6s ease;
 }
 
+/* === LOGO E NAV === */
 .cabecalho-conteudo {
   display: flex;
   align-items: center;
@@ -44,7 +45,7 @@ html { scroll-padding-top: var(--altura-cabecalho); }
   transition: color 0.4s ease;
 }
 
-/* PÁGINA ATUAL: SUBLINHADO NO VERMELHO DA MARCA */
+/* === PÁGINA ATUAL === */
 .cabecalho-nav a[aria-current="page"],
 .menu-mobile ul a[aria-current="page"] .menu-texto {
   text-decoration-line: underline;
@@ -59,20 +60,17 @@ html { scroll-padding-top: var(--altura-cabecalho); }
   padding-inline: 22px;
 }
 
-/* DEPOIS DE 80PX DE SCROLL: FUNDO UM POUCO MAIS SÓLIDO (SÓ COR, SEM MOVIMENTO) */
+/* === FUNDO DEPOIS DE 80PX DE SCROLL (SÓ COR) === */
 .cabecalho-rolado { background: rgba(11,9,8,0.75); }
 
-/* SEM BACKDROP-FILTER: FUNDO MAIS OPACO PARA COMPENSAR A FALTA DO BLUR */
+/* SEM BACKDROP-FILTER: FUNDO MAIS OPACO */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   .cabecalho,
   .cabecalho-rolado { background: rgba(11,9,8,0.85); }
 }
 
 /* === BOTÃO HAMBÚRGUER === */
-/* 3 RISCOS NO DESENHO DO KANJI 三 (SHIPPORI, COMO NA CONTAGEM DOS PILARES):
-   LARGURAS 88% / 70% / 100%, O DO MEIO RECUADO, CORPO DE 1.5PX E "ESCAMA" (UROKO) NA PONTA DIREITA.
-   CADA SPAN É UMA CAIXA DE 4PX (ALTURA INTEIRA, SEM ARREDONDAMENTO DO CHROME) RECORTADA POR CLIP-PATH.
-   CENTROS A 8PX (TOPOS EM 12/20/28 DOS 44PX), QUE É O TRANSLATEY DO X */
+/* RISCOS DO KANJI 三: CAIXAS DE 4PX RECORTADAS POR CLIP-PATH (VER CLAUDE.MD) */
 .cabecalho-menu {
   display: grid;
   place-content: center;
@@ -105,7 +103,7 @@ html { scroll-padding-top: var(--altura-cabecalho); }
   transform-origin: center;
 }
 
-/* ABERTO: OS RISCOS VIRAM RETOS (MESMOS PONTOS NO CLIP-PATH, PARA A FORMA SE TRANSFORMAR) E FORMAM O "X" */
+/* ABERTO: MESMOS PONTOS NO CLIP-PATH, PARA A FORMA VIRAR O X */
 .cabecalho-menu[aria-expanded="true"] span {
   width: 22px;
   margin-left: 0;
@@ -116,7 +114,11 @@ html { scroll-padding-top: var(--altura-cabecalho); }
 .cabecalho-menu[aria-expanded="true"] span:nth-child(2) { opacity: 0; transform: scaleX(0); }
 .cabecalho-menu[aria-expanded="true"] span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
-/* === MENU MOBILE EM TELA CHEIA === */
+/* =======================
+   MENU MOBILE
+   ======================= */
+
+/* === TELA CHEIA === */
 .menu-mobile {
   position: fixed;
   inset: 0;
@@ -132,6 +134,7 @@ html { scroll-padding-top: var(--altura-cabecalho); }
 
 .menu-mobile[hidden] { display: none; }
 
+/* === ITENS E SELO === */
 .menu-mobile ul {
   display: grid;
   gap: 8px;
@@ -151,7 +154,6 @@ html { scroll-padding-top: var(--altura-cabecalho); }
   color: var(--color-texto);
 }
 
-/* SELO DO PEIXE AO LADO DE CADA OPÇÃO */
 .menu-selo {
   flex-shrink: 0;
   width: auto;
@@ -171,6 +173,10 @@ html { scroll-padding-top: var(--altura-cabecalho); }
 
 html.menu-aberto { overflow: hidden; }
 
+/* =======================
+   RESPONSIVIDADE E ESTADOS
+   ======================= */
+
 /* === RESPONSIVIDADE === */
 @media (min-width: 600px) {
   .cabecalho-botao { display: inline-flex; }
@@ -186,7 +192,7 @@ html.menu-aberto { overflow: hidden; }
   .cabecalho-menu     { display: none; }
 }
 
-/* === HOVER (SÓ MOUSE: NO TOQUE O :HOVER GRUDA DEPOIS DO TAP) === */
+/* === HOVER (SÓ MOUSE) === */
 @media (hover: hover) and (pointer: fine) {
   .cabecalho-nav a:hover { color: var(--color-acento-claro); }
 

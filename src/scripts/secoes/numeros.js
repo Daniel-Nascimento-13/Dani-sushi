@@ -1,8 +1,11 @@
+/* =======================
+   NÚMEROS (CONTAGEM AO ENTRAR NA TELA)
+   ======================= */
+
 import { gsap } from '../core/scroll.js';
 import { reduzirMovimento } from '../utils/movimento.js';
 import { revelar } from '../utils/revelar.js';
 
-/* === NÚMEROS: CONTAGEM AO ENTRAR NA TELA === */
 export function iniciarNumeros(secao) {
   if (reduzirMovimento) return;
 

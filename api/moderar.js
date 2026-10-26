@@ -1,6 +1,8 @@
-/* === /API/MODERAR ===
-   GET: SÓ MOSTRA A CONFIRMAÇÃO (O ANTIVÍRUS DO E-MAIL PODE PRÉ-ABRIR O LINK SEM APROVAR NADA).
-   POST (BOTÃO DA CONFIRMAÇÃO): ALTERA O STATUS; AO APROVAR, DISPARA O DEPLOY HOOK DA VERCEL */
+/* =======================
+   /API/MODERAR
+   ======================= */
+
+/* GET SÓ CONFIRMA (ANTIVÍRUS DE E-MAIL PRÉ-ABRE LINKS); POST MODERA */
 import { escaparHtml, consultarSupabase, tokenValido, UUID } from './_comum.js';
 
 const ACOES = {
@@ -59,8 +61,8 @@ export default async function handler(req, res) {
   }
 }
 
-/* === DEPLOY HOOK DA VERCEL (RESPONDE 201 COM {"JOB": ...}) ===
-   TODA FALHA VAI PARA OS LOGS COM O MOTIVO (STATUS E CORPO), NUNCA COM A URL: ELA DÁ PODER DE DISPARAR DEPLOYS */
+/* === DEPLOY HOOK DA VERCEL === */
+/* FALHAS VÃO PARA OS LOGS SEM A URL: ELA DISPARA DEPLOYS */
 async function dispararDeploy() {
   const valor = process.env.VERCEL_DEPLOY_HOOK_URL;
   const url = lerUrlDoHook(valor);
@@ -105,7 +107,7 @@ function responderJaModerado(res, depoimento) {
   });
 }
 
-/* === PÁGINA MÍNIMA NA IDENTIDADE VISUAL (FUNDO PRETO, VERMELHO), SEM INDEXAÇÃO NEM CACHE === */
+/* === PÁGINA (SEM INDEXAÇÃO NEM CACHE) === */
 function responder(res, codigo, { titulo, mensagem, depoimento, formulario }) {
   const cartao = depoimento
     ? `<figure>

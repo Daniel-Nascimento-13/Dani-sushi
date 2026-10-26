@@ -1,3 +1,7 @@
+/* =======================
+   VITE
+   ======================= */
+
 import { defineConfig, loadEnv } from 'vite';
 import tailwindcss from '@tailwindcss/vite';
 import { escaparHtml, consultarSupabase } from './api/_comum.js';
@@ -11,12 +15,12 @@ export default defineConfig(({ mode }) => ({
   },
 }));
 
-/* === DEPOIMENTOS APROVADOS ESCRITOS NO HTML DURANTE O BUILD ===
-   <!-- DEPOIMENTOS_HOME --> (HOME, 6 MAIS RECENTES) E <!-- DEPOIMENTOS --> (/DEPOIMENTOS, TODOS) VIRAM CARDS.
-   SEM APROVADOS, SAI TUDO ENTRE <!-- DEPOIMENTOS:INICIO --> E <!-- DEPOIMENTOS:FIM -->; SE O TRECHO REMOVIDO
-   TINHA FUNDO PRÓPRIO (A SEÇÃO DA HOME), OS FUNDOS SEGUINTES SE INVERTEM PARA A ALTERNÂNCIA CONTINUAR.
-   SEM AS VARIÁVEIS DO SUPABASE: SEM DEPOIMENTOS FORA DA VERCEL (DEV E BUILD LOCAL) E ERRO NA VERCEL.
-   COM AS VARIÁVEIS, QUALQUER FALHA NA BUSCA DERRUBA O BUILD (A VERCEL MANTÉM O DEPLOY ANTERIOR NO AR) */
+/* =======================
+   DEPOIMENTOS NO BUILD
+   ======================= */
+
+/* MARCADORES DO HTML VIRAM CARDS; SEM APROVADOS, O BLOCO SAI (VER CLAUDE.MD) */
+/* SEM AS VARIÁVEIS: SEM DEPOIMENTOS FORA DA VERCEL E ERRO NA VERCEL; FALHA NA BUSCA DERRUBA O BUILD */
 const MARCADORES = [
   { marcador: '<!-- DEPOIMENTOS_HOME -->', limite: 6 },
   { marcador: '<!-- DEPOIMENTOS -->', limite: Infinity },
@@ -47,6 +51,7 @@ function depoimentosAprovados(env) {
   };
 }
 
+/* === BUSCA === */
 async function buscarAprovados(env) {
   if (!env.SUPABASE_URL || !env.SUPABASE_SERVICE_ROLE_KEY) {
     if (env.VERCEL) throw new Error('Depoimentos: defina SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY nas variáveis da Vercel.');
@@ -60,6 +65,7 @@ async function buscarAprovados(env) {
   }
 }
 
+/* === REMOÇÃO DO BLOCO (SEM APROVADOS) === */
 function removerBloco(html) {
   const inicio = html.indexOf(INICIO);
   const fim = html.indexOf(FIM) + FIM.length;
@@ -73,6 +79,7 @@ function removerBloco(html) {
   return html.slice(0, inicio).replace(/[ \t]*$/, '') + resto;
 }
 
+/* === CARD === */
 function cartao({ nome, cidade, tipo_evento: tipo, texto }) {
   return `<li class="depoimentos-item">
   <figure class="depoimento">

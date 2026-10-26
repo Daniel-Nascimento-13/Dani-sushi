@@ -1,7 +1,10 @@
+/* =======================
+   FORMATOS
+   ======================= */
+
 import { reduzirMovimento } from '../utils/movimento.js';
 import { revelar, revelarEmSequencia } from '../utils/revelar.js';
 
-/* === FORMATOS: TOPO REVELADO + LINHAS EM SEQUÊNCIA === */
 export function iniciarFormatos(secao) {
   if (reduzirMovimento) return;
 

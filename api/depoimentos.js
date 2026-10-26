@@ -1,4 +1,8 @@
-/* === POST /API/DEPOIMENTOS: VALIDA, GRAVA COMO PENDENTE E AVISA POR E-MAIL COM OS LINKS DE MODERAÇÃO === */
+/* =======================
+   POST /API/DEPOIMENTOS
+   ======================= */
+
+/* VALIDA, GRAVA COMO PENDENTE E AVISA POR E-MAIL */
 import { createHash } from 'node:crypto';
 import { TIPOS_EVENTO, LIMITES, tamanho, escaparHtml, consultarSupabase, tokenModeracao } from './_comum.js';
 
@@ -49,7 +53,8 @@ export default async function handler(req, res) {
   }
 }
 
-/* === LIMPEZA: SEM HTML, SEM ESPAÇOS NAS PONTAS (NOME/CIDADE/TIPO EM UMA LINHA; TEXTO MANTÉM PARÁGRAFOS) === */
+/* === LIMPEZA === */
+/* SEM HTML; NOME/CIDADE/TIPO EM 1 LINHA, TEXTO MANTÉM PARÁGRAFOS */
 const semHtml = (valor) => String(valor ?? '').replace(/<[^>]*>/g, '');
 const limparLinha = (valor) => semHtml(valor).replace(/\s+/g, ' ').trim();
 const limparTexto = (valor) => semHtml(valor).replace(/\r\n?/g, '\n').replace(/[ \t]+/g, ' ').replace(/\n{3,}/g, '\n\n').trim();
@@ -68,7 +73,7 @@ function ipDe(req) {
   return String(req.headers['x-forwarded-for'] ?? req.headers['x-real-ip'] ?? '').split(',')[0].trim();
 }
 
-/* === E-MAIL (RESEND): DEPOIMENTO COMPLETO + BOTÕES APROVAR E RECUSAR === */
+/* === E-MAIL (RESEND) === */
 async function avisarPorEmail({ id, nome, cidade, tipo_evento: tipo, texto }) {
   const link = (acao) => `${process.env.SITE_URL}/api/moderar?id=${id}&acao=${acao}&token=${tokenModeracao(id, acao)}`;
   const botao = (acao, rotulo, cor) =>
