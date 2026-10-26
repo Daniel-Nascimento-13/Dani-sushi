@@ -15,7 +15,6 @@ Este repositório contem *uma landing page*, desenvolvida para uso na bio do *In
 **Tecnologias utilizadas**
 - HTML, CSS e JavaScript (vanilla)
 - Vite
-- Tailwind CSS v4
 - GSAP + ScrollTrigger
 - Lenis
 

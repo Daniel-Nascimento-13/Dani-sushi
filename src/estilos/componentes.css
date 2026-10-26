@@ -30,7 +30,8 @@
 
 /* TOQUE: FEEDBACK IMEDIATO NO :ACTIVE */
 .botao:active { transition-duration: 0s; }
-.botao-primario:active   { background: color-mix(in srgb, var(--color-acento) 82%, #000000); }
+/* FALLBACK SEM COLOR-MIX (SAFARI < 16.2): O MESMO TOM, CALCULADO */
+.botao-primario:active   { background: #a40d26; background: color-mix(in srgb, var(--color-acento) 82%, #000000); }
 .botao-secundario:active { border-color: var(--color-texto); }
 
 /* === TOPO DE SEÇÃO === */
@@ -126,7 +127,7 @@
 
 /* === HOVER (SÓ MOUSE) === */
 @media (hover: hover) and (pointer: fine) {
-  .botao-primario:hover   { background: color-mix(in srgb, var(--color-acento) 82%, #000000); }
+  .botao-primario:hover   { background: #a40d26; background: color-mix(in srgb, var(--color-acento) 82%, #000000); }
   .botao-secundario:hover { border-color: var(--color-texto); }
   .pagina-voltar:hover    { color: var(--color-texto); }
   .link-secao:hover       { border-color: var(--color-texto); }
