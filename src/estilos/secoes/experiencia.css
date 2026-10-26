@@ -142,7 +142,8 @@
   align-items: center;
   font-family: var(--font-mono);
   font-size: 16px;
-  color: rgba(26,21,19,0.5);
+  /* MESMA COR DAS DICAS: 4,51:1 SOBRE O PAPEL */
+  color: rgba(26,21,19,0.6);
   pointer-events: none;
 }
 

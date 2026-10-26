@@ -314,7 +314,7 @@ src/
 - **Estado de erro:** `aria-invalid="true"` (nunca `toggleAttribute`, que grava `""` e equivale a "válido"), linha inferior em `--color-acento` e a dica trocada pelo texto do `data-erro`, em acento.
   - A dica é o `<p class="experiencia-ajuda" aria-live="polite">` ligado por `aria-describedby`. O texto normal dela fica no HTML e é restaurado ao corrigir.
   - A validação roda no blur (se algo foi preenchido) e no envio, quando o foco vai para o primeiro campo inválido. Ao digitar, o erro sai assim que o campo fica válido.
-- **Dica:** mono 11px, tinta a 60% (4,51:1 sobre o papel, no limite; não clareie).
+- **Dica:** mono 11px, tinta a 60% (4,51:1 sobre o papel, no limite; não clareie). O "Escolha a data" usa a mesma cor.
 - **Foco padronizado em todos os campos:** linha inferior de 2px em acento em qualquer foco (`box-shadow`, sem mudar a altura).
   - O contorno (`outline: 2px solid var(--color-acento); outline-offset: 4px`) aparece **só na navegação por teclado**: `html.usando-teclado .experiencia-campo :focus-visible`.
   - Ele não depende só de `:focus-visible` porque, no Chrome, inputs e select casam `:focus-visible` até no clique.
