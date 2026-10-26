@@ -2,7 +2,7 @@
    CABEÇALHO
    ======================= */
 
-import { gsap } from '../core/scroll.js';
+import { gsap } from '../core/rolagem.js';
 import { reduzirMovimento } from '../utils/movimento.js';
 
 const LIMITE_ROLADO = 80;

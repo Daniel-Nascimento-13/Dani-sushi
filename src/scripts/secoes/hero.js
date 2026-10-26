@@ -2,7 +2,7 @@
    HERO
    ======================= */
 
-import { gsap } from '../core/scroll.js';
+import { gsap } from '../core/rolagem.js';
 import { reduzirMovimento } from '../utils/movimento.js';
 
 const ENTRADA = { duration: 1.4, ease: 'power3.out' };

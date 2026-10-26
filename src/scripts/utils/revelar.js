@@ -2,7 +2,7 @@
    REVELAR (Y 30 → 0 + OPACIDADE)
    ======================= */
 
-import { gsap } from '../core/scroll.js';
+import { gsap } from '../core/rolagem.js';
 
 const ENTRADA = { y: 30, autoAlpha: 0, duration: 1.2, ease: 'power3.out' };
 

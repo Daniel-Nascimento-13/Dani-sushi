@@ -11,7 +11,7 @@ import { reduzirMovimento } from '../utils/movimento.js';
 gsap.registerPlugin(ScrollTrigger);
 
 /* === LENIS + SCROLLTRIGGER === */
-export function iniciarScroll() {
+export function iniciarRolagem() {
   /* RECALCULA OS GATILHOS DEPOIS DO SWAP DAS FONTES */
   document.fonts.ready.then(() => ScrollTrigger.refresh());
 

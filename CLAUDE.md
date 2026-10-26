@@ -45,7 +45,7 @@ src/
     base.css                  → reset, foco, layout, tipografia, rótulo, botões, .secao-topo (layer base)
     secoes/<secao>.css        → um arquivo por seção (layer components)
   scripts/
-    core/scroll.js            → Lenis + GSAP/ScrollTrigger sincronizados; ÚNICO lugar que registra plugins
+    core/rolagem.js            → Lenis + GSAP/ScrollTrigger sincronizados; ÚNICO lugar que registra plugins
                                 (reexporta gsap e ScrollTrigger; trata cliques em âncoras #id com Lenis)
     core/carregador.js        → carregarAoAproximar(seletor, carregar): import() dinâmico via IntersectionObserver
     secoes/<secao>.js         → um módulo por seção, exporta iniciar<Secao>(elemento)
@@ -179,8 +179,8 @@ GSAP + ScrollTrigger; duração 1.2–1.4s; ease `power3.out`. **Tudo desligado 
 - Pilares e linhas de Formatos: `revelarEmSequencia()`.
 - Momentos: foto com `clip-path: inset()` de baixo para cima.
 - Cabeçalho: sem animação de entrada; só a cor do fundo muda no scroll (classe, não GSAP).
-- **Âncoras e cabeçalho fixo:** `--altura-cabecalho` (77px no mobile / 97px a partir de 900px, altura real com a hairline) em `:root` e `html { scroll-padding-top: var(--altura-cabecalho) }`. O `lenis.scrollTo` **já desconta o `scroll-padding-top`**, então em `scroll.js` o clique em âncora chama `lenis.scrollTo(alvo, { duration: 1.4 })` **sem offset** (passar offset desconta duas vezes). Resultado: a seção começa exatamente na base do cabeçalho. Se a altura do cabeçalho mudar, atualize a variável.
-- **"Início" (primeiro item da nav do cabeçalho e do menu mobile, nas 3 páginas; fora do rodapé, que tem a largura calculada para 4 itens):** `href="/"` em todas. Na home ele tem `aria-current="page"` (sublinhado da página atual) e `data-topo`: o `scroll.js` intercepta o clique em `a[data-topo]` e sobe com `lenis.scrollTo(0, { duration: 1.4 })`, sem recarregar; com movimento reduzido (sem Lenis), `window.scrollTo(0, 0)` direto. No menu mobile, o listener do menu fecha antes (o clique chega nele antes do `document`). Em 900px, a nav com 4 itens (371px) + logo + "Vamos conversar" deixa 121px de sobra; se um item novo entrar, meça de novo.
+- **Âncoras e cabeçalho fixo:** `--altura-cabecalho` (77px no mobile / 97px a partir de 900px, altura real com a hairline) em `:root` e `html { scroll-padding-top: var(--altura-cabecalho) }`. O `lenis.scrollTo` **já desconta o `scroll-padding-top`**, então em `rolagem.js` o clique em âncora chama `lenis.scrollTo(alvo, { duration: 1.4 })` **sem offset** (passar offset desconta duas vezes). Resultado: a seção começa exatamente na base do cabeçalho. Se a altura do cabeçalho mudar, atualize a variável.
+- **"Início" (primeiro item da nav do cabeçalho e do menu mobile, nas 3 páginas; fora do rodapé, que tem a largura calculada para 4 itens):** `href="/"` em todas. Na home ele tem `aria-current="page"` (sublinhado da página atual) e `data-topo`: o `rolagem.js` intercepta o clique em `a[data-topo]` e sobe com `lenis.scrollTo(0, { duration: 1.4 })`, sem recarregar; com movimento reduzido (sem Lenis), `window.scrollTo(0, 0)` direto. No menu mobile, o listener do menu fecha antes (o clique chega nele antes do `document`). Em 900px, a nav com 4 itens (371px) + logo + "Vamos conversar" deixa 121px de sobra; se um item novo entrar, meça de novo.
 - Botão hambúrguer (`.cabecalho-menu`, área de 44×44px): 3 `<span aria-hidden="true">` desenhados como o **kanji 三** do Shippori (o mesmo da contagem dos Pilares), na cor `--color-texto` (branco):
   - **Larguras:** 19,4 / 15,4 / 22px (88% / 70% / 100%, medidas no glyph); o do meio é recuado.
   - **Forma:** corpo de 1,5px com a "escama" (uroko) Mincho na ponta direita.
@@ -228,7 +228,7 @@ GSAP + ScrollTrigger; duração 1.2–1.4s; ease `power3.out`. **Tudo desligado 
 2. Lenis: `lenis.on('scroll', ScrollTrigger.update)`; `gsap.ticker.add(t => lenis.raf(t * 1000))`; `gsap.ticker.lagSmoothing(0)`. Não iniciar Lenis se `reduzirMovimento` for true.
 3. Cada módulo de seção só roda se o elemento existir no DOM.
 4. Seções abaixo da dobra: JS via `import()` dinâmico disparado por IntersectionObserver (rootMargin 200px).
-5. Animações suaves e lentas: duration 1–1.4s, ease `power3.out`. Importe `gsap`/`ScrollTrigger` de `core/scroll.js`.
+5. Animações suaves e lentas: duration 1–1.4s, ease `power3.out`. Importe `gsap`/`ScrollTrigger` de `core/rolagem.js`.
 6. Conteúdo (textos, links de WhatsApp, depoimentos, mensagens) fica no HTML, nunca hardcoded no JS.
 7. Identificadores de CSS/JS em português. Comentários em CAIXA ALTA, curtos, só onde explicam o PORQUÊ (nada que repita o código); explicações longas de medidas ficam neste arquivo, não no código. Organização:
    - CSS/JS: TÍTULO (bloco principal) `/* =======================` / `   TÍTULO` / `   ======================= */` e SUBTÍTULO `/* === SUBTÍTULO === */`.

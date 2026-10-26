@@ -10,14 +10,14 @@ import '@fontsource/inter-tight/latin-500.css';
 import '@fontsource/jetbrains-mono/latin-400.css';
 
 import './estilos/main.css';
-import { iniciarScroll } from './scripts/core/scroll.js';
+import { iniciarRolagem } from './scripts/core/rolagem.js';
 import { carregarAoAproximar } from './scripts/core/carregador.js';
 import { detectarTeclado } from './scripts/utils/teclado.js';
 import { iniciarCabecalho } from './scripts/secoes/cabecalho.js';
 import { iniciarHero } from './scripts/secoes/hero.js';
 
 /* === ROLAGEM SUAVE === */
-const lenis = iniciarScroll();
+const lenis = iniciarRolagem();
 
 /* === TECLADO × PONTEIRO === */
 detectarTeclado();

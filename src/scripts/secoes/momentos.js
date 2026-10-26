@@ -2,7 +2,7 @@
    MOMENTOS (HOME E PÁGINA)
    ======================= */
 
-import { gsap } from '../core/scroll.js';
+import { gsap } from '../core/rolagem.js';
 import { reduzirMovimento } from '../utils/movimento.js';
 import { revelar } from '../utils/revelar.js';
 
