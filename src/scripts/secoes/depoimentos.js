@@ -14,7 +14,7 @@ export function iniciarDepoimentos(secao) {
   if (formulario) iniciarFormulario(formulario, secao.querySelector('.depoimentos-recebido'));
 
   if (reduzirMovimento) return;
-  revelar(secao.querySelectorAll('.secao-topo .rotulo, .secao-topo h2, .secao-topo .momentos-link'));
+  revelar(secao.querySelectorAll('.secao-topo .rotulo, .secao-topo h2, .secao-topo .link-secao'));
   if (carrossel) revelarEmSequencia(carrossel.querySelectorAll('.depoimentos-item'), carrossel);
 }
 

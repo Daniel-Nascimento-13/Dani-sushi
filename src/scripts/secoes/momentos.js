@@ -17,7 +17,7 @@ export function iniciarMomentos(secao) {
   }
 
   /* HOME: TOPO REVELADO + FOTOS ABRINDO DE BAIXO PARA CIMA */
-  revelar(secao.querySelectorAll('.rotulo, h2, .momentos-link'));
+  revelar(secao.querySelectorAll('.rotulo, h2, .link-secao'));
 
   secao.querySelectorAll('.momentos-card').forEach((card, indice) => {
     gsap.fromTo(

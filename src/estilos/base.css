@@ -164,6 +164,16 @@ h3 { font-size: 17px; font-weight: 500; letter-spacing: 0.14em; }
 
 .secao-topo-texto { max-width: 460px; }
 
+/* === LINK DE SEÇÃO ("VER TODOS OS ... →") === */
+.link-secao {
+  justify-self: start;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(242,238,234,0.28);
+  font-size: 15px;
+  color: var(--color-texto);
+  transition: border-color 0.4s ease;
+}
+
 /* === ABERTURA DAS PÁGINAS INTERNAS === */
 /* O CABEÇALHO É FIXO: O TOPO DESCONTA A ALTURA DELE */
 .pagina-topo { padding-top: calc(var(--altura-cabecalho) + 48px); }
@@ -262,6 +272,7 @@ h3 { font-size: 17px; font-weight: 500; letter-spacing: 0.14em; }
   }
 
   .secao-topo-texto { justify-self: end; }
+  .link-secao       { justify-self: end; }
 }
 
 @media (min-width: 1200px) {
@@ -273,10 +284,12 @@ h3 { font-size: 17px; font-weight: 500; letter-spacing: 0.14em; }
   .botao-primario:hover   { background: color-mix(in srgb, var(--color-acento) 82%, #000000); }
   .botao-secundario:hover { border-color: var(--color-texto); }
   .pagina-voltar:hover    { color: var(--color-texto); }
+  .link-secao:hover       { border-color: var(--color-texto); }
 }
 
 /* === MOVIMENTO REDUZIDO === */
 @media (prefers-reduced-motion: reduce) {
   .botao,
-  .pagina-voltar { transition: none; }
+  .pagina-voltar,
+  .link-secao { transition: none; }
 }

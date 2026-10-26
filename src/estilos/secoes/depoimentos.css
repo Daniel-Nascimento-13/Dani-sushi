@@ -312,7 +312,7 @@ html.usando-teclado .depoimentos-campo textarea:focus-visible {
 
 .depoimentos-recebido p { margin-top: 16px; }
 
-.depoimentos-recebido .momentos-link {
+.depoimentos-recebido .link-secao {
   display: inline-block;
   margin-top: 28px;
 }
