@@ -20,6 +20,7 @@ Vite + HTML/CSS/JS vanilla + GSAP + ScrollTrigger + Lenis + fontes self-hosted (
 index.html                    → home; carrega só /src/main.js
 momentos/index.html           → página /momentos/
 depoimentos/index.html        → página /depoimentos/ (carrossel gerado no build + formulário de envio)
+404.html                      → página de erro (noindex; a Vercel serve com status 404)
 api/                          → funções da Vercel (Node, sem dependências; "_" no nome = não vira rota)
   depoimentos.js              → POST do formulário de depoimentos
   moderar.js                  → aprovar/recusar pelo link do e-mail
@@ -35,7 +36,7 @@ public/                       → servido na raiz, SEM hash (cache pela Vercel, 
     momentos/<evento>/        → fotos de /momentos e da home: <N>-500|1000.webp|jpg (derivados.py momentos)
   videos/                     → hero.mp4 (<source src="/videos/...">)
   favicon-32.png, apple-touch-icon.png, robots.txt, sitemap.xml
-vercel.json                   → Cache-Control (/imagens e /videos 1 dia + SWR 7 dias; /assets 1 ano, imutável) + cron
+vercel.json                   → trailingSlash, Cache-Control (/imagens e /videos 1 dia + SWR; /assets 1 ano) e cron
 marca/                        → ORIGINAIS da marca (logo, símbolo); só fonte dos derivados, fora do deploy
 ferramentas/
   kanji.js                    → gera src/assets/fontes/*.woff2 e src/estilos/fontes-kanji.css (lê *.html e <pasta>/index.html)
@@ -205,7 +206,7 @@ src/
 - Com `prefers-reduced-motion` ou `navigator.connection.saveData`, o vídeo nunca é iniciado e fica no poster.
 
 ## Página /momentos (`momentos/index.html`)
-- Vite multipágina: `build.rollupOptions.input` em `vite.config.js` (`principal`, `momentos`, `depoimentos`); o build gera `dist/momentos/index.html`, servido em `/momentos/`. Toda página nova entra nesse `input` e no `sitemap.xml`.
+- Vite multipágina: `build.rollupOptions.input` em `vite.config.js` (`principal`, `momentos`, `depoimentos`, `erro` = 404.html); o build gera `dist/momentos/index.html`, servido em `/momentos/`. Toda página nova entra nesse `input` e no `sitemap.xml`.
 - Fundos: `.momentos-pagina` (abertura + registros, `.fundo-base`) → `.momentos-fechamento` (`.fundo-superficie`) → rodapé (`.fundo-base`).
 - Abertura compartilhada com /depoimentos em `componentes.css`: `.pagina-topo`, `.pagina-abertura`, `.pagina-voltar`, `.pagina-sobretitulo`, `.pagina-titulo` + `--divisor-titulo` por página, `.pagina-intro`.
 - h1 ("Cada evento," / "uma história.") e h2 do fechamento sempre em 2 linhas, com `nowrap` + `cqi`: divisores 10,1 ("UMA HISTÓRIA." = 9,787em) e 14,3 ("PODE SER O PRÓXIMO." = 13,872em), com 3% de folga pelo itálico sintético.
@@ -410,6 +411,26 @@ src/
 - Contraste ≥ 4.5:1; foco visível (acento-claro no escuro, carimbo no papel); labels reais; o menu mobile fecha com Esc, deixa o resto da página `inert` e devolve o foco ao botão.
 - JSON-LD `FoodEstablishment` no `<head>`, com `sameAs` apontando para o Instagram (https://www.instagram.com/danisushii/).
 - Domínio canônico: `https://danisushii.com.br/` (canonical, og:url, og:image, sitemap, robots).
+
+### URLs e rastreamento
+- **Sempre com barra final:** `"trailingSlash": true` no `vercel.json` redireciona (308) `/momentos` → `/momentos/` (igual ao canonical). Vale para todo caminho sem extensão, `/api/*` incluso.
+  - Por isso o cron chama `/api/manter/` e os endereços internos das funções já têm a barra (`action="/api/depoimentos/"`, links `/api/moderar/?id=...` e o form da moderação): o cron da Vercel não segue redirect.
+- **404 própria:** `404.html` na raiz (input `erro` no `vite.config.js`), com cabeçalho, menu e rodapé das páginas internas, `noindex` e CSS em `secoes/erro.css` (h1 "Página não" / "encontrada." → divisor 9,3: "ENCONTRADA." = 9,013em + 3%). A Vercel serve com status 404 (`/qualquer-coisa` → 308 → `/qualquer-coisa/` → 404).
+- **sitemap.xml:** as 3 páginas com barra final e `<lastmod>` = data do último commit de cada uma (`git log -1 --format=%cs -- <arquivo>`). Atualize o `<lastmod>` ao mudar o conteúdo de uma página; a 404 fica fora. Página nova entra aqui.
+- **robots.txt:** `Allow: /`, `Disallow: /api/` e `Sitemap: https://danisushii.com.br/sitemap.xml`.
+
+### Metatags (em toda página indexável)
+- `<title>` com "·" como separador: home "Dani Sushi · Sushi bar ao vivo em Lajeado e Vale do Taquari" (até ~60 caracteres); internas "<Página> · Dani Sushi".
+- `description` de 140 a 160 caracteres, com cidade/região, sem "orçamento", "pedido" ou "comanda".
+- Open Graph: title, description, image (+ width/height e `og:image:alt`), url, type, locale e `og:site_name` "Dani Sushi". Twitter: `summary_large_image` + title, description, image e `twitter:image:alt` (iguais aos do OG).
+
+### Dados estruturados (JSON-LD)
+- **Home (`@graph`):** `FoodEstablishment` + `WebSite`.
+  - `FoodEstablishment` (`@id` `#empresa`): logo, descrição, telefone, `founder` Dani, `foundingDate` 2020, endereço em Lajeado, `areaServed`, `contactPoint` com o WhatsApp e `sameAs` Instagram.
+  - `WebSite` (`@id` `#site`), com publisher = `#empresa`.
+  - `areaServed` só com lugares reais do site: as cidades dos registros de /momentos (Lajeado, Encantado, Cruzeiro do Sul, Xangri-lá) + Porto Alegre, Vale do Taquari e Serra Gaúcha. Cidade nova em /momentos entra aqui.
+- **/momentos/ e /depoimentos/:** `BreadcrumbList` (Início → página).
+- **Nunca** use `aggregateRating`, `review` nem `priceRange`: os depoimentos não têm nota e o site não mostra preço.
 
 ## Mídias da marca
 Os **originais** ficam em `marca/` (fora de `public/`, não vão para o deploy) e servem só de fonte. O site usa apenas os **derivados**. Nenhum HTML/CSS/JS pode referenciar a pasta `marca/` da raiz (a `public/imagens/marca/` guarda só os derivados).
