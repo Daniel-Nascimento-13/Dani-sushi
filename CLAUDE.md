@@ -422,7 +422,7 @@ src/
 - **robots.txt:** `Allow: /`, `Disallow: /api/` e `Sitemap: https://danisushii.com.br/sitemap.xml`.
 
 ### Metatags (em toda página indexável)
-- `<title>` com "·" como separador: home "Dani Sushi · Sushi bar ao vivo em Lajeado e Vale do Taquari" (até ~60 caracteres); internas "<Página> · Dani Sushi".
+- `<title>` com "·" como separador: home "Dani Sushi · Eventos e jantares personalizados em Lajeado" (até ~60 caracteres); internas "<Página> · Dani Sushi".
 - `description` de 140 a 160 caracteres, com cidade/região, sem "orçamento", "pedido" ou "comanda".
 - Open Graph: title, description, image (+ width/height e `og:image:alt`), url, type, locale e `og:site_name` "Dani Sushi". Twitter: `summary_large_image` + title, description, image e `twitter:image:alt` (iguais aos do OG).
 
